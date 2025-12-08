@@ -1,0 +1,469 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Header from '~/components/widgets/Header.astro';
+
+import Hero2 from '~/components/widgets/Hero2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Content from '~/components/widgets/Content.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+
+const appStoreImg = '~/assets/images/app-store.png';
+const appStoreDownloadLink = 'https://apps.apple.com/us/app/flip-timer-gym-study-work/id6752959227';
+
+const googlePlayImg = '~/assets/images/google-play.png';
+const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.flip_timer';
+
+const metadata = {
+  title: 'Flip Timer：Gym,Study & Work',
+  description:
+    'Set any timer in a second! Just flip your phone for the perfect 1, 5, 10, 15, or 30 minute countdown. The fastest hands-free clock for gym, study, work & kitchen.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="announcement"></Fragment>
+  <Fragment slot="header">
+    <Header
+      position="left"
+      links={[
+        { text: 'Services', href: '#' },
+        { text: 'Features', href: '#' },
+        { text: 'About', href: '#' },
+      ]}
+      actions={[
+        {
+          text: 'Download',
+          href: '#download',
+        },
+      ]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
+
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="hiit • wod • tabata • crossfit • pomodoro • kitchen • cook • egg • workout • exercise • motion • timer • countdown"
+    image={{
+      src: '~/assets/images/banner/flip_timer_banner-1024x501.png',
+      alt: 'Flip Timer Banner',
+      layout: 'aspectRatio',
+      aspectRatio: '1024:502',
+      style: 'cursor: pointer;',
+      'data-aw-banner-open': '1',
+      'data-aw-open-apple': appStoreDownloadLink,
+      'data-aw-open-google': googlePlayDownloadLink,
+    }}
+  >
+    <Fragment slot="title"><span class="text-accent dark:text-white">Flip Timer</span>：Gym,Study & Work</Fragment>
+
+    <Fragment slot="subtitle"><span class="hidden sm:inline">Hands-Free Multi-Timer Clock</span></Fragment>
+
+    <Fragment slot="content">
+      Stop fumbling with your screen during intense workouts or messy kitchen prep. Flip Timer is a motion‑controlled
+      countdown clock you operate without touching the screen. Need a 10 minute timer for a break, a 30 minute timer for
+      deep work, or a 1 minute timer for a plank? Just flip your phone.
+    </Fragment>
+
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </Hero2>
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    id="features"
+    title="A Timer That Moves With You"
+    subtitle="Gesture control for real life — flip to start, lay flat to pause, shake to reset."
+    tagline="Hands‑Free • Motion • Countdown"
+    columns={2}
+    items={[
+      {
+        title: 'Gesture Control',
+        description:
+          'Flip your phone to one of its four sides to start a preset countdown. Perfect for a 5 minute timer for meditation or a 45 minute timer for a full workout.',
+        icon: 'tabler:arrows-move',
+      },
+      {
+        title: 'Intuitive & Fast',
+        description:
+          'Lay your phone flat to pause; shake to reset. The fastest way to manage time during gym sessions, study blocks, or kitchen prep.',
+        icon: 'tabler:player-pause',
+      },
+      {
+        title: 'Large, Clear Display',
+        description:
+          'A big, easy‑to‑read digital display with a visual progress bar — glance from across the room and stay in flow.',
+        icon: 'tabler:gauge',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+      alt: 'Flip Timer Motion Feature Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="The Perfect Workout & HIIT Timer"
+    isReversed
+    items={[
+      {
+        title: 'HIIT & Tabata',
+        description:
+          'Switch between high‑intensity and rest without touching your screen. Our interval timer keeps up with your pace.',
+        icon: 'tabler:flame',
+      },
+      {
+        title: 'CrossFit & WOD Clock',
+        description: 'Time your Workout of the Day reliably. Focus on form, not your phone — hands‑free WOD timing.',
+        icon: 'tabler:list-check',
+      },
+      {
+        title: 'Any Exercise Routine',
+        description:
+          'From yoga stretches to circuit training, a versatile workout timer for the gym — rest 30 seconds or push a tough 2 minute set.',
+        icon: 'tabler:run',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80',
+      alt: 'Flip Timer Workout Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="More Than Just a Fitness Timer"
+    isAfterContent
+    items={[
+      {
+        title: 'Kitchen Companion',
+        description:
+          'The ideal kitchen timer when your hands are covered in flour. A simple egg timer for boiling eggs or managing multiple pots.',
+        icon: 'tabler:chef-hat',
+      },
+      {
+        title: 'Pomodoro for Study & Work',
+        description:
+          'Use preset timers for focused work or study sessions. A reliable pomodoro application for students and professionals.',
+        icon: 'tabler:alarm',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Flip Timer Kitchen & Productivity Image',
+    }}
+  />
+
+  <Content
+    title="Timers & Presets"
+    items={[
+      {
+        title: '1, 5, 10, 15, 30 Minutes',
+        description:
+          'Start the perfect 1 minute timer, 5 minute timer, 10 minute timer, 15 minute timer or 30 minute timer with a flip — the fastest hands‑free countdown.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: '20, 45 Minutes & More',
+        description:
+          'Time blocking for deep work or long workouts — set a timer for 20 minutes or 45 minutes in one motion.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: '30 Second & 2 Minute',
+        description:
+          'Micro‑rests and short sets made easy. A versatile stopwatch and countdown app for gym, study and work routines.',
+        icon: 'tabler:hourglass',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Flip Timer Presets Image',
+    }}
+  />
+
+  <Content
+    title="Gym & Routines"
+    items={[
+      {
+        title: 'Crunch Fitness & Planet Fitness hours',
+        description:
+          'Whether you train at Crunch Fitness or within Planet Fitness hours, flip to start your set on time — no more tapping through menus mid‑workout.',
+        icon: 'tabler:activity',
+      },
+      {
+        title: 'Boxing rounds & intervals',
+        description:
+          'Set classic boxing rounds — 3 minute timer with 30 second rest, or push a 2 minute sprint. Flip to switch; stay focused on the bag.',
+        icon: 'tabler:run',
+      },
+      {
+        title: 'Calisthenics, yoga & stretch',
+        description:
+          'Step ups, hip dips, hip flexor stretch, lower back stretches, yoga exercises — flip for clean intervals and keep your flow.',
+        icon: 'tabler:stretching',
+      },
+      {
+        title: 'Abs, chest, shoulder & lat pulldown',
+        description:
+          'Ab workouts, pec workouts/pectoral exercises, shoulder workouts, lat pulldown — manage time per set without touching the screen.',
+        icon: 'tabler:list-check',
+      },
+      {
+        title: 'Kids & classroom timer',
+        description:
+          'A friendly classroom timer for kids: 1 minute tasks, ten minute timer for activities, three minute timer for mini games — simple and visible.',
+        icon: 'tabler:users',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1518314914663-2f6726f56081?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Gym & Routines Image',
+    }}
+  />
+
+  <Content
+    title="Clock & Countdown Modes"
+    items={[
+      {
+        title: 'Flip clock & clock with seconds',
+        description:
+          'A clean digital time clock feel, with time with seconds and a large, live display you can see across the room — like flip clock and clocktab styles.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: 'Stopwatch & stop',
+        description:
+          'Works as a simple stopwatch watch alongside countdown. Stop stopwatch instantly by laying the phone flat — fast and intuitive.',
+        icon: 'tabler:hourglass',
+      },
+      {
+        title: 'Countdown clock & timers',
+        description:
+          'A reliable countdown timer app/application. Use count down timers for circuits, classroom, or any time‑boxed routine.',
+        icon: 'tabler:alarm',
+      },
+      {
+        title: 'Alarm‑style sessions',
+        description:
+          'Need an alarm set for 30 minutes? Just flip to the 30 minute preset — clear sound cues, clear finish.',
+        icon: 'tabler:bell',
+      },
+      {
+        title: 'Online timer alternatives',
+        description:
+          'Skip timer online timer or internet alarm clock clutter — a dependable offline countdown you control by motion.',
+        icon: 'tabler:wifi-off',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Clock Modes Image',
+    }}
+  />
+
+  <Content
+    title="Our Commitment to Simple, Powerful Timing"
+    items={[
+      {
+        title: 'Free & Ad‑Free',
+        description:
+          'The full hands‑free flipping experience is available to everyone at no charge and contains no ads.',
+        icon: 'tabler:ad-off',
+      },
+      {
+        title: 'Built for Daily Life',
+        description: 'Our mission is to build the fastest, most intuitive timer for gym, kitchen, study and work.',
+        icon: 'tabler:target',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1560269507-0672f247de96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Flip Timer Commitment Image',
+    }}
+  />
+
+  <Content
+    title="Policy & Support"
+    isAfterContent
+    items={[
+      {
+        title: 'In‑App Purchases & Future Subscriptions',
+        description:
+          'Support development via one‑time feature packs. We may introduce a simple, fair subscription to unlock premium features in the future.',
+        icon: 'tabler:shopping-cart',
+      },
+      {
+        title: 'Pricing',
+        description:
+          'Feature packs range from $2.99 to $5.99. Final prices follow real‑time App Store pricing in your region.',
+        icon: 'tabler:currency-dollar',
+      },
+      {
+        title: 'Payment',
+        description: 'After purchase confirmation, payment is charged to your iTunes Account.',
+        icon: 'tabler:credit-card',
+      },
+      {
+        title: 'Subscription Management',
+        description:
+          'When subscriptions become available, manage them in your Apple ID Account Settings at least 24 hours before period end.',
+        icon: 'tabler:calendar',
+      },
+      {
+        title: 'Renewal Rules',
+        description: "Subscriptions auto‑renew unless canceled. We strictly follow Apple's App Store policies.",
+        icon: 'tabler:refresh',
+      },
+      {
+        title: 'Privacy Policy',
+        description:
+          '<a class="underline" href="https://z8o7hs56u3.feishu.cn/docx/MTPbdl1rToAwVLx80FPcyN8dnQg" target="_blank" rel="noopener">View our Privacy Policy</a>.',
+        icon: 'tabler:shield',
+      },
+      {
+        title: 'User & Member Subscription Agreement',
+        description:
+          '<a class="underline" href="https://z8o7hs56u3.feishu.cn/docx/IRW7dLWX2oa4nZxnwlQcurNFn7b" target="_blank" rel="noopener">Read the Subscription Agreement</a>.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Support',
+        description: 'Questions or ideas? Email winkiwiki@QQ.com. We would love to hear from you.',
+        icon: 'tabler:mail',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Flip Timer Policy Image',
+    }}
+  />
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    title="Flip Timer At A Glance"
+    stats={[
+      { amount: '100% Hands‑Free', icon: 'tabler:hand-off' },
+      { amount: 'Motion‑Controlled', icon: 'tabler:arrows-move' },
+      { amount: 'Ad‑Free', icon: 'tabler:ad-off' },
+    ]}
+  />
+
+  <!-- Testimonials Widget *********** -->
+
+  <Testimonials
+    title="HEAR IT FROM OUR USERS"
+    testimonials={[
+      {
+        testimonial:
+          'I can switch sets in HIIT without touching my phone. Flip to start, flat to pause — it finally matches how I move.',
+        name: 'Sam',
+        job: 'Trainer',
+        image: {
+          src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Sam Image',
+        },
+      },
+      {
+        testimonial:
+          'As a home baker, a touchless kitchen timer is a life saver. Floury hands, clear clock — and the egg timer is spot on.',
+        name: 'Luna',
+        job: 'Baker',
+        image: {
+          src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Luna Image',
+        },
+      },
+    ]}
+    callToAction={{
+      text: 'Download now',
+      href: '#download',
+      icon: 'tabler:chevron-right',
+    }}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Frequently Asked Questions"
+    items={[
+      {
+        title: 'How do flip gestures work?',
+        description:
+          'Flip the phone to start a preset timer. Lay it flat to pause; shake to reset. Designed for hands‑free control during workouts, study or kitchen prep.',
+      },
+      {
+        title: 'Is it really hands‑free?',
+        description:
+          'Yes. Motion sensors let you operate the countdown clock without touching the screen — perfect for sweaty hands or flour‑covered fingers.',
+      },
+      {
+        title: 'Does it support HIIT, Tabata and WOD?',
+        description:
+          'Yes. It’s built as an interval timer and WOD clock companion. Switch sets and rests fast, keep focus on movement.',
+      },
+      {
+        title: 'Can I use it for Pomodoro study/work?',
+        description:
+          'Absolutely. Preset durations make it a simple pomodoro timer for focused work and study routines.',
+      },
+      {
+        title: 'Where can I read the policy and subscription rules?',
+        description: 'See our Privacy Policy and the User & Member Subscription Agreement in the policy section above.',
+      },
+      {
+        title: 'Does it show seconds and support a stopwatch?',
+        description:
+          'Yes. You get a large clock with seconds and a simple stopwatch alongside countdown — easy to see from a distance.',
+      },
+      {
+        title: 'Can I use it for events and seasonal countdowns?',
+        description:
+          'Many use Flip Timer like an xmas/christmas day countdown clock or a countdown clock for Halloween at parties — flip to start and keep it visible.',
+      },
+      {
+        title: 'Does it fit interval running or circuit routines?',
+        description:
+          'Built for intervals — works great for interval running exercises/routines/workouts and circuit/cycle sets.',
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    id="download"
+    title="Download Flip Timer and change the way you time, forever."
+    subtitle="Hands‑free multi‑timer for gym, study & work. Flip to start."
+  >
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </CallToAction>
+</Layout>

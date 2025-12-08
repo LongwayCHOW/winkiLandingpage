@@ -1,0 +1,390 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Header from '~/components/widgets/Header.astro';
+
+import Hero2 from '~/components/widgets/Hero2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Content from '~/components/widgets/Content.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+
+const appStoreImg = '~/assets/images/app-store.png';
+const appStoreDownloadLink = 'https://apps.apple.com/us/app/meowtalkie-talk-to-your-cat/id6752669946';
+
+const googlePlayImg = '~/assets/images/google-play.png';
+const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.meow_talkie';
+
+const metadata = {
+  title: 'MeowTalkie：Talk to Your Cat',
+  description:
+    'Tired of the same old cat toys? Try our new pet remote! Use funny sounds & meows to call, train, or just chat with your cat. The ultimate cat communicator app for fun & bonding!',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="announcement"></Fragment>
+  <Fragment slot="header">
+    <Header
+      position="left"
+      links={[
+        { text: 'Services', href: '#' },
+        { text: 'Features', href: '#' },
+        { text: 'About', href: '#' },
+      ]}
+      actions={[
+        {
+          text: 'Download',
+          href: '#download',
+        },
+      ]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
+
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="kitten • cat • meow • voice • signal • chat • talk • speak • language • funny • cute • play • call • sonically • pet • animal • app"
+    image={{
+      src: '~/assets/images/banner/meow_talkie_banner-1024x500.png',
+      alt: 'MeowTalkie Banner',
+      layout: 'aspectRatio',
+      aspectRatio: '1024:502',
+      style: 'cursor: pointer;',
+      'data-aw-banner-open': '1',
+      'data-aw-open-apple': appStoreDownloadLink,
+      'data-aw-open-google': googlePlayDownloadLink,
+    }}
+  >
+    <Fragment slot="title"><span class="text-accent dark:text-white">MeowTalkie</span>：Talk to Your Cat</Fragment>
+
+    <Fragment slot="subtitle"><span class="hidden sm:inline">Cat Sounds & Communicator</span></Fragment>
+
+    <Fragment slot="content">
+      Tired of the same old cat toys? Try our new pet remote! Use funny sounds & meows to call, train, or just chat with
+      your cat. The ultimate cat communicator app for fun & bonding!
+    </Fragment>
+
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </Hero2>
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    id="features"
+    title="Experience the Difference"
+    subtitle="MeowTalkie is built for simple, effective cat communication. Our clean and intuitive interface makes it easy to send clear signals to your feline."
+    tagline="kitten • cat • cats • kitties • feline • chat • chats • sound • sounds • meow • purring • cat meow sound • cat sound • cat noise • voice • the voice • signal • talk • speak • language • translator • pet translator • cat translator app • human to cat translator • english to cat translator • cat communicator • cat sounds soundboard • apps for cats • cat toy app • funny • cute • play • call • sonically"
+    columns={2}
+    items={[
+      {
+        title: 'Real Cat Commands',
+        description:
+          'Send clear signals like "Come Here!", "Food Time!", or "Leave It!" to aid in positive cat training.',
+        icon: 'tabler:command',
+      },
+      {
+        title: 'Funny Sound Library',
+        description: 'A huge collection of meows, purrs, and trills for endless cat entertainment.',
+        icon: 'tabler:music',
+      },
+      {
+        title: 'Zero Distractions',
+        description: 'Enjoy a completely ad-free experience. Focus on the fun, not the ads.',
+        icon: 'tabler:ad-off',
+      },
+      {
+        title: 'Strengthen Your Bond',
+        description:
+          "Create fun, interactive moments that bring you closer to your pet. It's a brand-new type of digital cat toy!",
+        icon: 'tabler:heart',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+      alt: 'MeowTalkie Features Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Perfect For"
+    items={[
+      {
+        title: 'Playtime, training, or just having a silly chat.',
+        description:
+          'Use our funny sound library to initiate playtime, train your cat, or just have a fun conversation.',
+        icon: 'tabler:cat',
+      },
+      {
+        title: 'Calling your cat from across the house.',
+        description: "Send a clear cat call to get your cat's attention from another room.",
+        icon: 'tabler:bell',
+      },
+      {
+        title: 'Finally winning that staring contest!',
+        description: 'Use our funny sounds to make your cat tilt their head in curiosity and break the stare.',
+        icon: 'tabler:eye',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80',
+      alt: 'MeowTalkie Perfect For Image',
+    }}
+  />
+
+  <Content
+    title="Translator & Soundboard"
+    items={[
+      {
+        title: 'Cat Language & Translator',
+        description:
+          'Cat language, cat talk, cat speak — a playful cat language translator experience. Try cat translator app ideas like human to cat translator and english to cat translator while sending clear sonically signals.',
+        icon: 'tabler:language',
+      },
+      {
+        title: 'Soundboard for Cats',
+        description:
+          'Cat sounds soundboard with cat meow sound, cat purring and calming cat music. Works as a fun pet translator toy for cats; some even test apps for dogs or cat and dog translator just for laughs.',
+        icon: 'tabler:music',
+      },
+      {
+        title: 'Training & Understanding',
+        description:
+          'Can you train a cat? Use consistent cat call patterns, whistle for cats, and positive reinforcement. Over time, you will understand reactions better — how to communicate with cats, how to talk to cats, how to understand cat.',
+        icon: 'tabler:heart',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2194&q=80',
+      alt: 'Translator & Soundboard',
+    }}
+  />
+
+  <Content
+    title="Cat Breeds & Play Styles"
+    isReversed
+    items={[
+      {
+        title: 'Popular Breeds',
+        description:
+          'Siamese cat, British shorthair (shorthair), Persian cat, Ragdoll cat, Bengal cat, Tabby cat (tabby), Munchkin cat, Sphynx hairless cat; hypoallergenic cats and alley cats — every feline responds differently.',
+        icon: 'tabler:cat',
+      },
+      {
+        title: 'Adoption & Cat Cafes',
+        description:
+          'For cats, kittens and kitties: cats for adoption, kittens for adoption, free kittens; cat cafe playtime and room-safe sessions — cuddles and meow, cuddles and meows.',
+        icon: 'tabler:heart',
+      },
+      {
+        title: 'Stores & Platforms',
+        description:
+          'App Store, Google Play Store / Play Store App. Explore pet store, pet supplies (petsuppliesplus) and toy store options. Cat sounds free and my talking pet app alternatives linked to my apps.',
+        icon: 'tabler:shopping-cart',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+      alt: 'Cat Breeds & Play Styles',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Unlock the Full Meow-niverse"
+    isAfterContent
+    items={[
+      {
+        title: 'Enjoy privileges',
+        description:
+          'In-app purchase users unlock exclusive and hilarious premium sound packs, perfect for every feline personality.',
+        icon: 'tabler:star',
+      },
+      {
+        title: 'In-app purchases and Subscriptions',
+        description:
+          'Purchase different sound packs in-app, from "Playful Kitten" to "Grumpy Cat," and find your cat\'s favorite voice.',
+        icon: 'tabler:shopping-cart',
+      },
+      {
+        title: 'Pricing',
+        description:
+          'Subject to the real-time pricing of the app. Multiple in-app purchase themes range from $0.99 to $5.99.',
+        icon: 'tabler:currency-dollar',
+      },
+      {
+        title: 'Payment',
+        description: 'After the user purchases and makes the payment, it will be credited to the iTunes account.',
+        icon: 'tabler:credit-card',
+      },
+      {
+        title: 'Cancellation of renewal',
+        description: "Follow apple's subscription policy.",
+        icon: 'tabler:calendar-x',
+      },
+      {
+        title: 'Renewal Rules',
+        description:
+          'Subscriptions are not currently available. If a new subscription is launched, you will choose according to the subscription package and follow the renewal rules of the app store.',
+        icon: 'tabler:refresh',
+      },
+      {
+        title: 'Privacy Policy',
+        description:
+          '<a class="underline" href="https://z8o7hs56u3.feishu.cn/docx/SumadBIp0oDwnAxGJBwcZ6ASn6f" target="_blank" rel="noopener">View our Privacy Policy</a>.',
+        icon: 'tabler:shield',
+      },
+      {
+        title: 'User & Member Subscription Agreement',
+        description:
+          '<a class="underline" href="https://z8o7hs56u3.feishu.cn/docx/FlOcdiNpJoGUOexZlTRcxH7Unpd" target="_blank" rel="noopener">Read the Subscription Agreement</a>.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Support',
+        description:
+          'Problems or suggestions? Email winkiwiki@QQ.com for feedback. Please include the app name, platform, and version in your email for faster support.',
+        icon: 'tabler:mail',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'MeowTalkie Unlock Image',
+    }}
+  />
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    title="MeowTalkie At A Glance"
+    stats={[
+      { amount: '10K+', icon: 'tabler:download' },
+      { amount: '8K+', icon: 'tabler:users' },
+      { amount: '4.9', icon: 'tabler:user-star' },
+    ]}
+  />
+
+  <!-- Testimonials Widget *********** -->
+
+  <Testimonials
+    title="Why Cat Lovers Love Us"
+    testimonials={[
+      {
+        testimonial:
+          'My shy rescue cat finally came out of his shell after hearing the "Curious Trill" sound. This app has been a game-changer for our bond!',
+        name: 'Sarah',
+        job: 'Rescue Cat Mom',
+        image: {
+          src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Sarah Image',
+        },
+      },
+      {
+        testimonial:
+          'Hilarious and surprisingly effective! I use the "Annoyed Hiss" when my cat jumps on the counter. He gets the message every time. Best cat training tool I’ve found!',
+        name: 'Mark',
+        job: 'Cat Dad of Two',
+        image: {
+          src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Mark Image',
+        },
+      },
+    ]}
+    callToAction={{
+      text: 'Download now',
+      href: '#download',
+      icon: 'tabler:chevron-right',
+    }}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Still have some doubts?"
+    items={[
+      {
+        title: 'What does MeowTalkie do?',
+        description:
+          "MeowTalkie is a cat communicator app that allows you to talk to your cat using a soundboard of specially designed meows and calls. It's perfect for playtime, training, and strengthening your bond with your pet.",
+      },
+      {
+        title: 'Is MeowTalkie easy to use?',
+        description:
+          "Yes! Our clean and intuitive interface makes it easy to send clear signals to your feline. Whether you're calling them for dinner, initiating playtime, or just wanting to get their attention, our app makes it simple.",
+      },
+      {
+        title: 'Is MeowTalkie ad-free?',
+        description: 'Yes! We offer a completely ad-free experience so you can focus on the fun, not the ads.',
+      },
+      {
+        title: 'Does MeowTalkie work for all cats?',
+        description: "Yes! MeowTalkie works for kittens, adult cats, and even testing on your friend's pets.",
+      },
+      {
+        title: 'Are there any in-app purchases?',
+        description:
+          'Yes! In-app purchase users unlock exclusive and hilarious premium sound packs, perfect for every feline personality. Prices range from $0.99 to $5.99.',
+      },
+      {
+        title: 'Is this a cat translator?',
+        description:
+          'MeowTalkie is a playful cat communicator and soundboard — not a scientific translation service. It helps you send clear signals sonically and read reactions. Think translator, translation services and interpretation — for fun.',
+      },
+      {
+        title: 'Does it work for all breeds?',
+        description:
+          'Works with Siamese, British Shorthair, Persian, Ragdoll, Bengal, Tabby, Munchkin, Sphynx (hairless), hypoallergenic cats, alley cats and kittens. Every feline is unique — patience helps.',
+      },
+      {
+        title: 'Can I use it with dogs?',
+        description:
+          'MeowTalkie is for cats. Some users try it as a cat and dog translator or apps for dogs; results vary.',
+      },
+      {
+        title: 'Free or paid?',
+        description: 'Core features are free. Premium packs available. Find us on the App Store and Google Play Store.',
+      },
+      {
+        title: 'How to train and communicate?',
+        description:
+          'Use consistent cat call, meow sound patterns, whistle for cats and calming cat music. Over time, you will understand your cat better — how to communicate with cats, how to talk to cats, human to cat.',
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    id="download"
+    title="Download MeowTalkie now and start a new conversation with your beloved cat!"
+    subtitle="Free to download and use. Join thousands of users who have turned meows into meaningful conversations!"
+  >
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </CallToAction>
+</Layout>

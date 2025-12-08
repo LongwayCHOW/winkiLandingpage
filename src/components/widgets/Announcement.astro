@@ -1,5 +1,5 @@
 ---
-
+import { Icon } from 'astro-icon/components';
 ---
 
 <div
@@ -9,15 +9,27 @@
     class="dark:bg-slate-700 bg-white/40 dark:text-slate-300 font-semibold px-1 py-0.5 text-xs mr-0.5 rtl:mr-0 rtl:ml-0.5 inline-block"
     >NEW</span
   >
-  <a href="https://astro.build/blog/astro-5120/" class="text-muted hover:underline dark:text-slate-400 font-medium"
-    >Astro v5.12 is now available! »</a
-  >
-  <a
-    target="_blank"
-    rel="noopener"
-    class="ltr:ml-auto rtl:mr-auto w-[5.6rem] h-[1.25rem] ml-auto bg-contain inline-block bg-[url(https://img.shields.io/github/stars/arthelokyo/astrowind.svg?style=social&label=Stars&maxAge=86400)]"
-    title="If you like AstroWind, give us a star."
-    href="https://github.com/arthelokyo/astrowind"
-  >
-  </a>
+  <a href="#" class="text-muted hover:underline dark:text-slate-400 font-medium">New updates available! »</a>
+  <div class="ltr:ml-auto rtl:mr-auto ml-auto flex items-center gap-3">
+    <a
+      target="_blank"
+      rel="noopener"
+      href="https://apps.apple.com/us/developer/%E9%BE%99%E5%A8%81-%E5%91%A8/id1798120294"
+      aria-label="Apple App Store Developer"
+      title="Open App Store Developer"
+      class="text-muted dark:text-slate-400 hover:text-primary"
+    >
+      <Icon name="tabler:brand-apple" class="w-5 h-5" />
+    </a>
+    <a
+      target="_blank"
+      rel="noopener"
+      href="https://play.google.com/store/apps/developer?id=%E9%9B%B2%E9%9B%86"
+      aria-label="Google Play Developer"
+      title="Open Google Play Developer"
+      class="text-muted dark:text-slate-400 hover:text-primary"
+    >
+      <Icon name="tabler:brand-google-play" class="w-5 h-5" />
+    </a>
+  </div>
 </div>

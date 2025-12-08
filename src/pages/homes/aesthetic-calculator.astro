@@ -1,0 +1,373 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Header from '~/components/widgets/Header.astro';
+
+import Hero2 from '~/components/widgets/Hero2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Content from '~/components/widgets/Content.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+
+const appStoreImg = '~/assets/images/app-store.png';
+const appStoreDownloadLink = 'https://apps.apple.com/us/app/aesthetic-calculator/id6748415125';
+
+const googlePlayImg = '~/assets/images/google-play.png';
+const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.aesthetic_calculator';
+
+const metadata = {
+  title: 'Aesthetic Calculator — Cute Themes, Skins & Colors',
+  description:
+    'Tired of boring calculators? Unleash creativity with aesthetic themes, cute skins, and custom colors. Pro math, ad-free. Perfect for school & daily use.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="announcement"></Fragment>
+  <Fragment slot="header">
+    <Header
+      position="left"
+      links={[
+        { text: 'Services', href: '#' },
+        { text: 'Features', href: '#' },
+        { text: 'About', href: '#' },
+      ]}
+      actions={[
+        {
+          text: 'Download',
+          href: '#download',
+        },
+      ]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
+
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="Aesthetic Calculator Theme Calc"
+    image={{
+      src: '~/assets/images/banner/aesthetic_calculator_banner-1024x502.png',
+      alt: 'Aesthetic Calculator Banner',
+      layout: 'aspectRatio',
+      aspectRatio: '1024:502',
+      style: 'cursor: pointer;',
+      'data-aw-banner-open': '1',
+      'data-aw-open-apple': appStoreDownloadLink,
+      'data-aw-open-google': googlePlayDownloadLink,
+    }}
+  >
+    <Fragment slot="title"><span class="text-accent dark:text-white">Aesthetic Calculator</span></Fragment>
+
+    <Fragment slot="subtitle"><span class="hidden sm:inline">Cute Themes, Skins & Colors</span></Fragment>
+
+    <Fragment slot="content">
+      Tired of boring calculators? This designer calculator lets you change more than color. Choose aesthetic, cute,
+      pink pastel themes with custom palettes, and a keyboard rebuilt from the ground up. Pro math, no ads. Designed for
+      iPhone & iPad (iOS) and great for school, college, and everyday calculations.
+    </Fragment>
+
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </Hero2>
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    id="features"
+    title="Design Freedom"
+    subtitle="Make it yours with aesthetic themes, custom colors, and cute skins."
+    tagline="aesthetic • custom • cute • style • designer • theme • color • pink • pastel • retro aesthetic • cyberpunk aesthetic"
+    columns={2}
+    items={[
+      {
+        title: 'Hundreds of Themes & Skins',
+        description: 'From minimalist and retro to pink pastel. Designer themes crafted to inspire your homescreen.',
+        icon: 'tabler:palette',
+      },
+      {
+        title: 'Keyboard, Reimagined from the Ground Up',
+        description:
+          'Not just color. We redesign the calculator keyboard at a fundamental level — layout systems, spacing, key grouping, and interaction. Inspired by design history (Bauhaus grids, Swiss typography, Rams’ principles) and mechanical keyboard culture for meaningful connection.',
+        icon: 'tabler:keyboard',
+      },
+      {
+        title: 'Unique Button Styles',
+        description:
+          'Materials and skins beyond color: glass, paper, retro and cyberpunk looks. Build a calculator that feels like you.',
+        icon: 'tabler:rectangle',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+      alt: 'Aesthetic Calculator UI Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Design Heritage & Connection"
+    items={[
+      {
+        title: 'Bauhaus Grids',
+        description: 'Grid systems and clear hierarchy shape key spacing and layout, bringing order to the keyboard.',
+        icon: 'tabler:layout-grid',
+      },
+      {
+        title: 'Swiss Typography',
+        description:
+          'Legible labels and numerals (including roman numerals) influenced by classic typographic practice.',
+        icon: 'tabler:typography',
+      },
+      {
+        title: 'Dieter Rams Principles',
+        description:
+          'Less, but better. A calculator designed for real use: accounting, physics, electrical and daily math.',
+        icon: 'tabler:ruler-measure',
+      },
+      {
+        title: 'Mechanical Keyboard Culture',
+        description: 'Key grouping and tactile rhythm that connect with designers, students and accountants alike.',
+        icon: 'tabler:keyboard',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2194&q=80',
+      alt: 'Design Heritage Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Built for School & Daily Math"
+    isReversed
+    items={[
+      {
+        title: 'Advanced Calculations',
+        description: 'Handle brackets, signed numbers, and complex equations for coursework and work.',
+        icon: 'tabler:function',
+      },
+      {
+        title: 'Full History Log',
+        description: 'Scroll, copy, or reuse past entries with one tap.',
+        icon: 'tabler:history',
+      },
+      {
+        title: 'Big, Clear Buttons',
+        description: 'Clean layout designed for error-free input and fast results.',
+        icon: 'tabler:square-rounded',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80',
+      alt: 'Aesthetic Calculator Feature Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Utilities & Calculators"
+    items={[
+      {
+        title: 'Core Utilities',
+        description:
+          'Fraction calculator, percentage calculator, tip calculator, time calculator, timers and hours calculator. Built for math practice and everyday use.',
+        icon: 'tabler:tools',
+      },
+      {
+        title: 'Financial Tools (coming soon)',
+        description:
+          'Planned additions include mortgage and auto loan tools, payment estimators and everyday finance helpers for personal planning.',
+        icon: 'tabler:currency-dollar',
+      },
+      {
+        title: 'Converters & Extras',
+        description:
+          'Roman numerals and more handy utilities will be updated regularly. Available on iPhone & iPad; Android support is planned.',
+        icon: 'tabler:transform',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1552664688-cf412ec27db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80',
+      alt: 'Utilities Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Elevate Your Math Game"
+    isAfterContent
+    items={[
+      {
+        title: 'Enjoy privileges',
+        description: 'In-app purchase users enjoy more powerful and user-friendly calculator themes.',
+        icon: 'tabler:star',
+      },
+      {
+        title: 'In-app purchases and Subscriptions',
+        description: 'Purchase different calculator themes in-app and find your favorite usage experience.',
+        icon: 'tabler:shopping-cart',
+      },
+      {
+        title: 'Pricing',
+        description: 'Subject to real-time pricing. Multiple in-app purchase themes range from $0.99 to $5.99.',
+        icon: 'tabler:currency-dollar',
+      },
+      {
+        title: 'Payment',
+        description: 'After you purchase and make the payment, it will be credited to the iTunes account.',
+        icon: 'tabler:credit-card',
+      },
+      {
+        title: 'Cancellation of renewal',
+        description: "Follow Apple's subscription policy.",
+        icon: 'tabler:calendar-x',
+      },
+      {
+        title: 'Renewal Rules',
+        description:
+          'Subscriptions are not currently available. If a new subscription is launched, you will choose according to the subscription package and follow the renewal rules of the app store.',
+        icon: 'tabler:refresh',
+      },
+      {
+        title: 'Privacy Policy',
+        description:
+          '<a class="underline" href="https://z8o7hs56u3.feishu.cn/docx/DCO5d85EyoV39oxmXZwc20b9naf" target="_blank" rel="noopener">View our Privacy Policy</a>.',
+        icon: 'tabler:shield',
+      },
+      {
+        title: 'User & Member Subscription Agreement',
+        description:
+          '<a class="underline" href="https://z8o7hs56u3.feishu.cn/docx/ZMTFdibw7oP5zgxg7E3cF71Rnrg" target="_blank" rel="noopener">Read the Subscription Agreement</a>.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Support',
+        description: 'Problems or suggestions? Email winkiwiki@QQ.com for feedback.',
+        icon: 'tabler:mail',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Aesthetic Calculator Policy Image',
+    }}
+  />
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    title="Aesthetic Calculator At A Glance"
+    stats={[
+      { amount: '500K+', icon: 'tabler:users' },
+      { amount: '300+', icon: 'tabler:palette' },
+      { amount: '100% Ad-Free', icon: 'tabler:ad-off' },
+    ]}
+  />
+
+  <!-- Testimonials Widget *********** -->
+
+  <Testimonials
+    title="HEAR IT FROM OUR USERS"
+    testimonials={[
+      {
+        testimonial:
+          "The best aesthetic calculator I've found! I finally deleted the default app. The themes are gorgeous and it's so easy to use for my college homework.",
+        name: 'Jess',
+        job: 'Student',
+        image: {
+          src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Jess Image',
+        },
+      },
+      {
+        testimonial:
+          "I'm a graphic designer and I'm obsessed. Being able to set my own color palette is a game-changer. Plus, no ads!",
+        name: 'Mike',
+        job: 'Designer',
+        image: {
+          src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Mike Image',
+        },
+      },
+    ]}
+    callToAction={{
+      text: 'Download now',
+      href: '#download',
+      icon: 'tabler:chevron-right',
+    }}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Frequently Asked Questions"
+    items={[
+      {
+        title: 'What makes Aesthetic Calculator different?',
+        description: 'Designer calculator with aesthetic themes, custom colors, and cute skins. Personalize every tap.',
+      },
+      {
+        title: 'Is it free and ad-free?',
+        description: 'Yes. The core experience is 100% ad-free. Optional in-app purchases for themes.',
+      },
+      {
+        title: 'Can I use it for school & college?',
+        description:
+          'Absolutely. Advanced calculations, history log, and clear layout make it perfect for study and daily math.',
+      },
+      {
+        title: 'How do themes and colors work?',
+        description: 'Pick from hundreds of designs or create your own palette. Save and switch anytime.',
+      },
+      {
+        title: 'Do you offer specialized calculators?',
+        description: 'Includes a handy tip calculator. More utilities are being added regularly.',
+      },
+      {
+        title: 'Do you support mortgage or car loan calculators?',
+        description:
+          'Financial tools like mortgage, auto loan and payment calculators are planned. We focus on accuracy and clear layouts for everyday finance.',
+      },
+      {
+        title: 'Is it available on iPhone and Android?',
+        description:
+          'Yes. iPhone & iPad are supported now; Android availability is planned. Download links are in the section below.',
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    id="download"
+    title="Download Aesthetic Calculator today and give your math a makeover!"
+    subtitle="Free today & forever. Join 500K+ users who turned calculating into a joy!"
+  >
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </CallToAction>
+</Layout>

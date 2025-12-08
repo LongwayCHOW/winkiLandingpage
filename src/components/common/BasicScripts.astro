@@ -108,6 +108,13 @@ import { UI } from 'astrowind:config';
       newlink.click();
     });
 
+    attachEvent('[data-aw-banner-open]', 'click', function (_, elem) {
+      const apple = elem.getAttribute('data-aw-open-apple');
+      const google = elem.getAttribute('data-aw-open-google');
+      if (apple) window.open(apple, '_blank', 'noopener');
+      if (google) window.open(google, '_blank', 'noopener');
+    });
+
     const screenSize = window.matchMedia('(max-width: 767px)');
     screenSize.addEventListener('change', function () {
       document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');

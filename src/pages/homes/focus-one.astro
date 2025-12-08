@@ -1,0 +1,334 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Header from '~/components/widgets/Header.astro';
+
+import Hero2 from '~/components/widgets/Hero2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Content from '~/components/widgets/Content.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+
+const appStoreImg = '~/assets/images/app-store.png';
+const appStoreDownloadLink = 'https://apps.apple.com/us/app/focus-one-adhd-focus-timer/id6748545171';
+
+const googlePlayImg = '~/assets/images/google-play.png';
+const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.focus_one';
+
+const metadata = {
+  title: 'Focus One：ADHD Focus Timer',
+  description:
+    'Struggling with procrastination? Try our new visual timer for deep work. Achieve more by monotasking. The perfect study buddy & productivity tool for your daily routine.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Fragment slot="announcement"></Fragment>
+  <Fragment slot="header">
+    <Header
+      position="left"
+      links={[
+        { text: 'Services', href: '#' },
+        { text: 'Features', href: '#' },
+        { text: 'About', href: '#' },
+      ]}
+      actions={[
+        {
+          text: 'Download',
+          href: '#download',
+        },
+      ]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
+
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="monotask • task • digital • detox • minimalist • visual • work • study • pomo • tomato • procrastinate • calm • zen • ADHD"
+    image={{
+      src: '~/assets/images/banner/focus_one_banner-1024x500.png',
+      alt: 'Focus One Banner',
+      layout: 'aspectRatio',
+      aspectRatio: '1024:502',
+      style: 'cursor: pointer;',
+      'data-aw-banner-open': '1',
+      'data-aw-open-apple': appStoreDownloadLink,
+      'data-aw-open-google': googlePlayDownloadLink,
+    }}
+  >
+    <Fragment slot="title"><span class="text-accent dark:text-white">Focus One</span>：ADHD Focus Timer</Fragment>
+
+    <Fragment slot="subtitle"><span class="hidden sm:inline">A Pomodoro & Study Timer</span></Fragment>
+
+    <Fragment slot="content">
+      Struggling with procrastination? Try our new visual timer for deep work. Achieve more by monotasking. The perfect
+      study buddy & productivity tool for your daily routine.
+    </Fragment>
+
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </Hero2>
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    id="features"
+    title="Your Personal Focus Companion, Reimagined"
+    subtitle="Built on monotasking — channel all your energy into one important task."
+    tagline="Focus • ADHD • Timer"
+    columns={2}
+    items={[
+      {
+        title: 'One Task, Zero Distractions',
+        description:
+          'The core of our focus to-do system. Concentrate on a single item to eliminate mental clutter, reduce anxiety, and dramatically boost productivity.',
+        icon: 'tabler:target',
+      },
+      {
+        title: 'Visual Focus Anchor',
+        description:
+          'Set a beautiful, calming GIF as your session background. A gentle looping visual that acts as a powerful focus timer for serene study time.',
+        icon: 'tabler:photo',
+      },
+      {
+        title: 'Pomodoro Technique',
+        description:
+          'Break work or study into manageable intervals. Perfect for time blocking and building a reliable routine for students and professionals.',
+        icon: 'tabler:alarm',
+      },
+      {
+        title: 'Effort Tracking (Coming Soon)',
+        description:
+          'An innovative, motion-based focus tracker that visualizes your daily efforts as a color-coded heat map — a tangible motivator for the ADHD mind.',
+        icon: 'tabler:chart-dots',
+      },
+      {
+        title: 'Find Your Community (Coming Soon)',
+        description:
+          'See how many others are in deep work with you. Build shared purpose and accountability with your new focus mates.',
+        icon: 'tabler:users',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+      alt: 'Focus One Feature Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Who is Focus One For?"
+    isReversed
+    items={[
+      {
+        title: 'Students',
+        description: 'Ace your exams with a dedicated study timer and calm visual focus.',
+        icon: 'tabler:notebook',
+      },
+      {
+        title: 'Professionals, writers & developers',
+        description: 'Practice deep work with simple time blocking and a non-overwhelming interface.',
+        icon: 'tabler:briefcase',
+      },
+      {
+        title: 'ADHD & neurodiversity',
+        description: 'A single-task approach that reduces cognitive load and supports lasting habits.',
+        icon: 'tabler:brain',
+      },
+      {
+        title: 'Digital detox & wellbeing',
+        description: 'Reduce screen time and reclaim presence with a minimalist, visual timer.',
+        icon: 'tabler:device-mobile-off',
+      },
+      {
+        title: 'Beat procrastination',
+        description: 'Build a productive morning routine and start doing one thing well.',
+        icon: 'tabler:coffee',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80',
+      alt: 'Focus One Audience Image',
+    }}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    title="Timers & Presets"
+    items={[
+      {
+        title: '15 Minute Timer',
+        description:
+          'Tap to start a fifteen minute timer — perfect for a single focus block when you need to stop procrastination and get calm, zen momentum. Use “timer on for 15 minutes” as your daily routine anchor.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: '20 Minute Timer',
+        description:
+          'A classic time blocking preset for study and deep work. Set a 20 minute timer to practice the Pomodoro technique for studying — “timer in 20 minutes” with one tap.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: '30 Minute Timer',
+        description:
+          'Longer single-task sessions for writers, developers and students. A minimalist visual timer keeps you present and productive.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: 'Quick Timers: 3 min & 1 min',
+        description:
+          'Need a short burst? Try the 3 minute timer or a 1 minute countdown — “timer 3 minute timer”, “timer for 1 minutes”, “timer in 3 minutes”. Great for micro‑tasks, clean‑ups, or anti‑dopamine resets.',
+        icon: 'tabler:alarm',
+      },
+      {
+        title: 'Pomodoro & Tomato Timer',
+        description:
+          'Use our Pomodoro presets — the classic tomato timer rhythm. A reliable productivity timer and study buddy to build routines and time management.',
+        icon: 'tabler:alarm',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Focus One Timer Presets Image',
+    }}
+  />
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    title="Focus One At A Glance"
+    stats={[
+      { amount: '100% Ad-Free', icon: 'tabler:ad-off' },
+      { amount: 'Monotask First', icon: 'tabler:target' },
+      { amount: 'Pomodoro Friendly', icon: 'tabler:alarm' },
+    ]}
+  />
+
+  <!-- Testimonials Widget *********** -->
+
+  <Testimonials
+    title="HEAR IT FROM OUR USERS"
+    testimonials={[
+      {
+        testimonial:
+          'Monotasking with a visual timer finally made focus feel natural. As someone with ADHD, this is the first app that actually fits my brain.',
+        name: 'Alex',
+        job: 'Designer',
+        image: {
+          src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Alex Image',
+        },
+      },
+      {
+        testimonial:
+          'Breaking study into small blocks with the Pomodoro method and a calming loop makes a huge difference. It’s my daily study buddy.',
+        name: 'Maya',
+        job: 'Student',
+        image: {
+          src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+          alt: 'Maya Image',
+        },
+      },
+    ]}
+    callToAction={{
+      text: 'Download now',
+      href: '#download',
+      icon: 'tabler:chevron-right',
+    }}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Frequently Asked Questions"
+    items={[
+      {
+        title: 'What is Focus One?',
+        description:
+          'A minimalist ADHD-friendly focus timer that helps you do one task at a time using visual anchors and the Pomodoro method.',
+      },
+      {
+        title: 'How does monotasking help with ADHD?',
+        description:
+          'It reduces cognitive load and decision fatigue. Fewer choices, one clear goal — more calm and better outcomes.',
+      },
+      {
+        title: 'Is Focus One free?',
+        description:
+          'Core features are free and ad-free. Pro unlocks advanced functions via in-app purchases or future subscription.',
+      },
+      {
+        title: 'Can I use it for study and work?',
+        description:
+          'Yes. It’s great for students, writers, developers and anyone building routines with Pomodoro and time blocking.',
+      },
+      {
+        title: 'Where can I read the privacy policy and subscription rules?',
+        description: 'See our Privacy Policy and the User & Member Subscription Agreement in the policy section above.',
+      },
+      {
+        title: 'What does Pro include and how is it priced?',
+        description:
+          'Pro adds advanced tracking, focus sounds and community features. Feature packs range from $2.99 to $5.99; subscriptions may be introduced later and follow in‑app pricing.',
+      },
+      {
+        title: 'How are payments and renewals handled?',
+        description:
+          'Purchases are charged to your iTunes Account. Manage subscriptions via Apple ID settings; auto‑renew can be turned off at any time according to App Store rules.',
+      },
+      {
+        title: 'How do I contact support?',
+        description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
+      },
+      {
+        title: 'Is this an ADHD test or diagnosis tool?',
+        description:
+          'No. Focus One is an ADHD‑friendly focus app, not a diagnostic tool. For ADHD screening, ADHD self assessment, ADHD evaluation or adult ADHD diagnosis, please seek professional evaluation.',
+      },
+      {
+        title: 'Can I pair it with screen time and blockers?',
+        description:
+          'Yes. Use Apple Screen Time, website blockers and site blockers, app lock tools, one sec, Clearspace, StayFocusd or StayFree to limit media, stop scroll and build structured day planner habits.',
+      },
+      {
+        title: 'Do you support quick timers like 3‑minute and 1‑minute?',
+        description:
+          'Yes. Start a 3‑minute timer or a 1‑minute countdown instantly. Many people search for “timer 3 minute”, “timer for 1 minute”, or “timer in 3 minutes” — Focus One covers these presets for fast sessions.',
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    id="download"
+    title="Download Focus One today and do one thing well."
+    subtitle="Free core features. Visual timer and Pomodoro, built for ADHD."
+  >
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={appStoreDownloadLink}>
+        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      </Button>
+
+      <Button variant="link" href={googlePlayDownloadLink}>
+        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      </Button>
+    </div>
+  </CallToAction>
+</Layout>

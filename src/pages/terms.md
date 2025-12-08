@@ -3,118 +3,49 @@ title: 'Terms and Conditions'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated_: January 06, 2023
+User and Subscription Service Agreement（English Version）
 
-Please read these terms and conditions carefully before using Our Service.
+Welcome to use the products developed by our team (hereinafter referred to as "we"), including but not limited to applications such as "Chronicle/MeowTalkie/Photo Swipe Cleaner/Aesthetic Calculator/Focus One/Flip Timer" (hereinafter collectively referred to as "this service").
+Before accessing or using this service, please be sure to carefully read and thoroughly understand this "User and Subscription Service Agreement" (hereinafter referred to as "this Agreement"). This Agreement constitutes a legally binding document between you and us. Once you use this service in any way (including but not limited to downloading, installing, launching, browsing, registering, logging in, purchasing, etc.), it indicates that you have fully read, understood, and agreed to accept all the terms of this Agreement. If you do not agree to any content of this Agreement, please immediately stop using this service.
 
-## Interpretation and Definitions
-
-### Interpretation
-
-The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
-
-### Definitions
-
-For the purposes of these Terms and Conditions:
-
-- **Affiliate** means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
-
-- **Country** refers to: California, United States
-
-- **Company** (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to AstroWind LLC, 1 Cupertino, CA 95014.
-
-- **Device** means any device that can access the Service such as a computer, a cellphone or a digital tablet.
-
-- **Service** refers to the Website.
-
-- **Terms and Conditions** (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service. This Terms and Conditions agreement is a Demo.
-
-- **Third-party Social Media Service** means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.
-
-- **Website** refers to AstroWind, accessible from [https://astrowind.vercel.app](https://astrowind.vercel.app)
-
-- **You** means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
-
-## Acknowledgment
-
-These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.
-
-Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.
-
-By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.
-
-You represent that you are over the age of 18\. The Company does not permit those under 18 to use the Service.
-
-Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.
-
-## Links to Other Websites
-
-Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.
-
-The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.
-
-We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.
-
-## Termination
-
-We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.
-
-Upon termination, Your right to use the Service will cease immediately.
-
-## Limitation of Liability
-
-Notwithstanding any damages that You might incur, the entire liability of the Company and any of its suppliers under any provision of this Terms and Your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by You through the Service or 100 USD if You haven't purchased anything through the Service.
-
-To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, for business interruption, for personal injury, loss of privacy arising out of or in any way related to the use of or inability to use the Service, third-party software and/or third-party hardware used with the Service, or otherwise in connection with any provision of this Terms), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.
-
-Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply. In these states, each party's liability will be limited to the greatest extent permitted by law.
-
-## "AS IS" and "AS AVAILABLE" Disclaimer
-
-The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limitation to the foregoing, the Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet Your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.
-
-Without limiting the foregoing, neither the Company nor any of the company's provider makes any representation or warranty of any kind, express or implied: (i) as to the operation or availability of the Service, or the information, content, and materials or products included thereon; (ii) that the Service will be uninterrupted or error-free; (iii) as to the accuracy, reliability, or currency of any information or content provided through the Service; or (iv) that the Service, its servers, the content, or e-mails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.
-
-Some jurisdictions do not allow the exclusion of certain types of warranties or limitations on applicable statutory rights of a consumer, so some or all of the above exclusions and limitations may not apply to You. But in such a case the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable under applicable law.
-
-## Governing Law
-
-The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.
-
-## Disputes Resolution
-
-If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company.
-
-## For European Union (EU) Users
-
-If You are a European Union consumer, you will benefit from any mandatory provisions of the law of the country in which you are resident in.
-
-## United States Legal Compliance
-
-You represent and warrant that (i) You are not located in a country that is subject to the United States government embargo, or that has been designated by the United States government as a "terrorist supporting" country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.
-
-## Severability and Waiver
-
-### Severability
-
-If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
-
-### Waiver
-
-Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute a waiver of any subsequent breach.
-
-## Translation Interpretation
-
-These Terms and Conditions may have been translated if We have made them available to You on our Service. You agree that the original English text shall prevail in the case of a dispute.
-
-## Changes to These Terms and Conditions
-
-We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
-
-By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.
-
-## Contact Us
-
-If you have any questions about these Terms and Conditions, You can contact us:
-
-- By email: somecoolemail@domain.com
+1. Service Content and Usage Rules
+   1.1 Service License: We grant you a personal, non-transferable, non-exclusive, revocable license to use the Service in accordance with the terms of this Agreement.
+   1.2 User Conduct Guidelines: You promise to use this service legally and in compliance. You shall not use this service to engage in any illegal, rights-infringing, or behavior that disrupts the normal operation of this service, including but not limited to:
+   Reverse engineering, decompiling, disassembling, or attempting to crack the source code of this service.
+   Copy, modify, distribute, or create derivative works based on this service.
+   Bypass or attempt to bypass any security measures we have implemented to protect this service.
+   Using this service to engage in any behavior that may harm the interests of us, other users, or third parties.
+   Violate any applicable local, national, or international laws and regulations.
+2. Subscription Services, Renewal, and Pricing
+   2.1 Paid Content: Some features or content of this service may require you to pay through internal purchase or subscription (hereinafter referred to as "subscription service"). The specific price of the subscription shall be based on the amount displayed when you make a purchase for a specific product (such as "Chronicle") within the Apple App Store or Google Play Store.
+   2.2 Price Changes: We reserve the right to adjust the price of the subscription service at any time. Price adjustments may occur due to promotional activities, cost changes, or other factors. Any price changes will be announced on the corresponding app store platform and will take effect for your future subscription renewals.
+   2.3 Subscription Cycle and Auto-Renewal:
+   Your subscription service will follow the standard subscription policies of the Apple App Store and Google Play platforms.
+   Subscriptions will automatically renew according to the cycle you choose (e.g., monthly, annually), unless you cancel automatic renewal via your Apple ID account settings or Google Play account settings at least 24 hours before the end of the current subscription period.
+   Renewal fees will be deducted from your account within 24 hours before the end of the current subscription period.
+   You can manage your subscriptions and cancel auto-renewal at any time in your app store account settings.
+   2.4 Payment and Refund: All payment transactions are processed through the Apple App Store or Google Play. For refund requests, you need to submit them directly to the corresponding app store platform and comply with its refund policy. We are unable to directly handle any refund matters.
+3. Disclaimer and Limitation of Liability
+   3.1 Provided "As Is": This service is provided on an "as is" and "as available" basis. We make no warranties, whether express or implied, in any form, including but not limited to warranties of merchantability, fitness for a particular purpose, accuracy, completeness, reliability, security, uninterrupted operation, or freedom from errors. You assume all risks associated with your use of this service.
+   3.2 No Indirect Liability: To the fullest extent permitted by law, under no circumstances shall we, our affiliates, partners, employees, or agents be liable for any indirect, incidental, special, punitive, or consequential damages arising out of your use or inability to use the Service, including but not limited to loss of profits, data loss, loss of goodwill, or other intangible losses, even if we have been advised of the possibility of such damages.
+   3.3 Data Security: We will take reasonable commercial measures to protect the security of your data, but we do not guarantee that we can completely prevent all potential security bugs. We will not be liable for data breaches, losses, or damages caused by hacker attacks, virus intrusions, technical failures, or any other force majeure events.
+   3.4 Third-Party Services: This service may contain links to third-party websites or services. These links are provided solely for the convenience of users. We assume no responsibility for the content, Privacy Policy, or operations of these third-party services.
+   3.5 Limitation of Liability: If any exemption clause in this Agreement is determined to be invalid, in no event shall our total liability to you exceed the total amount (if any) you paid to us for using the Service within the six months prior to the occurrence of the event giving rise to the claim.
+4. User Feedback
+   We welcome and encourage you to provide any feedback, comments, or suggestions regarding this service. You can send your ideas to our User Experience feedback email address: winkiwiki@QQ.com.
+   To enable us to efficiently locate and resolve your issues, please ensure that you follow the following format when writing to us:
+   Email Subject: [Name of the Product You Are Using] - Problem/Suggestion Feedback
+   Email Body:
+   Product Name: (e.g., Chronicle)
+   Operating System: (e.g., iOS / Android)
+   Product version number: (Please check in the app settings)
+   Detailed description of the issue/suggestion.
+   【Highly Recommended】Attach relevant screenshots or screen recording videos as attachments.
+   You understand and agree that any feedback you submit shall be considered non-confidential and non-proprietary. You grant us a perpetual, irrevocable, global, royalty-free, and unrestricted right and license to use, copy, modify, publish, translate, and distribute your feedback for any purpose without any compensation to you.
+5. Amendment and Termination of the Agreement
+   5.1 Agreement Changes: We reserve the right to modify the terms of this Agreement at any time. Any modifications will be announced within this service or notified to you through other appropriate means. The modified Agreement will take effect immediately upon publication. Your continued use of this service will be deemed as your acceptance of the modified Agreement. We recommend that you regularly review this Agreement to stay informed of the latest version.
+   5.2 Service Termination: We may suspend or terminate your right to access and use this service at any time for any reason (including your breach of this Agreement) without prior notice.
+6. Others
+   6.1 Applicable Law: The interpretation, validity, and dispute resolution of this Agreement shall all be governed by relevant laws and regulations.
+   6.2 Severability: If any provision of this Agreement is held by a court of competent jurisdiction to be invalid or unenforceable, such provision shall be deemed deleted from this Agreement, while the remaining provisions shall continue in full force and effect.
+   6.3 Contact Us: If you have any questions about this Agreement, please contact us via [winkiwiki@QQ.com].
