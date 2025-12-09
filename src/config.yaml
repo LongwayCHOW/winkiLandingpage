@@ -1,6 +1,6 @@
 site:
   name: Winki
-  site: 'https://astrowind.vercel.app'
+  site: 'https://winki.win'
   base: '/'
   trailingSlash: false
 
