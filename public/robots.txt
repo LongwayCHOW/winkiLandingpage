@@ -1,2 +1,3 @@
+# Allow all reputable search engines
 User-agent: *
-Disallow:
+Allow: /
