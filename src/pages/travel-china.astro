@@ -1,0 +1,451 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import AppDownload from '~/components/widgets/AppDownload.astro';
+import { Icon } from 'astro-icon/components';
+
+// Images - App Icons
+import iconAlipay from '~/assets/images/travelappicon/alipay.webp';
+import iconWechat from '~/assets/images/travelappicon/wechat.webp';
+import iconAmap from '~/assets/images/travelappicon/amap.webp';
+import iconDidi from '~/assets/images/travelappicon/didi.webp';
+import iconTrip from '~/assets/images/travelappicon/trip.webp';
+import iconMeituan from '~/assets/images/travelappicon/meituan.webp';
+import iconDianping from '~/assets/images/travelappicon/dianping.webp';
+import icon12306 from '~/assets/images/travelappicon/12306.webp';
+import iconDeepl from '~/assets/images/travelappicon/deepl.webp';
+import iconUdictionary from '~/assets/images/travelappicon/udictionary.webp'; // Renamed file
+
+// QR Codes - iOS
+import qrAlipayIos from '~/assets/images/travelappicon/qrcode/alipay_ios.png';
+import qrWechatIos from '~/assets/images/travelappicon/qrcode/wechat_ios.png';
+import qrAmapIos from '~/assets/images/travelappicon/qrcode/amap_ios.png';
+import qrDidiIos from '~/assets/images/travelappicon/qrcode/didi_ios.png';
+import qrTripIos from '~/assets/images/travelappicon/qrcode/trip_ios.png';
+import qrMeituanIos from '~/assets/images/travelappicon/qrcode/meituan_ios.png';
+import qrDianpingIos from '~/assets/images/travelappicon/qrcode/dianping_ios.png';
+import qr12306Ios from '~/assets/images/travelappicon/qrcode/12306_ios.png';
+import qrDeeplIos from '~/assets/images/travelappicon/qrcode/deepl_ios.png';
+import qrUdictionaryIos from '~/assets/images/travelappicon/qrcode/udictionary_ios.png';
+
+// QR Codes - Android
+import qrAlipayAndroid from '~/assets/images/travelappicon/qrcode/alipay_android.png';
+import qrWechatAndroid from '~/assets/images/travelappicon/qrcode/wechat_android.png';
+import qrAmapAndroid from '~/assets/images/travelappicon/qrcode/amap_android.png';
+import qrDidiAndroid from '~/assets/images/travelappicon/qrcode/didi_android.png';
+import qrTripAndroid from '~/assets/images/travelappicon/qrcode/trip_android.png';
+import qrMeituanAndroid from '~/assets/images/travelappicon/qrcode/meituan_android.png';
+import qrDianpingAndroid from '~/assets/images/travelappicon/qrcode/dianping_android.png';
+import qr12306Android from '~/assets/images/travelappicon/qrcode/12306_android.png';
+import qrDeeplAndroid from '~/assets/images/travelappicon/qrcode/deepl_android.png';
+import qrUdictionaryAndroid from '~/assets/images/travelappicon/qrcode/udictionary_android.png'; // Assuming Youdao matches UDictionary or similar intent
+
+// Payment Test Codes
+import codeAlipay from '~/assets/images/paytestcode/alipay.png';
+import codeWechatPay from '~/assets/images/paytestcode/wechat_pay.png';
+import codeAliJingying from '~/assets/images/paytestcode/ali_jingying.png';
+import codeWechatDonate from '~/assets/images/paytestcode/wechat_donate.png';
+
+const metadata = {
+  title: 'Travel China 2026: The Ultimate Survival Guide | Payment, Apps, & Connectivity',
+  description:
+    'Essential guide for traveling to China in 2026. Download key apps (Alipay, WeChat), set up mobile payments, get eSIMs, and navigate transport like a local. Includes verified QR codes.',
+  ignoreTitleTemplate: true,
+  openGraph: {
+    type: 'article',
+    images: [
+      {
+        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBH2n3744l1x42U7tfGWqK0XtWzsMH3QBQgw07WRikldYFAB8_Jw9tPtXtnC_E-yeqH4P_Hs6qL2VikQNvBRjMSTydMsCFkullSvA_lftbsvPpsGmwL0rpYM8Y5G7Neuf4OW4yKZw5TUaTO0RdLPLrp9Cvg3Juo4TdY2TyJcXUZ674b_SGDrcyLmgyg9UStcz8fq_NQbt1lrAQEShUmMRycrpuoyMO3XVN0gi7h4-fx9Ho0omyz0dkRYdtqfHR-UfkhyH_B7z3KsK8',
+        width: 1200,
+        height: 630,
+        alt: 'Travel China 2026 Guide',
+      },
+    ],
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'TravelGuide',
+      name: 'Travel China Master 2026',
+      description:
+        'Comprehensive guide for traveling to China in 2026. Download key apps (Alipay, WeChat), set up mobile payments, get eSIMs, and navigate transport like a local.',
+      inLanguage: 'en',
+      keywords: 'China Travel, Alipay, WeChat Pay, China Apps, China Visa',
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Travelers to China',
+      },
+    })}
+  />
+  <script is:inline>
+    // Force light mode for this page
+    document.documentElement.classList.remove('dark');
+    // Optional: Observe changes to prevent switching back if user clicks toggle (can be removed if toggle is allowed)
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class' && document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+        }
+      });
+    });
+    observer.observe(document.documentElement, { attributes: true });
+  </script>
+  <div class="max-w-[1024px] mx-auto px-4 py-8 flex flex-col gap-8">
+    <!-- Header -->
+    <header class="w-full relative h-[100px] overflow-hidden rounded-xl shadow-lg group">
+      <div class="absolute inset-0 z-0">
+        <img
+          alt="Banner Background"
+          class="w-full h-full object-cover brightness-75"
+          style="object-position: center 55%"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH2n3744l1x42U7tfGWqK0XtWzsMH3QBQgw07WRikldYFAB8_Jw9tPtXtnC_E-yeqH4P_Hs6qL2VikQNvBRjMSTydMsCFkullSvA_lftbsvPpsGmwL0rpYM8Y5G7Neuf4OW4yKZw5TUaTO0RdLPLrp9Cvg3Juo4TdY2TyJcXUZ674b_SGDrcyLmgyg9UStcz8fq_NQbt1lrAQEShUmMRycrpuoyMO3XVN0gi7h4-fx9Ho0omyz0dkRYdtqfHR-UfkhyH_B7z3KsK8"
+        />
+        <div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
+      </div>
+      <div class="relative z-10 h-full flex items-center justify-between px-8 text-white">
+        <div class="flex items-center gap-3">
+          <Icon name="tabler:world" class="text-3xl" />
+          <h1 class="text-2xl font-bold tracking-tight">Travel China Master 2026</h1>
+        </div>
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <span>V1 Detailed Flyer</span>
+          <span class="bg-white/20 px-3 py-1 rounded-full text-xs border border-white/30 backdrop-blur-sm"
+            >Updated Q1 2026</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- 1. Visa Information -->
+    <section>
+      <div class="flex items-center gap-2 px-1 mb-4">
+        <Icon name="tabler:file-description" class="text-primary text-xl" />
+        <h2 class="text-lg font-bold leading-tight">1. Visa Information</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col"
+          >
+            <div
+              class="w-full h-32 bg-slate-100 dark:bg-slate-900 rounded-lg mb-3 flex items-center justify-center overflow-hidden bg-cover bg-center"
+              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuASSODoLjPLsnDpEhljish0LTrx_4ohhBOU9_imvXEMr5ZdMdW5CckDart7qnkeWWdsSYIOYzl4fAlh-0vF5Z7oFaBrF5sVG43zJMGk5B9PN1nZnVSqCBz1U7jTHPOSIrpNtdqrMsdImMPVTmk1CIiKprRX0OAdrtkojBnP2kPq9ujhwWPg_mEUFuEfWauSWn9b968u6ZpdUOxlnHp7O0iu53ZZlhicVxdTRYcIOrCFXTp365zgiObwFKd8Ncl-1w0L9VjNg4Pqtms');"
+            >
+            </div>
+            <h3 class="font-bold text-sm">Business Visa (M)</h3>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              For commercial & trade activities. Requires invitation letter.
+            </p>
+          </div>
+          <div
+            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col"
+          >
+            <div
+              class="w-full h-32 bg-slate-100 dark:bg-slate-900 rounded-lg mb-3 flex items-center justify-center overflow-hidden bg-cover bg-center"
+              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH2n3744l1x42U7tfGWqK0XtWzsMH3QBQgw07WRikldYFAB8_Jw9tPtXtnC_E-yeqH4P_Hs6qL2VikQNvBRjMSTydMsCFkullSvA_lftbsvPpsGmwL0rpYM8Y5G7Neuf4OW4yKZw5TUaTO0RdLPLrp9Cvg3Juo4TdY2TyJcXUZ674b_SGDrcyLmgyg9UStcz8fq_NQbt1lrAQEShUmMRycrpuoyMO3XVN0gi7h4-fx9Ho0omyz0dkRYdtqfHR-UfkhyH_B7z3KsK8');"
+            >
+            </div>
+            <h3 class="font-bold text-sm">Tourist Visa (L)</h3>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              For leisure travelers. Standard 30-90 day entry permits.
+            </p>
+          </div>
+          <a
+            href="https://www.nia.gov.cn/n897453/c1688948/content.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col hover:border-primary/50 transition-colors cursor-pointer block"
+          >
+            <div
+              class="w-full h-32 bg-slate-100 dark:bg-slate-900 rounded-lg mb-3 flex items-center justify-center overflow-hidden bg-cover bg-center"
+              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDddlQeMWWpyaO4c5fFbLzlcFyXwLML1wWHRLnbSxEPvLefM88ExwSSHpcRvIP8rA_zvbuRqqqNRTuWomsCD6kCRBawXFTs1D1t-lLH5etsuZFiZhnELVH8E-mJm9hYfPNFS2PVZvQKK5hXE-cbhLjmjEOYdUvK8UwrJiMIoJNoWbkbQisqb3AnR6mji3jM_-yFYN46I7Ej31afeip_jyHKnzwgLtHK84aQgCdwmaWm8LKt5HEgypfLtZj0qQ0p2IG4ZsVa7Jz_K1o');"
+            >
+            </div>
+            <h3 class="font-bold text-sm">Transit (G/TWOV)</h3>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              72/144-hour visa-free transit for select nationalities.
+            </p>
+          </a>
+        </div>
+        <div
+          class="bg-[#fff3eb] dark:bg-primary/10 border border-primary/10 p-5 rounded-xl flex flex-col justify-between"
+        >
+          <div>
+            <h3 class="text-primary font-bold mb-2 flex items-center gap-2 text-sm">
+              <Icon name="tabler:link" class="text-[16px]" />
+              Official Links
+            </h3>
+            <p class="text-[11px] text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+              Access official government portals for visa applications and the latest entry regulations.
+            </p>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="https://en.nia.gov.cn/n147423/n147478/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[11px] font-medium text-slate-700 dark:text-slate-200 hover:text-primary cursor-pointer flex items-center gap-1"
+                >
+                  <Icon name="tabler:chevron-right" class="text-[12px]" /> National Immigration Admin
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://consular.mfa.gov.cn/VISA/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[11px] font-medium text-slate-700 dark:text-slate-200 hover:text-primary cursor-pointer flex items-center gap-1"
+                >
+                  <Icon name="tabler:chevron-right" class="text-[12px]" /> China Visa Service Center
+                </a>
+              </li>
+            </ul>
+          </div>
+          <a
+            href="https://en.nia.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full bg-primary text-white text-[11px] font-bold py-2 rounded-lg mt-4 shadow-sm active:scale-95 transition-transform block text-center"
+            >Visit Gov Portal</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Connectivity -->
+    <section>
+      <div class="flex items-center gap-2 px-1 mb-4">
+        <Icon name="tabler:wifi" class="text-primary text-xl" />
+        <h2 class="text-lg font-bold leading-tight">2. Connectivity</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">eSIM & Data Packages</h3>
+          <div class="flex flex-col gap-3">
+            <a
+              href="https://www.airalo.com/esim"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-between w-full px-4 py-3 border border-slate-100 dark:border-slate-700 rounded-lg hover:border-primary/50 transition-colors"
+            >
+              <span class="font-medium text-sm">Search Airalo China</span>
+              <Icon name="tabler:external-link" class="text-primary text-lg" />
+            </a>
+            <a
+              href="https://us.trip.com/global-search/searchlist/search/?keyword=china%20esim&from=home"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-between w-full px-4 py-3 border border-slate-100 dark:border-slate-700 rounded-lg hover:border-primary/50 transition-colors"
+            >
+              <span class="font-medium text-sm">Trip.com China SIM Cards</span>
+              <Icon name="tabler:external-link" class="text-primary text-lg" />
+            </a>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">International VPN Links</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Placeholder for VPNs if no icons available -->
+            <a
+              href="https://www.expressvpn.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex flex-col gap-3 p-4 border border-slate-100 dark:border-slate-700 rounded-lg items-center text-center block hover:border-primary/50 transition-colors"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-50 dark:bg-slate-900 flex items-center justify-center border border-slate-100 dark:border-slate-700"
+              >
+                <Icon name="tabler:shield-lock" class="text-slate-400 text-lg" />
+              </div>
+              <h4 class="text-[13px] font-bold truncate">ExpressVPN</h4>
+            </a>
+            <a
+              href="https://www.astrill.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex flex-col gap-3 p-4 border border-slate-100 dark:border-slate-700 rounded-lg items-center text-center block hover:border-primary/50 transition-colors"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-50 dark:bg-slate-900 flex items-center justify-center border border-slate-100 dark:border-slate-700"
+              >
+                <Icon name="tabler:lock" class="text-slate-400 text-lg" />
+              </div>
+              <h4 class="text-[13px] font-bold truncate">Astrill VPN</h4>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Payment -->
+    <section>
+      <div class="flex items-center gap-2 px-1 mb-4">
+        <Icon name="tabler:currency-yen" class="text-primary text-xl" />
+        <h2 class="text-lg font-bold leading-tight">3. Payment & Digital Wallet</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <AppDownload
+          name="Alipay"
+          description="Essential for payments"
+          icon={iconAlipay}
+          appStoreQr={qrAlipayIos}
+          googlePlayQr={qrAlipayAndroid}
+        />
+        <AppDownload
+          name="WeChat"
+          description="Messaging & Payments"
+          icon={iconWechat}
+          appStoreQr={qrWechatIos}
+          googlePlayQr={qrWechatAndroid}
+        />
+      </div>
+
+      <!-- Verification Test Codes -->
+      <div class="border-t border-slate-100 dark:border-slate-700 pt-8 mt-8">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-sm font-bold">Verification Test Codes</h3>
+          <span
+            class="bg-[#fff3eb] text-primary px-3 py-1 rounded-full text-[10px] font-bold border border-primary/10 uppercase tracking-tight"
+            >Live Rate: 1 CNY = 0.14 USD</span
+          >
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div
+            class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 text-center shadow-sm"
+          >
+            <div
+              class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
+            >
+              <img src={codeWechatPay.src} alt="WeChat Pay" class="w-full h-full object-contain" />
+            </div>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">WeChat PayTest</p>
+            <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
+          </div>
+          <div
+            class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 text-center shadow-sm"
+          >
+            <div
+              class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
+            >
+              <img src={codeWechatDonate.src} alt="Auth B" class="w-full h-full object-contain" />
+            </div>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">WeChat mniAppPayTest</p>
+            <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
+          </div>
+          <div
+            class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 text-center shadow-sm"
+          >
+            <div
+              class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
+            >
+              <img src={codeAlipay.src} alt="Alipay" class="w-full h-full object-contain" />
+            </div>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Alipay PayTest</p>
+            <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
+          </div>
+          <div
+            class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-100 dark:border-slate-700 text-center shadow-sm"
+          >
+            <div
+              class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
+            >
+              <img src={codeAliJingying.src} alt="Auth A" class="w-full h-full object-contain" />
+            </div>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Alipay PayTest</p>
+            <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Translation -->
+    <section>
+      <div class="flex items-center gap-2 px-1 mb-4">
+        <Icon name="tabler:language" class="text-primary text-xl" />
+        <h2 class="text-lg font-bold leading-tight">4. Translation</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <AppDownload
+          name="DeepL"
+          description="Accurate Translation"
+          icon={iconDeepl}
+          appStoreQr={qrDeeplIos}
+          googlePlayQr={qrDeeplAndroid}
+        />
+        <AppDownload
+          name="UDictionary / Youdao"
+          description="Offline Dictionaries"
+          icon={iconUdictionary}
+          appStoreQr={qrUdictionaryIos}
+          googlePlayQr={qrUdictionaryAndroid}
+        />
+      </div>
+    </section>
+
+    <!-- 5. Dining -->
+    <section>
+      <div class="flex items-center gap-2 px-1 mb-4">
+        <Icon name="tabler:tools-kitchen-2" class="text-primary text-xl" />
+        <h2 class="text-lg font-bold leading-tight">5. Dining</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <AppDownload
+          name="Meituan"
+          description="Food Delivery & Tickets"
+          icon={iconMeituan}
+          appStoreQr={qrMeituanIos}
+          googlePlayQr={qrMeituanAndroid}
+        />
+        <AppDownload
+          name="Dianping"
+          description="Reviews & Maps"
+          icon={iconDianping}
+          appStoreQr={qrDianpingIos}
+          googlePlayQr={qrDianpingAndroid}
+        />
+      </div>
+    </section>
+
+    <!-- 6. Transport -->
+    <section class="pb-12">
+      <div class="flex items-center gap-2 px-1 mb-4">
+        <Icon name="tabler:train" class="text-primary text-xl" />
+        <h2 class="text-lg font-bold leading-tight">6. Transport Logistics</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <AppDownload
+          name="Amap (Gaode)"
+          description="Navigation & Traffic"
+          icon={iconAmap}
+          appStoreQr={qrAmapIos}
+          googlePlayQr={qrAmapAndroid}
+        />
+        <AppDownload
+          name="Didi"
+          description="Ride Hailing"
+          icon={iconDidi}
+          appStoreQr={qrDidiIos}
+          googlePlayQr={qrDidiAndroid}
+        />
+        <AppDownload
+          name="Trip.com"
+          description="Flights & Hotels"
+          icon={iconTrip}
+          appStoreQr={qrTripIos}
+          googlePlayQr={qrTripAndroid}
+        />
+        <AppDownload
+          name="12306"
+          description="Official Railway App"
+          icon={icon12306}
+          appStoreQr={qr12306Ios}
+          googlePlayQr={qr12306Android}
+        />
+      </div>
+    </section>
+  </div>
+</Layout>

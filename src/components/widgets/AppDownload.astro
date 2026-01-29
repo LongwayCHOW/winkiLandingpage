@@ -1,0 +1,138 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  name: string;
+  description?: string;
+  icon: ImageMetadata | string;
+  appStoreQr?: ImageMetadata | string;
+  googlePlayQr?: ImageMetadata | string;
+}
+
+const { name, description, icon, appStoreQr, googlePlayQr } = Astro.props;
+const id = `app-${Math.random().toString(36).substring(2, 11)}`;
+
+const iconSrc = typeof icon === 'string' ? icon : icon.src;
+const appStoreQrSrc = appStoreQr ? (typeof appStoreQr === 'string' ? appStoreQr : appStoreQr.src) : null;
+const googlePlayQrSrc = googlePlayQr ? (typeof googlePlayQr === 'string' ? googlePlayQr : googlePlayQr.src) : null;
+---
+
+<div
+  class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col items-center text-center app-card"
+  id={id}
+>
+  <div
+    class="w-24 h-24 bg-slate-50 dark:bg-slate-900 rounded-lg flex items-center justify-center mb-4 relative overflow-hidden group"
+  >
+    <!-- Main Icon -->
+    <img
+      src={iconSrc}
+      alt={name}
+      class="w-full h-full object-contain p-2 app-icon transition-opacity duration-300 absolute inset-0 z-10"
+    />
+
+    <!-- App Store QR -->
+    {
+      appStoreQrSrc && (
+        <img
+          src={appStoreQrSrc}
+          alt={`${name} App Store QR`}
+          class="w-full h-full object-contain p-1 absolute inset-0 opacity-0 transition-opacity duration-300 z-20 qr-ios bg-white dark:bg-slate-800"
+        />
+      )
+    }
+
+    <!-- Google Play QR -->
+    {
+      googlePlayQrSrc && (
+        <img
+          src={googlePlayQrSrc}
+          alt={`${name} Google Play QR`}
+          class="w-full h-full object-contain p-1 absolute inset-0 opacity-0 transition-opacity duration-300 z-20 qr-android bg-white dark:bg-slate-800"
+        />
+      )
+    }
+
+    <!-- Camera Scan Hint (optional, shows on hover if needed, or just static below) -->
+  </div>
+
+  <h3 class="text-sm font-bold">{name}</h3>
+  {description && <p class="text-[10px] text-slate-400 mt-1 mb-3">{description}</p>}
+  <p class="text-[9px] text-slate-400 mb-2 flex items-center gap-1 justify-center">
+    <Icon name="tabler:camera" class="w-3 h-3" /> Scan to Download
+  </p>
+
+  <div class="flex gap-6">
+    <button
+      class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+      data-target="ios"
+      aria-label="App Store"
+    >
+      <Icon name="tabler:brand-apple" class="w-6 h-6" />
+    </button>
+    <button
+      class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+      data-target="android"
+      aria-label="Google Play"
+    >
+      <Icon name="tabler:brand-google-play" class="w-5 h-5" />
+    </button>
+  </div>
+</div>
+
+<script>
+  function setupAppCards() {
+    const cards = document.querySelectorAll('.app-card');
+
+    cards.forEach((card) => {
+      const iosBtn = card.querySelector('[data-target="ios"]');
+      const androidBtn = card.querySelector('[data-target="android"]');
+      const icon = card.querySelector('.app-icon');
+      const qrIos = card.querySelector('.qr-ios');
+      const qrAndroid = card.querySelector('.qr-android');
+
+      const showQr = (type) => {
+        // Reset all first
+        if (icon) icon.classList.remove('opacity-0');
+        if (qrIos) qrIos.classList.add('opacity-0');
+        if (qrAndroid) qrAndroid.classList.add('opacity-0');
+
+        // Show specific QR
+        if (type === 'ios' && qrIos) {
+          if (icon) icon.classList.add('opacity-0');
+          qrIos.classList.remove('opacity-0');
+        } else if (type === 'android' && qrAndroid) {
+          if (icon) icon.classList.add('opacity-0');
+          qrAndroid.classList.remove('opacity-0');
+        }
+      };
+
+      // Hover events
+      iosBtn?.addEventListener('mouseenter', () => showQr('ios'));
+      androidBtn?.addEventListener('mouseenter', () => showQr('android'));
+
+      // Click events (Mobile support & Desktop click)
+      iosBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        showQr('ios');
+      });
+
+      androidBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        showQr('android');
+      });
+
+      // Reset when leaving the card
+      card.addEventListener('mouseleave', () => showQr('none'));
+    });
+  }
+
+  // Run on load
+  setupAppCards();
+
+  // Run on view transitions if enabled
+  document.addEventListener('astro:page-load', setupAppCards);
+</script>

@@ -69,6 +69,10 @@ export const headerData = {
         // },
       ],
     },
+    {
+      text: 'TravelChina',
+      href: getPermalink('/travel-china'),
+    },
   ],
   actions: [{ text: 'Download', href: 'https://github.com/LongwayCHOW/winkiLandingpage', target: '_blank' }],
 };
