@@ -1,3 +1,5 @@
 # Allow all reputable search engines
 User-agent: *
 Allow: /
+
+Sitemap: https://winki.win/sitemap-index.xml
