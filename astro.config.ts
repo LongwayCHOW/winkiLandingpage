@@ -29,7 +29,18 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    sitemap(),
+    sitemap({
+      filter: (page: string) =>
+        !page.includes('/tag/') &&
+        !page.includes('/landing/') &&
+        !page.includes('/homes/saas') &&
+        !page.includes('/homes/startup') &&
+        !page.includes('/homes/personal') &&
+        !page.includes('/homes/mobile-app') &&
+        !page.includes('/about') &&
+        !page.includes('/services') &&
+        !page.includes('/pricing'),
+    }),
     mdx(),
     icon({
       include: {
