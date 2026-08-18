@@ -199,6 +199,6 @@ const metadata = {
 
 ## 扩展建议
 
-- 新增产品落地页：在 `src/pages/homes/` 下新建 `.astro`，参考 `chronicle.astro` 结构，随后在 `src/navigation.ts` 中注册。
-- 新增博客文章：在 `src/data/post/` 下新建 `.mdx` 或 `.md`，填写 frontmatter 即可自动生成路由。
+- 新增产品落地页：在 `src/pages/homes/` 下新建 `.astro`，参考 `mobile-app.astro` 模板（极简 SEO 最佳实践样板），随后在 `src/navigation.ts` 中注册。
+- 新增博客文章：在 `src/data/post/` 下新建 `.mdx` 或 `.md`，填写 frontmatter 即可自动生成路由。**发布前对照 `docs/BLOG-CHECKLIST.md` 自查**（综合 seo-writing + zac-seo 的内容质量门）。
 - 调整站点信息：编辑 `src/config.yaml`，必要时同步 `src/layouts/Layout.astro` 和 SEO metadata。

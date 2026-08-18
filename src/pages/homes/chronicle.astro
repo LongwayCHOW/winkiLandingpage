@@ -1,106 +1,167 @@
 ---
+/**
+ * Chronicle 落地页 — 基于 mobile-app.astro 模板（极简 SEO 最佳实践）
+ * 核心词：journal calendar（塔尖）；planner / to-do / habit tracker（功能词）
+ */
 import Layout from '~/layouts/PageLayout.astro';
 
 import Header from '~/components/widgets/Header.astro';
-
 import Hero2 from '~/components/widgets/Hero2.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Content from '~/components/widgets/Content.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
+import { getPermalink } from '~/utils/permalinks';
 
-const appStoreImg = '~/assets/images/app-store.png';
-const appStoreDownloadLink = 'https://apps.apple.com/us/app/chronicle-journal-calendar/id6756258484';
+// 本地 banner 图片：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
+import chronicleBanner from '~/assets/images/banner/Chronicle_banner-1024x504.png';
 
-const googlePlayImg = '~/assets/images/google-play.png';
-const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.chronicle.chronicle';
-
-const metadata = {
-  title: 'Chronicle: Journal Calendar',
-  description:
-    'The first Journal Calendar is here! See your notes, tasks, & memories on your timeline. An all-in-one planner to organize your life. Stop juggling apps, start living.',
+/* ─────────────────────────── APP CONFIG ─────────────────────────── */
+const app = {
+  name: 'Chronicle',
+  keywords: 'journal calendar, planner, to-do list, habit tracker',
+  valueProp: 'Journal, planner, to-do list and habit tracker on one simple timeline.',
+  platforms: ['iOS', 'Android'],
+  appStoreDownloadLink: 'https://apps.apple.com/us/app/chronicle-journal-calendar/id6756258484',
+  googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.chronicle.chronicle',
+  url: getPermalink(Astro.url.pathname),
+  banner: {
+    src: chronicleBanner,
+    alt: 'Chronicle Journal Calendar — notes, tasks and memories on one timeline',
+  },
+  iosAppStoreId: 'id6756258484',
+  androidAppStoreId: 'wiki.winki.chronicle.chronicle',
 };
+
+/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+const metadata = {
+  title: 'Chronicle: Journal Calendar, Planner & Habit Tracker',
+  description:
+    'See your notes, tasks and memories on one timeline. An all-in-one journal calendar, planner and habit tracker. Download free today.',
+  canonical: app.url,
+  openGraph: {
+    type: 'website',
+    url: app.url,
+    images: [{ url: chronicleBanner as unknown as string }],
+  },
+};
+
+/* FAQ：真实用户会问的问题（也是 FAQPage schema 素材） */
+const faqItems = [
+  {
+    title: 'What is Chronicle?',
+    description:
+      'Chronicle is a journal calendar that blends a daily planner, diary, to-do list and habit tracker into one timeline.',
+  },
+  {
+    title: 'Is my data private?',
+    description:
+      'Yes. Chronicle is local-first by default — your notes, tasks and memories stay on your device unless you opt into cloud backup later.',
+  },
+  {
+    title: 'Is there a free version?',
+    description:
+      'Yes. Chronicle is free to get started with core features. Chronicle Pro unlocks unlimited entries, widgets and advanced customization.',
+  },
+  {
+    title: 'What devices does Chronicle support?',
+    description: 'Chronicle is available on iOS and Android. Your timeline syncs across devices with optional cloud backup.',
+  },
+  {
+    title: 'Can I use Chronicle for planning and habits?',
+    description:
+      'Yes. Use the daily and weekly planner to organize your agenda and tasks, and the minimalist habit tracker to build routines.',
+  },
+  {
+    title: 'How can I get support?',
+    description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <Fragment slot="announcement"></Fragment>
+  <AppSchema
+    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    description={app.valueProp}
+    url={app.url}
+    image={chronicleBanner.src}
+    operatingSystems={app.platforms}
+    iosAppStoreId={app.iosAppStoreId}
+    androidAppStoreId={app.androidAppStoreId}
+    faqItems={faqItems.map((f) => ({ q: f.title, a: f.description }))}
+  />
+
   <Fragment slot="header">
     <Header
       position="left"
       links={[
-        { text: 'Services', href: '#' },
-        { text: 'Features', href: '#' },
-        { text: 'About', href: '#' },
+        { text: 'Features', href: '#features' },
+        { text: 'FAQ', href: '#faq' },
+        { text: 'Blog', href: '/blog' },
       ]}
-      actions={[
-        {
-          text: 'Download',
-          href: '#download',
-        },
-      ]}
+      actions={[{ text: 'Download', href: '#download' }]}
       isSticky
       showToggleTheme
     />
   </Fragment>
 
-  <!-- Hero2 Widget ******************* -->
-
+  <!-- ═══════════ Hero：H1 含核心词 + 首段含核心词 + 下载 ═══════════ -->
   <Hero2
-    tagline="chronicle • calendar • journal • diary • note • routine • schedule • agenda • to‑do • habit • goal • mood • finance • net worth • log • life • story • daily • minimal • timeline"
+    tagline={app.name}
     image={{
-      src: '~/assets/images/banner/Chronicle_banner-1024x504.png',
-      alt: 'Chronicle Banner',
+      src: chronicleBanner,
+      alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
       style: 'cursor: pointer;',
       'data-aw-banner-open': '1',
-      'data-aw-open-apple': appStoreDownloadLink,
-      'data-aw-open-google': googlePlayDownloadLink,
+      'data-aw-open-apple': app.appStoreDownloadLink,
+      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
-    <Fragment slot="title"><span class="text-accent dark:text-white">Chronicle</span>: Journal Calendar</Fragment>
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white">Chronicle</span>: Journal Calendar
+    </Fragment>
 
-    <Fragment slot="subtitle"><span class="hidden sm:inline">Planner, To-Do & Habit Tracker</span></Fragment>
+    <Fragment slot="subtitle">Planner, To-Do &amp; Habit Tracker on one timeline</Fragment>
 
     <Fragment slot="content">
-      The first Journal Calendar is here! See your notes, tasks, & memories on your timeline. An all-in-one planner to
-      organize your life. Stop juggling apps, start living.
+      Chronicle is a journal calendar that brings your notes, tasks, habits and memories together in a single,
+      beautiful timeline — your daily planner, private diary, to-do list and habit tracker in one place.
     </Fragment>
 
     <div slot="actions" class="flex max-w-sm gap-4">
-      <Button variant="link" href={appStoreDownloadLink}>
-        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      <Button variant="link" href={app.appStoreDownloadLink}>
+        <Image src="~/assets/images/app-store.png" alt="Download Chronicle on the App Store" width={200} />
       </Button>
 
-      <Button variant="link" href={googlePlayDownloadLink}>
-        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get Chronicle on Google Play" width={200} />
       </Button>
     </div>
   </Hero2>
 
-  <!-- Features3 Widget ************** -->
-
+  <!-- ═══════════ Features：功能名自然含功能词 ═══════════ -->
   <Features3
     id="features"
+    tagline="Features"
     title="Your Entire Life, Beautifully Organized"
-    subtitle="Calendar + Journal + To-Do + Habit on one simple timeline"
-    tagline="Calendar • Planner • To‑Do • Habit Tracker"
+    subtitle="Calendar, journal, planner, to-do and habit tracking — combined on one simple timeline."
     columns={2}
     items={[
       {
-        title: 'The Journal Calendar',
+        title: 'The Journal Calendar Timeline',
         description:
-          'Your new home: a seamless, scrollable timeline that is both your schedule and your story. Notes, tasks and diary entries find their place.',
+          'A seamless, scrollable timeline that is both your schedule and your story. Notes, tasks and diary entries find their place.',
         icon: 'tabler:calendar',
       },
       {
-        title: 'Effortless Capture',
-        description: 'Quickly add a note, to‑do or journal entry from one unified input. No friction, just flow.',
+        title: 'Effortless Quick Capture',
+        description: 'Add a note, to-do or journal entry from one unified input. No friction, just flow.',
         icon: 'tabler:pencil',
       },
       {
@@ -109,24 +170,24 @@ const metadata = {
         icon: 'tabler:calendar-week',
       },
       {
-        title: 'Private Journal',
-        description: 'A secure, local‑first space for thoughts, photos and moods. Your data is yours by default.',
+        title: 'Private Journal & Diary',
+        description: 'A secure, local-first space for thoughts, photos and moods. Your data is yours by default.',
         icon: 'tabler:notebook',
       },
       {
-        title: 'Simple To‑Do & Habit',
-        description: 'Check off goals with a satisfying tap and track minimalist habits without pressure.',
+        title: 'Simple To-Do List',
+        description: 'Check off goals with a satisfying tap. A distraction-free task list that keeps you moving.',
         icon: 'tabler:list-check',
       },
+      {
+        title: 'Minimalist Habit Tracker',
+        description: 'Build good routines without the pressure of complex streak systems.',
+        icon: 'tabler:target',
+      },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
-      alt: 'Chronicle Feature Image',
-    }}
   />
 
-  <!-- Content Widget **************** -->
-
+  <!-- ═══════════ 产品介绍：时间线体验（恢复自原始内容）═══════════ -->
   <Content
     title="Your Life on a Timeline"
     isReversed
@@ -142,7 +203,7 @@ const metadata = {
         icon: 'tabler:pencil',
       },
       {
-        title: 'Local‑First & Private',
+        title: 'Local-First & Private',
         description:
           'Your data stays on device by default. Private journaling for thoughts, photos, moods and memories.',
         icon: 'tabler:lock',
@@ -154,154 +215,22 @@ const metadata = {
     }}
   />
 
-  <!-- Content Widget **************** -->
+  <!-- ═══════════ FAQ：真实问题（也是 FAQPage schema）═══════════ -->
+  <FAQs id="faq" title="Frequently Asked Questions" items={faqItems} />
 
-  <!-- Content Widget **************** -->
-
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    title="Chronicle At A Glance"
-    stats={[
-      { amount: 'Timeline First', icon: 'tabler:calendar' },
-      { amount: 'All‑in‑One', icon: 'tabler:list-check' },
-      { amount: 'Local‑First', icon: 'tabler:lock' },
-    ]}
-  />
-
-  <!-- Testimonials Widget *********** -->
-
-  <Testimonials
-    title="HEAR IT FROM OUR USERS"
-    testimonials={[
-      {
-        testimonial:
-          "I've tried every planner and note app. Chronicle is the first one that actually feels like... me. Seeing my tasks and my memories on the same calendar is a game-changer.",
-        name: 'Sarah K.',
-        job: 'Designer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-          alt: 'Sarah Image',
-        },
-      },
-      {
-        testimonial:
-          "As someone who struggles with staying organized, the simplicity of Chronicle's timeline has brought so much calm to my life. I finally feel in control.",
-        name: 'David M.',
-        job: 'Student',
-        image: {
-          src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-          alt: 'David Image',
-        },
-      },
-    ]}
-    callToAction={{
-      text: 'Download now',
-      href: '#download',
-      icon: 'tabler:chevron-right',
-    }}
-  />
-
-  <!-- FAQs Widget ******************* -->
-
-  <FAQs
-    title="Frequently Asked Questions"
-    items={[
-      {
-        title: 'What is Chronicle?',
-        description:
-          'An elegant Journal Calendar that blends a daily planner, diary, to‑do list and habit tracker into one timeline.',
-      },
-      {
-        title: 'How does the Journal Calendar work?',
-        description:
-          'It unifies schedule and story. Notes, tasks and entries appear in chronological order — your life in one view.',
-      },
-      {
-        title: 'Is my data private?',
-        description:
-          'Yes. Chronicle is local‑first by default. Your data stays on your device unless you opt into cloud features later.',
-      },
-      {
-        title: 'Is there a free version?',
-        description: 'Yes. Free to get started with core features. Chronicle Pro unlocks advanced options.',
-      },
-      {
-        title: 'What is Chronicle Pro and pricing?',
-        description:
-          'Pro offers unlimited entries, future features, widgets and customization. Pricing follows real‑time in‑app display (monthly/annual from $2.99 to $4.99).',
-      },
-      {
-        title: 'Does it support daily & weekly planning?',
-        description: 'Yes. Plan days and weeks, build routines and keep goals visible on your timeline.',
-      },
-      {
-        title: 'How do I quickly capture items?',
-        description: 'Use the unified input to add a note, task or diary entry instantly.',
-      },
-      {
-        title: 'Where can I read the Privacy Policy and Terms of Use?',
-        description: 'See the links in the Pro section above: Privacy Policy and Terms of Use.',
-      },
-      {
-        title: 'Does it integrate with Google Calendar, Docs or classroom portals?',
-        description:
-          'Chronicle is local‑first and focuses on a personal timeline. Use it side‑by‑side with Google Calendar/Docs, Classroom or Canvas. No direct portal login is required.',
-      },
-      {
-        title: 'Is Chronicle a banking or cash app?',
-        description:
-          'No. Chronicle helps you log finance and net worth privately. For payments, transfers or balances, use your bank, Cash App or financial services.',
-      },
-      {
-        title: 'Is Chronicle good for students and classroom use?',
-        description:
-          'Yes. Plan classes, assignments and exams alongside notes and diary entries. Works well next to Google Classroom or Canvas — keep your daily view simple.',
-      },
-      {
-        title: 'Can I use it with work tools like Outlook or Asana?',
-        description:
-          'Yes. Keep agenda, notes and goals on your personal timeline while using tools like Google Calendar, Outlook, Teams, Asana or ClickUp side‑by‑side.',
-      },
-      {
-        title: 'Is Chronicle suitable for ADHD and routine building?',
-        description:
-          'Minimal design reduces friction. Build routines with a calm daily schedule and keep one clear view of tasks and notes.',
-      },
-      {
-        title: 'Do Pro subscribers get priority support?',
-        description: 'Yes. Subscribers enjoy priority access to customer support in addition to advanced features.',
-      },
-      {
-        title: 'How is payment handled and how do I manage renewal?',
-        description:
-          'Purchases are charged to your iTunes Account. Manage subscriptions via your Apple ID settings; renewal follows App Store rules and can be canceled at any time.',
-      },
-      {
-        title: 'Is subscription available now?',
-        description: 'Subscriptions may be introduced later. Follow in‑app notices for availability and pricing.',
-      },
-      {
-        title: 'How do I contact support?',
-        description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
-      },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
+  <!-- ═══════════ CTA：最终下载 ═══════════ -->
   <CallToAction
     id="download"
     title="Download Chronicle today and start building the story of your life."
-    subtitle="Free to get started — Planner, To‑Do & Habit Tracker on one timeline."
+    subtitle="Free to get started — your journal calendar, planner and habit tracker on one timeline."
   >
     <div slot="actions" class="flex max-w-sm gap-4">
-      <Button variant="link" href={appStoreDownloadLink}>
-        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      <Button variant="link" href={app.appStoreDownloadLink}>
+        <Image src="~/assets/images/app-store.png" alt="Download Chronicle on the App Store" width={200} />
       </Button>
 
-      <Button variant="link" href={googlePlayDownloadLink}>
-        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get Chronicle on Google Play" width={200} />
       </Button>
     </div>
   </CallToAction>

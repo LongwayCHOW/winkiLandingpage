@@ -85,6 +85,12 @@ export default defineConfig({
 
   image: {
     domains: ['cdn.pixabay.com'],
+    // 修复：Astro 5.x dev 模式下 trailingSlash:'always' 时，/_image 端点只匹配带尾斜杠的 URL，
+    // 而 Image 组件生成的 src 不带尾斜杠导致 404。将 endpoint route 改为 /_image/ 使两者一致。
+    endpoint: {
+      route: '/_image/',
+      entrypoint: undefined,
+    },
   },
 
   markdown: {

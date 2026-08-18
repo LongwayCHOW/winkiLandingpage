@@ -1,0 +1,205 @@
+---
+/**
+ * DeliSeek 落地页 — 基于 mobile-app.astro 模板（极简 SEO 最佳实践）
+ * 核心词：china travel app（塔尖）；chinese food guide / food translator / local eats（功能词）
+ * 注意：DeliSeek 当前仅 Android（Google Play），无 iOS 版本
+ */
+import Layout from '~/layouts/PageLayout.astro';
+
+import Header from '~/components/widgets/Header.astro';
+import Hero2 from '~/components/widgets/Hero2.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import AppSchema from '~/components/common/AppSchema.astro';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+/* ─────────────────────────── APP CONFIG ─────────────────────────── */
+const app = {
+  name: 'DeliSeek',
+  keywords: 'china travel app, chinese food guide, food translator',
+  valueProp: 'Find local secret eats, translate menus and navigate China like a local.',
+  platforms: ['Android'],
+  appStoreDownloadLink: '',
+  googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.deliseek',
+  url: getPermalink(Astro.url.pathname),
+  banner: {
+    src: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1024&q=80',
+    alt: 'DeliSeek — find local Chinese food and hidden gems when you travel to China',
+  },
+  iosAppStoreId: '',
+  androidAppStoreId: 'wiki.winki.deliseek',
+};
+
+/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+const metadata = {
+  title: 'DeliSeek: China Travel App for Local Food',
+  description:
+    'Find local secret eats, translate menus and navigate like a local. The essential China travel app for foodies. Download free on Google Play.',
+  canonical: app.url,
+  openGraph: {
+    type: 'website',
+    url: app.url,
+    images: [{ url: app.banner.src }],
+  },
+};
+
+/* FAQ：真实用户会问的问题（也是 FAQPage schema 素材） */
+const faqItems = [
+  {
+    title: 'What is DeliSeek?',
+    description:
+      'A China travel companion that helps you discover local secret eats, translate menus and navigate food spots — built for the #ChinaTravel trend.',
+  },
+  {
+    title: 'How does DeliSeek help with Chinese menus?',
+    description:
+      'Visual menu translation helps you understand what you are ordering — from spicy Sichuan hot pot to Cantonese dim sum — so you eat like a local.',
+  },
+  {
+    title: 'Can it help me find authentic local food?',
+    description:
+      'Yes. DeliSeek points you to hole-in-the-wall spots, night markets and street food stalls where locals actually line up, instead of tourist traps.',
+  },
+  {
+    title: 'Which cities does it cover?',
+    description:
+      'Key food cities including Beijing, Shanghai, Chengdu, Chongqing, Guangzhou and Xi’an, with a local food map for each.',
+  },
+  {
+    title: 'Does DeliSeek work offline?',
+    description:
+      'It is designed for travelers navigating within China, with localized maps and bilingual taxi cards you can show to drivers.',
+  },
+  {
+    title: 'Is it available on iPhone?',
+    description:
+      'DeliSeek is currently available on Android via Google Play. iOS support is planned.',
+  },
+  {
+    title: 'How can I get support?',
+    description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <AppSchema
+    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    description={app.valueProp}
+    url={app.url}
+    image={app.banner.src}
+    operatingSystems={app.platforms}
+    androidAppStoreId={app.androidAppStoreId}
+    faqItems={faqItems.map((f) => ({ q: f.title, a: f.description }))}
+  />
+
+  <Fragment slot="header">
+    <Header
+      position="left"
+      links={[
+        { text: 'Features', href: '#features' },
+        { text: 'FAQ', href: '#faq' },
+        { text: 'Blog', href: '/blog' },
+      ]}
+      actions={[{ text: 'Download', href: '#download' }]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
+
+  <!-- ═══════════ Hero：H1 含核心词 + 首段含核心词 + 下载 ═══════════ -->
+  <Hero2
+    tagline={app.name}
+    image={{
+      src: app.banner.src,
+      alt: app.banner.alt,
+      layout: 'aspectRatio',
+      aspectRatio: '1024:502',
+    }}
+  >
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white">DeliSeek</span>: China Travel App for Local Food
+    </Fragment>
+
+    <Fragment slot="subtitle">Find local secret eats, translate menus, navigate like a local</Fragment>
+
+    <Fragment slot="content">
+      Visiting China for the first time? DeliSeek is the China travel app that helps you skip the tourist traps and find
+      the local secret eats that make Chinese cuisine world-famous — translate menus, navigate food spots and eat like a
+      local.
+    </Fragment>
+
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get DeliSeek on Google Play" width={200} />
+      </Button>
+    </div>
+  </Hero2>
+
+  <!-- ═══════════ Features：功能名自然含功能词 ═══════════ -->
+  <Features3
+    id="features"
+    tagline="Features"
+    title="Your China Travel Food Companion"
+    subtitle="Skip the guidebook traps — eat where the locals eat."
+    columns={2}
+    items={[
+      {
+        title: 'Local Secret Eats',
+        description:
+          'Discover hole-in-the-wall spots, night markets and authentic street food stalls where locals actually line up.',
+        icon: 'tabler:map-pin',
+      },
+      {
+        title: 'Visual Menu Translator',
+        description:
+          'Staring at a menu with no pictures? Understand what you are ordering and order authentic dishes like a pro.',
+        icon: 'tabler:language',
+      },
+      {
+        title: 'Navigate with Confidence',
+        description:
+          'Localized maps help you find that hidden dumpling shop without getting lost in a new city.',
+        icon: 'tabler:map',
+      },
+      {
+        title: 'Bilingual Taxi Cards',
+        description:
+          'One tap to show the driver exactly where you want to go in Chinese — a lifesaver for any traveler.',
+        icon: 'tabler:car',
+      },
+      {
+        title: 'China’s Flavor Map',
+        description:
+          'From Peking Duck in Beijing to dim sum in Guangzhou, a food map of must-try regional dishes.',
+        icon: 'tabler:world',
+      },
+      {
+        title: 'Built for the #ChinaTravel Trend',
+        description:
+          'The essential food guide companion for visa-free trips and first-time visitors to China.',
+        icon: 'tabler:plane',
+      },
+    ]}
+  />
+
+  <!-- ═══════════ FAQ：真实问题（也是 FAQPage schema）═══════════ -->
+  <FAQs id="faq" title="Frequently Asked Questions" items={faqItems} />
+
+  <!-- ═══════════ CTA：最终下载 ═══════════ -->
+  <CallToAction
+    id="download"
+    title="Download DeliSeek and unlock the true flavor of your China trip."
+    subtitle="Free on Google Play — find local secret eats and eat like a local."
+  >
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get DeliSeek on Google Play" width={200} />
+      </Button>
+    </div>
+  </CallToAction>
+</Layout>

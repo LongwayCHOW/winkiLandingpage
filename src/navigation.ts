@@ -29,6 +29,14 @@ export const headerData = {
           text: 'Flip Timer',
           href: getPermalink('/homes/flip-timer'),
         },
+        {
+          text: 'DeliSeek',
+          href: getPermalink('/homes/deliseek'),
+        },
+        {
+          text: 'VocalTrans',
+          href: getPermalink('/homes/vocaltrans'),
+        },
       ],
     },
     {
@@ -88,6 +96,8 @@ export const footerData = {
         { text: 'Focus One', href: getPermalink('/homes/focus-one') },
         { text: 'MeowTalkie', href: getPermalink('/homes/meowtalkie') },
         { text: 'Photo Swipe Cleaner', href: getPermalink('/homes/photo-swipe-cleaner') },
+        { text: 'DeliSeek', href: getPermalink('/homes/deliseek') },
+        { text: 'VocalTrans', href: getPermalink('/homes/vocaltrans') },
       ],
     },
     {

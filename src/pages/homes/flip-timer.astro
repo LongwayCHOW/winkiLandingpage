@@ -1,125 +1,199 @@
 ---
+/**
+ * Flip Timer 落地页 — 基于 mobile-app.astro 模板（极简 SEO 最佳实践）
+ * 核心词：flip timer（塔尖）；hands-free countdown / interval timer / workout timer（功能词）
+ */
 import Layout from '~/layouts/PageLayout.astro';
 
 import Header from '~/components/widgets/Header.astro';
-
 import Hero2 from '~/components/widgets/Hero2.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Content from '~/components/widgets/Content.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
+import { getPermalink } from '~/utils/permalinks';
 
-const appStoreImg = '~/assets/images/app-store.png';
-const appStoreDownloadLink = 'https://apps.apple.com/us/app/flip-timer-gym-study-work/id6752959227';
+// 本地 banner：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
+import flipTimerBanner from '~/assets/images/banner/flip_timer_banner-1024x501.png';
 
-const googlePlayImg = '~/assets/images/google-play.png';
-const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.flip_timer';
-
-const metadata = {
-  title: 'Flip Timer：Gym,Study & Work',
-  description:
-    'Set any timer in a second! Just flip your phone for the perfect 1, 5, 10, 15, or 30 minute countdown. The fastest hands-free clock for gym, study, work & kitchen.',
+/* ─────────────────────────── APP CONFIG ─────────────────────────── */
+const app = {
+  name: 'Flip Timer',
+  keywords: 'flip timer, hands-free countdown, interval timer, workout timer',
+  valueProp: 'A hands-free countdown timer you control by flipping your phone — for gym, study, work and kitchen.',
+  platforms: ['iOS', 'Android'],
+  appStoreDownloadLink: 'https://apps.apple.com/us/app/flip-timer-gym-study-work/id6752959227',
+  googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.flip_timer',
+  url: getPermalink(Astro.url.pathname),
+  banner: {
+    src: flipTimerBanner.src,
+    alt: 'Flip Timer — hands-free countdown clock for gym, study and work',
+  },
+  iosAppStoreId: 'id6752959227',
+  androidAppStoreId: 'wiki.winki.flip_timer',
 };
+
+/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+const metadata = {
+  title: 'Flip Timer: Hands-Free Countdown for Gym, Study & Work',
+  description:
+    'Set any timer in a second — flip your phone for a 1, 5, 10, 15 or 30 minute countdown. The fastest hands-free timer for gym, study, work and kitchen. Download free.',
+  canonical: app.url,
+  openGraph: {
+    type: 'website',
+    url: app.url,
+    images: [{ url: flipTimerBanner as unknown as string }],
+  },
+};
+
+/* FAQ：真实用户会问的问题（也是 FAQPage schema 素材） */
+const faqItems = [
+  {
+    title: 'How do flip gestures work?',
+    description:
+      'Flip the phone to start a preset timer. Lay it flat to pause; shake to reset. Designed for hands-free control during workouts, study or kitchen prep.',
+  },
+  {
+    title: 'Is it really hands-free?',
+    description:
+      'Yes. Motion sensors let you operate the countdown clock without touching the screen — perfect for sweaty hands or flour-covered fingers.',
+  },
+  {
+    title: 'Does it support HIIT, Tabata and WOD?',
+    description:
+      'Yes. It is built as an interval timer and WOD clock companion. Switch sets and rests fast and keep focus on movement.',
+  },
+  {
+    title: 'Can I use it for Pomodoro study and work?',
+    description: 'Absolutely. Preset durations make it a simple pomodoro timer for focused work and study routines.',
+  },
+  {
+    title: 'Does it show seconds and support a stopwatch?',
+    description:
+      'Yes. You get a large clock with seconds and a simple stopwatch alongside countdown — easy to see from a distance.',
+  },
+  {
+    title: 'How can I get support?',
+    description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <Fragment slot="announcement"></Fragment>
+  <AppSchema
+    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    description={app.valueProp}
+    url={app.url}
+    image={flipTimerBanner.src}
+    operatingSystems={app.platforms}
+    iosAppStoreId={app.iosAppStoreId}
+    androidAppStoreId={app.androidAppStoreId}
+    faqItems={faqItems.map((f) => ({ q: f.title, a: f.description }))}
+  />
+
   <Fragment slot="header">
     <Header
       position="left"
       links={[
-        { text: 'Services', href: '#' },
-        { text: 'Features', href: '#' },
-        { text: 'About', href: '#' },
+        { text: 'Features', href: '#features' },
+        { text: 'FAQ', href: '#faq' },
+        { text: 'Blog', href: '/blog' },
       ]}
-      actions={[
-        {
-          text: 'Download',
-          href: '#download',
-        },
-      ]}
+      actions={[{ text: 'Download', href: '#download' }]}
       isSticky
       showToggleTheme
     />
   </Fragment>
 
-  <!-- Hero2 Widget ******************* -->
-
+  <!-- ═══════════ Hero：H1 含核心词 + 首段含核心词 + 下载 ═══════════ -->
   <Hero2
-    tagline="hiit • wod • tabata • crossfit • pomodoro • kitchen • cook • egg • workout • exercise • motion • timer • countdown"
+    tagline={app.name}
     image={{
-      src: '~/assets/images/banner/flip_timer_banner-1024x501.png',
-      alt: 'Flip Timer Banner',
+      src: flipTimerBanner,
+      alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
       style: 'cursor: pointer;',
       'data-aw-banner-open': '1',
-      'data-aw-open-apple': appStoreDownloadLink,
-      'data-aw-open-google': googlePlayDownloadLink,
+      'data-aw-open-apple': app.appStoreDownloadLink,
+      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
-    <Fragment slot="title"><span class="text-accent dark:text-white">Flip Timer</span>：Gym,Study & Work</Fragment>
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white">Flip Timer</span>: Hands-Free Countdown
+    </Fragment>
 
-    <Fragment slot="subtitle"><span class="hidden sm:inline">Hands-Free Multi-Timer Clock</span></Fragment>
+    <Fragment slot="subtitle">Gym, Study &amp; Work — flip to start, no screen touching</Fragment>
 
     <Fragment slot="content">
-      Stop fumbling with your screen during intense workouts or messy kitchen prep. Flip Timer is a motion‑controlled
-      countdown clock you operate without touching the screen. Need a 10 minute timer for a break, a 30 minute timer for
-      deep work, or a 1 minute timer for a plank? Just flip your phone.
+      Flip Timer is a hands-free countdown clock you operate without touching the screen. Flip your phone for a 10
+      minute timer, a 30 minute timer for deep work, or a 1 minute timer for a plank — perfect for workouts, study and
+      kitchen prep.
     </Fragment>
 
     <div slot="actions" class="flex max-w-sm gap-4">
-      <Button variant="link" href={appStoreDownloadLink}>
-        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      <Button variant="link" href={app.appStoreDownloadLink}>
+        <Image src="~/assets/images/app-store.png" alt="Download Flip Timer on the App Store" width={200} />
       </Button>
 
-      <Button variant="link" href={googlePlayDownloadLink}>
-        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get Flip Timer on Google Play" width={200} />
       </Button>
     </div>
   </Hero2>
 
-  <!-- Features3 Widget ************** -->
-
+  <!-- ═══════════ Features：功能名自然含功能词 ═══════════ -->
   <Features3
     id="features"
+    tagline="Features"
     title="A Timer That Moves With You"
     subtitle="Gesture control for real life — flip to start, lay flat to pause, shake to reset."
-    tagline="Hands‑Free • Motion • Countdown"
     columns={2}
     items={[
       {
         title: 'Gesture Control',
         description:
-          'Flip your phone to one of its four sides to start a preset countdown. Perfect for a 5 minute timer for meditation or a 45 minute timer for a full workout.',
+          'Flip your phone to one of its four sides to start a preset countdown — a 5 minute timer for meditation or a 45 minute timer for a full workout.',
         icon: 'tabler:arrows-move',
       },
       {
         title: 'Intuitive & Fast',
         description:
-          'Lay your phone flat to pause; shake to reset. The fastest way to manage time during gym sessions, study blocks, or kitchen prep.',
+          'Lay your phone flat to pause; shake to reset. The fastest way to manage time during gym sessions, study blocks or kitchen prep.',
         icon: 'tabler:player-pause',
+      },
+      {
+        title: 'Interval Timer for HIIT & Tabata',
+        description:
+          'Switch between high-intensity and rest without touching your screen. A reliable interval timer and WOD clock for any exercise routine.',
+        icon: 'tabler:flame',
+      },
+      {
+        title: 'Pomodoro for Study & Work',
+        description:
+          'Use preset timers for focused work or study sessions. A dependable pomodoro application for students and professionals.',
+        icon: 'tabler:alarm',
+      },
+      {
+        title: 'Kitchen Companion',
+        description:
+          'The ideal kitchen timer when your hands are covered in flour — a simple egg timer for boiling eggs or managing multiple pots.',
+        icon: 'tabler:chef-hat',
       },
       {
         title: 'Large, Clear Display',
         description:
-          'A big, easy‑to‑read digital display with a visual progress bar — glance from across the room and stay in flow.',
+          'A big, easy-to-read display with a visual progress bar and seconds — glance from across the room and stay in flow.',
         icon: 'tabler:gauge',
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
-      alt: 'Flip Timer Motion Feature Image',
-    }}
   />
 
-  <!-- Content Widget **************** -->
-
+  <!-- ═══════════ 产品介绍：功能/场景（恢复自原始内容，已剔除蹭品牌词）═══════════ -->
   <Content
     title="The Perfect Workout & HIIT Timer"
     isReversed
@@ -127,12 +201,12 @@ const metadata = {
       {
         title: 'HIIT & Tabata',
         description:
-          'Switch between high‑intensity and rest without touching your screen. Our interval timer keeps up with your pace.',
+          'Switch between high-intensity and rest without touching your screen. Our interval timer keeps up with your pace.',
         icon: 'tabler:flame',
       },
       {
         title: 'CrossFit & WOD Clock',
-        description: 'Time your Workout of the Day reliably. Focus on form, not your phone — hands‑free WOD timing.',
+        description: 'Time your Workout of the Day reliably. Focus on form, not your phone — hands-free WOD timing.',
         icon: 'tabler:list-check',
       },
       {
@@ -143,12 +217,10 @@ const metadata = {
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80',
+      src: 'https://images.unsplash.com/photo-1576153192621-7a3be10b356e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1674&q=80',
       alt: 'Flip Timer Workout Image',
     }}
   />
-
-  <!-- Content Widget **************** -->
 
   <Content
     title="More Than Just a Fitness Timer"
@@ -168,7 +240,7 @@ const metadata = {
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
       alt: 'Flip Timer Kitchen & Productivity Image',
     }}
   />
@@ -179,7 +251,7 @@ const metadata = {
       {
         title: '1, 5, 10, 15, 30 Minutes',
         description:
-          'Start the perfect 1 minute timer, 5 minute timer, 10 minute timer, 15 minute timer or 30 minute timer with a flip — the fastest hands‑free countdown.',
+          'Start the perfect 1 minute timer, 5 minute timer, 10 minute timer, 15 minute timer or 30 minute timer with a flip — the fastest hands-free countdown.',
         icon: 'tabler:clock',
       },
       {
@@ -191,7 +263,7 @@ const metadata = {
       {
         title: '30 Second & 2 Minute',
         description:
-          'Micro‑rests and short sets made easy. A versatile stopwatch and countdown app for gym, study and work routines.',
+          'Micro-rests and short sets made easy. A versatile stopwatch and countdown app for gym, study and work routines.',
         icon: 'tabler:hourglass',
       },
     ]}
@@ -202,77 +274,25 @@ const metadata = {
   />
 
   <Content
-    title="Gym & Routines"
-    items={[
-      {
-        title: 'Crunch Fitness & Planet Fitness hours',
-        description:
-          'Whether you train at Crunch Fitness or within Planet Fitness hours, flip to start your set on time — no more tapping through menus mid‑workout.',
-        icon: 'tabler:activity',
-      },
-      {
-        title: 'Boxing rounds & intervals',
-        description:
-          'Set classic boxing rounds — 3 minute timer with 30 second rest, or push a 2 minute sprint. Flip to switch; stay focused on the bag.',
-        icon: 'tabler:run',
-      },
-      {
-        title: 'Calisthenics, yoga & stretch',
-        description:
-          'Step ups, hip dips, hip flexor stretch, lower back stretches, yoga exercises — flip for clean intervals and keep your flow.',
-        icon: 'tabler:stretching',
-      },
-      {
-        title: 'Abs, chest, shoulder & lat pulldown',
-        description:
-          'Ab workouts, pec workouts/pectoral exercises, shoulder workouts, lat pulldown — manage time per set without touching the screen.',
-        icon: 'tabler:list-check',
-      },
-      {
-        title: 'Kids & classroom timer',
-        description:
-          'A friendly classroom timer for kids: 1 minute tasks, ten minute timer for activities, three minute timer for mini games — simple and visible.',
-        icon: 'tabler:users',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1518314914663-2f6726f56081?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Gym & Routines Image',
-    }}
-  />
-
-  <Content
     title="Clock & Countdown Modes"
     items={[
       {
-        title: 'Flip clock & clock with seconds',
+        title: 'Stopwatch',
         description:
-          'A clean digital time clock feel, with time with seconds and a large, live display you can see across the room — like flip clock and clocktab styles.',
-        icon: 'tabler:clock',
-      },
-      {
-        title: 'Stopwatch & stop',
-        description:
-          'Works as a simple stopwatch watch alongside countdown. Stop stopwatch instantly by laying the phone flat — fast and intuitive.',
+          'Works as a simple stopwatch alongside countdown. Stop stopwatch instantly by laying the phone flat — fast and intuitive.',
         icon: 'tabler:hourglass',
       },
       {
-        title: 'Countdown clock & timers',
+        title: 'Countdown Clock',
         description:
-          'A reliable countdown timer app/application. Use count down timers for circuits, classroom, or any time‑boxed routine.',
+          'A reliable countdown timer for circuits, classroom, or any time-boxed routine.',
         icon: 'tabler:alarm',
       },
       {
-        title: 'Alarm‑style sessions',
+        title: 'Alarm-Style Sessions',
         description:
           'Need an alarm set for 30 minutes? Just flip to the 30 minute preset — clear sound cues, clear finish.',
         icon: 'tabler:bell',
-      },
-      {
-        title: 'Online timer alternatives',
-        description:
-          'Skip timer online timer or internet alarm clock clutter — a dependable offline countdown you control by motion.',
-        icon: 'tabler:wifi-off',
       },
     ]}
     image={{
@@ -282,12 +302,12 @@ const metadata = {
   />
 
   <Content
-    title="Our Commitment to Simple, Powerful Timing"
+    title="Our Commitment"
     items={[
       {
-        title: 'Free & Ad‑Free',
+        title: 'Free & Ad-Free',
         description:
-          'The full hands‑free flipping experience is available to everyone at no charge and contains no ads.',
+          'The full hands-free flipping experience is available to everyone at no charge and contains no ads.',
         icon: 'tabler:ad-off',
       },
       {
@@ -307,15 +327,15 @@ const metadata = {
     isAfterContent
     items={[
       {
-        title: 'In‑App Purchases & Future Subscriptions',
+        title: 'In-App Purchases & Future Subscriptions',
         description:
-          'Support development via one‑time feature packs. We may introduce a simple, fair subscription to unlock premium features in the future.',
+          'Support development via one-time feature packs. We may introduce a simple, fair subscription to unlock premium features in the future.',
         icon: 'tabler:shopping-cart',
       },
       {
         title: 'Pricing',
         description:
-          'Feature packs range from $2.99 to $5.99. Final prices follow real‑time App Store pricing in your region.',
+          'Feature packs range from $2.99 to $5.99. Final prices follow real-time App Store pricing in your region.',
         icon: 'tabler:currency-dollar',
       },
       {
@@ -331,7 +351,7 @@ const metadata = {
       },
       {
         title: 'Renewal Rules',
-        description: "Subscriptions auto‑renew unless canceled. We strictly follow Apple's App Store policies.",
+        description: "Subscriptions auto-renew unless canceled. We strictly follow Apple's App Store policies.",
         icon: 'tabler:refresh',
       },
       {
@@ -353,116 +373,27 @@ const metadata = {
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      src: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
       alt: 'Flip Timer Policy Image',
     }}
   />
 
-  <!-- Stats Widget ****************** -->
+  <!-- ═══════════ FAQ：真实问题（也是 FAQPage schema）═══════════ -->
+  <FAQs id="faq" title="Frequently Asked Questions" items={faqItems} />
 
-  <Stats
-    title="Flip Timer At A Glance"
-    stats={[
-      { amount: '100% Hands‑Free', icon: 'tabler:hand-off' },
-      { amount: 'Motion‑Controlled', icon: 'tabler:arrows-move' },
-      { amount: 'Ad‑Free', icon: 'tabler:ad-off' },
-    ]}
-  />
-
-  <!-- Testimonials Widget *********** -->
-
-  <Testimonials
-    title="HEAR IT FROM OUR USERS"
-    testimonials={[
-      {
-        testimonial:
-          'I can switch sets in HIIT without touching my phone. Flip to start, flat to pause — it finally matches how I move.',
-        name: 'Sam',
-        job: 'Trainer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-          alt: 'Sam Image',
-        },
-      },
-      {
-        testimonial:
-          'As a home baker, a touchless kitchen timer is a life saver. Floury hands, clear clock — and the egg timer is spot on.',
-        name: 'Luna',
-        job: 'Baker',
-        image: {
-          src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-          alt: 'Luna Image',
-        },
-      },
-    ]}
-    callToAction={{
-      text: 'Download now',
-      href: '#download',
-      icon: 'tabler:chevron-right',
-    }}
-  />
-
-  <!-- FAQs Widget ******************* -->
-
-  <FAQs
-    title="Frequently Asked Questions"
-    items={[
-      {
-        title: 'How do flip gestures work?',
-        description:
-          'Flip the phone to start a preset timer. Lay it flat to pause; shake to reset. Designed for hands‑free control during workouts, study or kitchen prep.',
-      },
-      {
-        title: 'Is it really hands‑free?',
-        description:
-          'Yes. Motion sensors let you operate the countdown clock without touching the screen — perfect for sweaty hands or flour‑covered fingers.',
-      },
-      {
-        title: 'Does it support HIIT, Tabata and WOD?',
-        description:
-          'Yes. It’s built as an interval timer and WOD clock companion. Switch sets and rests fast, keep focus on movement.',
-      },
-      {
-        title: 'Can I use it for Pomodoro study/work?',
-        description:
-          'Absolutely. Preset durations make it a simple pomodoro timer for focused work and study routines.',
-      },
-      {
-        title: 'Where can I read the policy and subscription rules?',
-        description: 'See our Privacy Policy and the User & Member Subscription Agreement in the policy section above.',
-      },
-      {
-        title: 'Does it show seconds and support a stopwatch?',
-        description:
-          'Yes. You get a large clock with seconds and a simple stopwatch alongside countdown — easy to see from a distance.',
-      },
-      {
-        title: 'Can I use it for events and seasonal countdowns?',
-        description:
-          'Many use Flip Timer like an xmas/christmas day countdown clock or a countdown clock for Halloween at parties — flip to start and keep it visible.',
-      },
-      {
-        title: 'Does it fit interval running or circuit routines?',
-        description:
-          'Built for intervals — works great for interval running exercises/routines/workouts and circuit/cycle sets.',
-      },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
+  <!-- ═══════════ CTA：最终下载 ═══════════ -->
   <CallToAction
     id="download"
     title="Download Flip Timer and change the way you time, forever."
-    subtitle="Hands‑free multi‑timer for gym, study & work. Flip to start."
+    subtitle="Hands-free multi-timer for gym, study and work. Flip to start."
   >
     <div slot="actions" class="flex max-w-sm gap-4">
-      <Button variant="link" href={appStoreDownloadLink}>
-        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      <Button variant="link" href={app.appStoreDownloadLink}>
+        <Image src="~/assets/images/app-store.png" alt="Download Flip Timer on the App Store" width={200} />
       </Button>
 
-      <Button variant="link" href={googlePlayDownloadLink}>
-        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get Flip Timer on Google Play" width={200} />
       </Button>
     </div>
   </CallToAction>

@@ -1,0 +1,205 @@
+---
+/**
+ * VocalTrans 落地页 — 基于 mobile-app.astro 模板（极简 SEO 最佳实践）
+ * 核心词：offline translator（塔尖）；cantonese translator / voice translator / travel translator（功能词）
+ * 注意：VocalTrans 当前仅 Android（Google Play），无 iOS 版本
+ */
+import Layout from '~/layouts/PageLayout.astro';
+
+import Header from '~/components/widgets/Header.astro';
+import Hero2 from '~/components/widgets/Hero2.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import AppSchema from '~/components/common/AppSchema.astro';
+
+import Button from '~/components/ui/Button.astro';
+import Image from '~/components/common/Image.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+/* ─────────────────────────── APP CONFIG ─────────────────────────── */
+const app = {
+  name: 'VocalTrans',
+  keywords: 'offline translator, voice translator, cantonese translator',
+  valueProp: 'A safe offline voice translator with reverse preview — for English, Chinese, Cantonese, Japanese and Korean.',
+  platforms: ['Android'],
+  appStoreDownloadLink: '',
+  googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.vocaltrans',
+  url: getPermalink(Astro.url.pathname),
+  banner: {
+    src: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1024&q=80',
+    alt: 'VocalTrans — offline voice translator for travel to China, Japan and Korea',
+  },
+  iosAppStoreId: '',
+  androidAppStoreId: 'wiki.winki.vocaltrans',
+};
+
+/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+const metadata = {
+  title: 'VocalTrans: Offline Translator for Travel',
+  description:
+    'A safe offline voice translator with reverse preview. Speak English, Chinese, Cantonese, Japanese & Korean without internet. Download free on Google Play.',
+  canonical: app.url,
+  openGraph: {
+    type: 'website',
+    url: app.url,
+    images: [{ url: app.banner.src }],
+  },
+};
+
+/* FAQ：真实用户会问的问题（也是 FAQPage schema 素材） */
+const faqItems = [
+  {
+    title: 'What is VocalTrans?',
+    description:
+      'An offline voice translator built for travelers. Speak naturally, review the translation and a reverse-translation, then play audio only when you are sure.',
+  },
+  {
+    title: 'Does it really work offline?',
+    description:
+      'Yes. The core translation engine runs fully on your phone — no 5G, no WiFi and no roaming data needed.',
+  },
+  {
+    title: 'Which languages does it support?',
+    description:
+      'English, Chinese (Simplified & Traditional), Cantonese, Japanese and Korean — including high-accuracy Cantonese for Hong Kong, Macau and Guangdong travel.',
+  },
+  {
+    title: 'What is the “Safety Preview”?',
+    description:
+      'Before speaking, you review the translation and a reverse-translation back to your language, so you can verify the meaning is correct and avoid embarrassing mistakes.',
+  },
+  {
+    title: 'Is it good for Cantonese?',
+    description:
+      'Yes. VocalTrans offers top-tier offline Cantonese translation, making it essential for trips to Hong Kong, Macau and Guangzhou.',
+  },
+  {
+    title: 'Is it available on iPhone?',
+    description:
+      'VocalTrans is currently available on Android via Google Play. iOS support is planned.',
+  },
+  {
+    title: 'How can I get support?',
+    description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <AppSchema
+    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    description={app.valueProp}
+    url={app.url}
+    image={app.banner.src}
+    operatingSystems={app.platforms}
+    androidAppStoreId={app.androidAppStoreId}
+    faqItems={faqItems.map((f) => ({ q: f.title, a: f.description }))}
+  />
+
+  <Fragment slot="header">
+    <Header
+      position="left"
+      links={[
+        { text: 'Features', href: '#features' },
+        { text: 'FAQ', href: '#faq' },
+        { text: 'Blog', href: '/blog' },
+      ]}
+      actions={[{ text: 'Download', href: '#download' }]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
+
+  <!-- ═══════════ Hero：H1 含核心词 + 首段含核心词 + 下载 ═══════════ -->
+  <Hero2
+    tagline={app.name}
+    image={{
+      src: app.banner.src,
+      alt: app.banner.alt,
+      layout: 'aspectRatio',
+      aspectRatio: '1024:502',
+    }}
+  >
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white">VocalTrans</span>: Offline Translator
+    </Fragment>
+
+    <Fragment slot="subtitle">Speak English, Chinese, Cantonese, Japanese &amp; Korean — offline</Fragment>
+
+    <Fragment slot="content">
+      Stop fearing translation mistakes. VocalTrans is the safe offline voice translator for travelers — speak
+      naturally, review the reverse-translation, then play audio only when you are sure. No internet, no roaming, no
+      awkward misunderstandings.
+    </Fragment>
+
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get VocalTrans on Google Play" width={200} />
+      </Button>
+    </div>
+  </Hero2>
+
+  <!-- ═══════════ Features：功能名自然含功能词 ═══════════ -->
+  <Features3
+    id="features"
+    tagline="Features"
+    title="Translate with Confidence, Offline"
+    subtitle="Verify before you speak — the only offline translator with a Safety Preview."
+    columns={2}
+    items={[
+      {
+        title: 'The Anti-Embarrassment Preview',
+        description:
+          'Step 1: speak. Step 2: review the translation and a reverse-translation. Step 3: play the audio only when you are 100% sure.',
+        icon: 'tabler:shield-check',
+      },
+      {
+        title: 'True Offline Freedom',
+        description:
+          'No 5G, no WiFi, no expensive roaming data. Your core translation engine works perfectly offline — on a plane, in a subway or a remote village.',
+        icon: 'tabler:wifi-off',
+      },
+      {
+        title: 'Specialized for Asian Languages',
+        description:
+          'High-accuracy Cantonese for Hong Kong, Macau and Guangdong — a rare feature in offline translators — plus Mandarin, Japanese and Korean.',
+        icon: 'tabler:language',
+      },
+      {
+        title: 'Natural Conversation Mode',
+        description:
+          'Press and hold to speak. Convert your voice to text, translate it, and hear it in a natural, native accent — like a personal interpreter in your pocket.',
+        icon: 'tabler:player-record',
+      },
+      {
+        title: 'Big Text Mode',
+        description:
+          'Show the translated text in large font to taxi drivers or waiters in noisy environments.',
+        icon: 'tabler:typography',
+      },
+      {
+        title: 'Travel-Focused Accuracy',
+        description:
+          'Fine-tuned AI models optimized for travel terms — order food, ask directions and chat with locals with total confidence.',
+        icon: 'tabler:plane',
+      },
+    ]}
+  />
+
+  <!-- ═══════════ FAQ：真实问题（也是 FAQPage schema）═══════════ -->
+  <FAQs id="faq" title="Frequently Asked Questions" items={faqItems} />
+
+  <!-- ═══════════ CTA：最终下载 ═══════════ -->
+  <CallToAction
+    id="download"
+    title="Download VocalTrans and stop fearing mistranslations."
+    subtitle="The only offline translator that puts safety and accuracy first. Free on Google Play."
+  >
+    <div slot="actions" class="flex max-w-sm gap-4">
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get VocalTrans on Google Play" width={200} />
+      </Button>
+    </div>
+  </CallToAction>
+</Layout>

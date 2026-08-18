@@ -1,129 +1,202 @@
 ---
+/**
+ * Photo Swipe Cleaner 落地页 — 基于 mobile-app.astro 模板（极简 SEO 最佳实践）
+ * 核心词：photo cleaner（塔尖）；clean photo gallery / delete duplicate photos / free up storage（功能词）
+ */
 import Layout from '~/layouts/PageLayout.astro';
 
 import Header from '~/components/widgets/Header.astro';
-
 import Hero2 from '~/components/widgets/Hero2.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Content from '~/components/widgets/Content.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
+import { getPermalink } from '~/utils/permalinks';
 
-const appStoreImg = '~/assets/images/app-store.png';
-const appStoreDownloadLink = 'https://apps.apple.com/us/app/photo-swipe-cleaner-clean-up/id6752958088';
+// 本地 banner：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
+import photoSwipeCleanerBanner from '~/assets/images/banner/photo_swipe_cleaner_banner-1024x500.png';
 
-const googlePlayImg = '~/assets/images/google-play.png';
-const googlePlayDownloadLink = 'https://play.google.com/store/apps/details?id=wiki.winki.photo_swipe_cleaner';
-
-const metadata = {
-  title: 'Photo Swipe Cleaner: Clean Up',
-  description:
-    "Torn between 'Storage Full' & fear of deleting memories? Clean up your gallery with confidence! Swipe to quickly sort photos, while keeping your cherished moments safe.",
+/* ─────────────────────────── APP CONFIG ─────────────────────────── */
+const app = {
+  name: 'Photo Swipe Cleaner',
+  keywords: 'photo cleaner, clean photo gallery, delete duplicate photos, free up storage',
+  valueProp: 'A mindful gallery cleaner with a clear swipe interface — delete duplicates and free up storage safely.',
+  platforms: ['iOS', 'Android'],
+  appStoreDownloadLink: 'https://apps.apple.com/us/app/photo-swipe-cleaner-clean-up/id6752958088',
+  googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.photo_swipe_cleaner',
+  url: getPermalink(Astro.url.pathname),
+  banner: {
+    src: photoSwipeCleanerBanner.src,
+    alt: 'Photo Swipe Cleaner — swipe to sort and clean up your photo gallery',
+  },
+  iosAppStoreId: 'id6752958088',
+  androidAppStoreId: 'wiki.winki.photo_swipe_cleaner',
 };
+
+/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+const metadata = {
+  title: 'Photo Swipe Cleaner: Clean Up Your Gallery',
+  description:
+    'Torn between “Storage Full” and deleting memories? Swipe to sort photos, remove duplicates and free up storage — with a safety net. Download free today.',
+  canonical: app.url,
+  openGraph: {
+    type: 'website',
+    url: app.url,
+    images: [{ url: photoSwipeCleanerBanner as unknown as string }],
+  },
+};
+
+/* FAQ：真实用户会问的问题（也是 FAQPage schema 素材） */
+const faqItems = [
+  {
+    title: 'What is Photo Swipe Cleaner?',
+    description:
+      'A mindful gallery cleaner that helps you declutter photos with a clear swipe interface and a safety net for mistakes.',
+  },
+  {
+    title: 'Is deleting safe?',
+    description:
+      'Yes. Deleted pictures go to a temporary bin first, and undo is easy — so your memories remain protected.',
+  },
+  {
+    title: 'Can it help with duplicate photos?',
+    description:
+      'Yes. A large preview design makes it easy to spot and delete duplicate and similar-looking images yourself.',
+  },
+  {
+    title: 'How do swipe controls work?',
+    description:
+      'Swipe left to delete, swipe right to keep, and swipe up to view details. Simple gestures to clean your camera roll and photo gallery.',
+  },
+  {
+    title: 'Does it support iPhone and Android?',
+    description:
+      'Yes. It works with the Photos app and gallery on both platforms, helping you free up storage on your phone.',
+  },
+  {
+    title: 'Is the core experience free?',
+    description:
+      'Yes. Core features are free and ad-free. Future premium options may be offered via in-app purchases or subscription.',
+  },
+  {
+    title: 'How can I get support?',
+    description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <Fragment slot="announcement"></Fragment>
+  <AppSchema
+    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    description={app.valueProp}
+    url={app.url}
+    image={photoSwipeCleanerBanner.src}
+    operatingSystems={app.platforms}
+    iosAppStoreId={app.iosAppStoreId}
+    androidAppStoreId={app.androidAppStoreId}
+    faqItems={faqItems.map((f) => ({ q: f.title, a: f.description }))}
+  />
+
   <Fragment slot="header">
     <Header
       position="left"
       links={[
-        { text: 'Services', href: '#' },
-        { text: 'Features', href: '#' },
-        { text: 'About', href: '#' },
+        { text: 'Features', href: '#features' },
+        { text: 'FAQ', href: '#faq' },
+        { text: 'Blog', href: '/blog' },
       ]}
-      actions={[
-        {
-          text: 'Download',
-          href: '#download',
-        },
-      ]}
+      actions={[{ text: 'Download', href: '#download' }]}
       isSticky
       showToggleTheme
     />
   </Fragment>
 
-  <!-- Hero2 Widget ******************* -->
-
+  <!-- ═══════════ Hero：H1 含核心词 + 首段含核心词 + 下载 ═══════════ -->
   <Hero2
-    tagline="declutter • organize • manager • album • cleanup • delete • image • picture • remove • sorter • fotos • photos • gallery • camera roll • clear cache • free up storage • duplicate • swipe left • swipe right • swipe up"
+    tagline={app.name}
     image={{
-      src: '~/assets/images/banner/photo_swipe_cleaner_banner-1024x500.png',
-      alt: 'Photo Swipe Cleaner Banner',
+      src: photoSwipeCleanerBanner,
+      alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
       style: 'cursor: pointer;',
       'data-aw-banner-open': '1',
-      'data-aw-open-apple': appStoreDownloadLink,
-      'data-aw-open-google': googlePlayDownloadLink,
+      'data-aw-open-apple': app.appStoreDownloadLink,
+      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
-    <Fragment slot="title"><span class="text-accent dark:text-white">Photo Swipe Cleaner</span>: Clean Up</Fragment>
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white">Photo Swipe Cleaner</span>: Clean Up Your Gallery
+    </Fragment>
 
-    <Fragment slot="subtitle"><span class="hidden sm:inline">Free Up Storage & Clear Cache</span></Fragment>
+    <Fragment slot="subtitle">Declutter photos, delete duplicates, free up storage</Fragment>
 
     <Fragment slot="content">
-      Torn between "Storage Full" & fear of deleting memories? Clean up your gallery with confidence! Swipe to quickly
-      sort photos, while keeping your cherished moments safe.
+      Torn between “Storage Full” and the fear of deleting memories? Photo Swipe Cleaner helps you clean your photo
+      gallery with confidence — swipe to sort, keep the cherished moments, and remove the rest.
     </Fragment>
 
     <div slot="actions" class="flex max-w-sm gap-4">
-      <Button variant="link" href={appStoreDownloadLink}>
-        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      <Button variant="link" href={app.appStoreDownloadLink}>
+        <Image src="~/assets/images/app-store.png" alt="Download Photo Swipe Cleaner on the App Store" width={200} />
       </Button>
 
-      <Button variant="link" href={googlePlayDownloadLink}>
-        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get Photo Swipe Cleaner on Google Play" width={200} />
       </Button>
     </div>
   </Hero2>
 
-  <!-- Features3 Widget ************** -->
-
+  <!-- ═══════════ Features：功能名自然含功能词 ═══════════ -->
   <Features3
     id="features"
-    title="Clean Up with Confidence, Not Anxiety"
-    subtitle="Mindful swipe, a safety net, and rediscover joy."
-    tagline="Photo Swipe Cleaner"
+    tagline="Features"
+    title="A Mindful Way to Clean Your Photo Gallery"
+    subtitle="Swipe to sort photos with confidence — speed and security in one app."
     columns={2}
     items={[
       {
         title: 'The Mindful Swipe',
         description:
-          'See each photo clearly. Swipe left to sweep away junk (screenshots, blurry pics), swipe right to keep the ones you cherish. You are always in control.',
-        icon: 'tabler:photo',
+          'Swipe left to delete, swipe right to keep. A calm, fast way to declutter your camera roll without decision fatigue.',
+        icon: 'tabler:arrows-left-right',
       },
       {
         title: 'A Safety Net for Your Memories',
         description:
-          'Worried about a wrong swipe? Deleted images go to a temporary, easily accessible bin first. Undo is simple — your memories stay safe.',
-        icon: 'tabler:arrow-back-up',
+          'Deleted pictures go to a temporary bin first. Undo is easy, so your cherished moments stay protected.',
+        icon: 'tabler:shield-check',
+      },
+      {
+        title: 'Spot & Delete Duplicates',
+        description:
+          'A large preview makes it easy to find and remove duplicate and similar-looking photos from your gallery.',
+        icon: 'tabler:copy-off',
+      },
+      {
+        title: 'Free Up Storage Fast',
+        description:
+          'Clear gigabytes of junk in minutes. Get both worlds: a clean gallery and more space on your phone.',
+        icon: 'tabler:device-mobile',
       },
       {
         title: 'Rediscover Joy, Not Just Space',
-        description:
-          'Declutter your camera roll and rediscover beautiful moments. More than a storage cleaner — fall in love with your photos again.',
+        description: 'Reconnect with your memories as you sort — keep what matters, remove the rest.',
         icon: 'tabler:heart',
       },
       {
-        title: 'Powerful & Fast',
-        description: 'Clear cache and remove gigabytes of junk in minutes. Get both worlds: speed and security.',
-        icon: 'tabler:bolt',
+        title: '100% Ad-Free',
+        description: 'A calm, focused experience with no ads or interruptions while you sort.',
+        icon: 'tabler:ad-off',
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1521517407911-565264e7d82d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
-      alt: 'Photo Swipe Cleaner Feature Image',
-    }}
   />
 
-  <!-- Content Widget **************** -->
-
+  <!-- ═══════════ 产品介绍：人群 + 工具（恢复自原始内容）═══════════ -->
   <Content
     title="Perfect For"
     isReversed
@@ -155,21 +228,19 @@ const metadata = {
     }}
   />
 
-  <!-- Content Widget **************** -->
-
   <Content
     title="Tools & Optimizations"
     items={[
       {
         title: 'Clear Cache & Free Up Storage',
         description:
-          'Free up space fast — clear cache, clean junk, and optimize storage. A helpful iPhone storage cleaner and Android phone cleaning companion for your photo gallery and photos app.',
+          'Free up space fast — clear cache, clean junk, and optimize storage. A helpful storage cleaner and gallery cleaning companion for your photo gallery and photos app.',
         icon: 'tabler:database',
       },
       {
         title: 'Duplicate & Similar Photos',
         description:
-          'Find and remove duplicates with ease — a mindful duplicate photo finder approach. Declutter pictures, sort by size (coming soon), and keep only the best shots.',
+          'Find and remove duplicates with ease — a mindful duplicate photo finder approach. Declutter pictures and keep only the best shots.',
         icon: 'tabler:copy',
       },
       {
@@ -187,150 +258,26 @@ const metadata = {
     ]}
     image={{
       src: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Tools & Optimizations Image',
+      alt: 'Photo Swipe Cleaner Tools & Optimizations Image',
     }}
   />
 
-  <!-- Content Widget **************** -->
-  <!-- Stats Widget ****************** -->
+  <!-- ═══════════ FAQ：真实问题（也是 FAQPage schema）═══════════ -->
+  <FAQs id="faq" title="Frequently Asked Questions" items={faqItems} />
 
-  <Stats
-    title="Photo Swipe Cleaner At A Glance"
-    stats={[
-      { amount: '100% Ad-Free', icon: 'tabler:ad-off' },
-      { amount: 'Mindful Swipe', icon: 'tabler:photo' },
-      { amount: 'Powerful & Fast', icon: 'tabler:bolt' },
-    ]}
-  />
-
-  <!-- Testimonials Widget *********** -->
-
-  <Testimonials
-    title="HEAR IT FROM OUR USERS"
-    testimonials={[
-      {
-        testimonial:
-          'Cleanup felt safe — the temporary bin and undo saved me from mistakes. Storage freed, memories intact.',
-        name: 'Lena',
-        job: 'Photographer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-          alt: 'Lena Image',
-        },
-      },
-      {
-        testimonial:
-          'I finally decluttered years of screenshots and duplicates. The swipe interface made it easy and calm.',
-        name: 'Tom',
-        job: 'Dad',
-        image: {
-          src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-          alt: 'Tom Image',
-        },
-      },
-    ]}
-    callToAction={{
-      text: 'Download now',
-      href: '#download',
-      icon: 'tabler:chevron-right',
-    }}
-  />
-
-  <!-- FAQs Widget ******************* -->
-
-  <FAQs
-    title="Frequently Asked Questions"
-    items={[
-      {
-        title: 'What is Photo Swipe Cleaner?',
-        description:
-          'A mindful gallery cleaner that helps you declutter photos with a clear swipe interface and a safety net for mistakes.',
-      },
-      {
-        title: 'Is deleting safe?',
-        description:
-          'Yes. Deleted pictures go to a temporary bin first. Undo is easy, so your memories remain protected.',
-      },
-      {
-        title: 'Can it help with duplicate photos?',
-        description:
-          'Our large preview design makes it easy to spot and delete duplicates and similar-looking images yourself.',
-      },
-      {
-        title: 'How do swipe controls work?',
-        description:
-          'Swipe left to delete, swipe right to keep, and swipe up to view details. Simple gestures to clean your camera roll and photo gallery.',
-      },
-      {
-        title: 'Can I sort by size or type?',
-        description:
-          'We are building advanced sorting tools (e.g., sort by size). For now, use the clear swipe flow to manage pictures quickly.',
-      },
-      {
-        title: 'Does it support iPhone & Android?',
-        description:
-          'Yes. Works great with your Photos app and gallery. Helpful for iPhone storage cleaner and Android phone storage optimization.',
-      },
-      {
-        title: 'Is it an antivirus or email cleaner?',
-        description:
-          'No. We focus purely on photo cleanup and organization — not antivirus or inbox cleaning. Use dedicated apps for email or malware.',
-      },
-      {
-        title: 'Multiple language terms',
-        description:
-          'You may see terms like “clear cache”, “free up storage”, “almacenamiento/limpiar/eliminar”, “nettoyage/supprimer”, “limpar”. They all point to keeping your gallery clean and organized.',
-      },
-      {
-        title: 'Does it clean iCloud or cloud albums?',
-        description:
-          'No. Photo Swipe Cleaner focuses on local photo gallery cleanup. iCloud storage and cloud album management should be handled in system Settings or iCloud tools.',
-      },
-      {
-        title: 'Can it uninstall apps or clear app cache?',
-        description:
-          'No. It is not an app remover or app cache cleaner. Use system app management or professional tools (e.g., Malwarebytes, Avast, AVG). For email deletion, use your mail app or dedicated inbox cleaners.',
-      },
-      {
-        title: 'Is the core experience free?',
-        description:
-          'Yes. Core features are free and ad-free. Future premium options may be offered via in-app purchases or subscription.',
-      },
-      {
-        title: 'Where can I read the privacy policy and subscription rules?',
-        description: 'See our Privacy Policy and the User & Member Subscription Agreement in the policy section above.',
-      },
-      {
-        title: 'Are there in-app purchases and what do they cost?',
-        description:
-          'Optional feature packs may be offered. Pricing follows real-time in-app display (typically $0.99–$5.99).',
-      },
-      {
-        title: 'How are payments and renewals handled?',
-        description:
-          'Purchases are charged to your iTunes Account. If subscriptions are introduced, manage them via Apple ID settings according to App Store rules.',
-      },
-      {
-        title: 'How do I contact support?',
-        description: 'Email winkiwiki@QQ.com with your app name, platform and version for faster help.',
-      },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
+  <!-- ═══════════ CTA：最终下载 ═══════════ -->
   <CallToAction
     id="download"
-    title="Download Photo Swipe Cleaner now. Free up storage. Keep your memories."
-    subtitle="Free core experience. Swipe to clean, keep what matters."
+    title="Download Photo Swipe Cleaner and clean your gallery with confidence."
+    subtitle="Free to start — sort photos, delete duplicates and free up storage safely."
   >
     <div slot="actions" class="flex max-w-sm gap-4">
-      <Button variant="link" href={appStoreDownloadLink}>
-        <Image src={appStoreImg} alt="App Store Image" width={200} />
+      <Button variant="link" href={app.appStoreDownloadLink}>
+        <Image src="~/assets/images/app-store.png" alt="Download Photo Swipe Cleaner on the App Store" width={200} />
       </Button>
 
-      <Button variant="link" href={googlePlayDownloadLink}>
-        <Image src={googlePlayImg} alt="Google Play Image" width={200} />
+      <Button variant="link" href={app.googlePlayDownloadLink}>
+        <Image src="~/assets/images/google-play.png" alt="Get Photo Swipe Cleaner on Google Play" width={200} />
       </Button>
     </div>
   </CallToAction>

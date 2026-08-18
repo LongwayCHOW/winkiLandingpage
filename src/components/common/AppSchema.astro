@@ -1,0 +1,116 @@
+---
+/**
+ * AppSchema — 为 app 落地页注入结构化数据（JSON-LD）
+ *
+ * 输出两种 schema：
+ *   1. SoftwareApplication：让搜索引擎理解这是一个 app（名称、平台、下载链接、价格、评分）
+ *   2. FAQPage：从页面的 FAQ 内容生成，可触发富摘要
+ *
+ * 用法（在落地页 <Layout> 内任意位置引用一次）：
+ *   <AppSchema
+ *     name="Chronicle: Journal Calendar"
+ *     description="An all-in-one planner, diary, to-do list and habit tracker on one timeline."
+ *     url={getPermalink('/homes/chronicle')}
+ *     image="https://winki.win/images/chronicle-banner.png"
+ *     operatingSystems={['iOS', 'Android']}
+ *     androidAppStoreId="wiki.winki.chronicle.chronicle"
+ *     iosAppStoreId="id6756258484"
+ *     price="0"
+ *     currency="USD"
+ *     ratingValue="4.7"
+ *     ratingCount={120}
+ *     faqItems={[{ q: 'What is Chronicle?', a: '...' }]}
+ *   />
+ */
+
+interface Props {
+  name: string;
+  description: string;
+  url?: string;
+  image?: string;
+  operatingSystems?: string[];
+  iosAppStoreId?: string;
+  androidAppStoreId?: string;
+  price?: string;
+  currency?: string;
+  /** 真实评分可选；无真实数据请勿填 */
+  ratingValue?: string;
+  ratingCount?: number;
+  faqItems?: Array<{ q: string; a: string }>;
+}
+
+const {
+  name,
+  description,
+  url = '',
+  image = '',
+  operatingSystems = ['iOS', 'Android'],
+  iosAppStoreId,
+  androidAppStoreId,
+  price = '0',
+  currency = 'USD',
+  ratingValue,
+  ratingCount,
+  faqItems = [],
+} = Astro.props;
+
+/* 将相对路径转成绝对 URL（Google schema 要求绝对地址） */
+const toAbsolute = (path: string): string => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  try {
+    return String(new URL(path, Astro.site ?? 'https://winki.win'));
+  } catch {
+    return path;
+  }
+};
+
+const absoluteUrl = toAbsolute(url);
+const absoluteImage = toAbsolute(image);
+
+const offers: Record<string, unknown> = {
+  '@type': 'Offer',
+  price,
+  priceCurrency: currency,
+};
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      name,
+      description,
+      url: absoluteUrl,
+      image: absoluteImage,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: operatingSystems.join(', '),
+      offers,
+      ...(iosAppStoreId ? { 'appleAppStoreId': iosAppStoreId } : {}),
+      ...(androidAppStoreId ? { 'googlePlayAppStoreId': androidAppStoreId } : {}),
+      ...(ratingValue && ratingCount
+        ? {
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue,
+              ratingCount,
+            },
+          }
+        : {}),
+    },
+  ],
+};
+
+if (faqItems.length) {
+  (schema['@graph'] as Record<string, unknown>[]).push({
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  });
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
