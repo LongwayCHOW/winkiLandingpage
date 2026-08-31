@@ -199,6 +199,11 @@ const metadata = {
 
 ## 扩展建议
 
-- 新增产品落地页：在 `src/pages/homes/` 下新建 `.astro`，参考 `mobile-app.astro` 模板（极简 SEO 最佳实践样板），随后在 `src/navigation.ts` 中注册。
-- 新增博客文章：在 `src/data/post/` 下新建 `.mdx` 或 `.md`，填写 frontmatter 即可自动生成路由。**发布前对照 `docs/BLOG-CHECKLIST.md` 自查**（综合 seo-writing + zac-seo 的内容质量门）。
+- 新增产品落地页：在 `src/pages/homes/` 下新建 `.astro`，参考 `mobile-app.astro` 模板（极简 SEO 最佳实践样板），随后在 `src/navigation.ts` 中注册。落地页组件用 `AppSchema.astro`（注入 SoftwareApplication + FAQPage 结构化数据）与 `AppDownload.astro`（链接跳转 + 扫码双模式下载卡片）。
+- 新增博客文章（内容生产工作流，务必按此链路）：
+  1. **看进度**：打开 `docs/CONTENT-TRACKER.md`（进度看板）看哪些素材已给、哪些博文待写。
+  2. **收素材**：按 `docs/素材模板/` 里对应类型的模板（用户故事/开发者思考/对比/教程/场景/榜单/版本更新）让开发者填空，收集真实体验、数据、截图——这是 E-E-A-T 的来源，不可用 AI 编造。
+  3. **产出**：素材齐后，用 `seo-writing` + `zac-seo` 技能把素材组织成英文博文，内链到对应落地页（Hub-Spoke）。在 `src/data/post/` 新建 `.mdx`/`.md`，填写 frontmatter（含 metadata）。
+  4. **发布前的质量门**：对照 `docs/BLOG-CHECKLIST.md` 自查（内容层面）；发布后在 `CONTENT-TRACKER.md` 打勾。
+  - 排期参考：`docs/CONTENT-CALENDAR.md`；整体体系见 `docs/seo-growth-architecture.md`。
 - 调整站点信息：编辑 `src/config.yaml`，必要时同步 `src/layouts/Layout.astro` 和 SEO metadata。

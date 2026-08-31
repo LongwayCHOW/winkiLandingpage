@@ -82,7 +82,8 @@
 
 - 写前：按选题选对应模板 → 填 `docs/素材模板/<类型>模板.md` → 确认 1 主词 + 3-5 长尾 → 查 BLOG-CHECKLIST 第一部分
 - 写中：把素材交给 Claude 用 `/zac-seo` + `/seo-writing` 组织成英文博文，保留真实体验（E-E-A-T）+ 内链到落地页（Hub-Spoke）
-- 写后：用 `<AppDownload>` 组件加下载按钮（如适用）→ 对照 BLOG-CHECKLIST 全文自查
+- **写后 · 本地预览审阅**：`npm run dev` 启动本地站点，导航到新博文 URL（如 `http://localhost:4321/<slug>/`）由开发者实际查看——核对配图是否契合（尤其无法读图的 Claude 只按文件名选图时）、排版与文案是否到位。
+- 写后 · 收尾：用 `<AppDownload>` 组件加下载按钮（如适用）→ 对照 BLOG-CHECKLIST 全文自查
 - 发布：检查 sitemap 收录 → 加入月度监测
 
 ---

@@ -1,0 +1,102 @@
+---
+publishDate: 2026-08-26T00:00:00Z
+title: 'Why We Built an Aesthetic Calculator (and Survived the Refactor from Hell)'
+excerpt: 'There are already a thousand calculators. So why make another? A candid look at the theme-architecture rabbit hole, memory leaks, and why "best mood left for the hardest debug" is the real developer motto.'
+image: '~/assets/images/post/aesthetic-calculator/combo-863-1.png'
+category: 'Aesthetic Calculator'
+tags:
+  - aesthetic calculator
+  - calculator themes
+  - calculator skins
+  - designer calculator
+  - indie dev
+  - flutter
+  - refactoring
+  - developer story
+author: 'Winki Team'
+metadata:
+  openGraph:
+    type: article
+    images:
+      - url: '~/assets/images/post/aesthetic-calculator/combo-863-1.png'
+---
+
+import Image from '~/components/common/Image.astro';
+import AppDownload from '~/components/widgets/AppDownload.astro';
+import iconCalc from '~/assets/images/post/aesthetic-calculator/logo-512.png';
+
+## There are already a thousand calculators. So why another one?
+
+Ask any developer who has shipped a calculator, a note app, a to-do list. They'll tell you the same thing: **the boring tool is the hardest tool to make feel like yours.**
+
+We've been asked this a lot, and it deserves an honest answer. Because the honest answer is the interesting part.
+
+### A "theme" is not a new coat of paint
+
+Before Aesthetic Calculator, we were tired of a pattern that dominates the app world: a product calls itself "themed" and calls it a day — different color, same everything else. A pink background, a teal background, and somehow that's a feature.
+
+We wanted something different: a calculator that could genuinely **absorb many different design languages**, and a category almost everyone reaches for every single day. A calculator.
+
+> We weren't designing one theme. We were designing a system that could *be* many calculators.
+
+If you look at the screenshots below, you can see why this mattered to us. These aren't recolors — each theme lives in its own visual world.
+
+<Image
+  src="~/assets/images/post/aesthetic-calculator/store-3.png"
+  alt="Aesthetic Calculator designer themes and skins"
+  class="rounded-lg shadow-md my-8"
+/>
+
+### The technical trap: when your themes outgrow your architecture
+
+Here is where the story gets real. When we had built two themes, everything was fine. Then we started building the third, then the fourth — and that's when the architecture quietly sat up and bit us.
+
+A "simple" theme means more than colors. Each theme can have **its own button shapes, its own layout, its own tactile feel, its own click feedback, its own shadow clipping, its own transitions.** When those suddenly stop matching the engine underneath — when the layout doesn't support a new design, when a shadow clips wrong, when a color transition turns brittle — that's not a bug. That's a fork in the road.
+
+We tried every canvas approach we could think of. Widget-level partial refresh. Full refresh. Rebuilding how layers painted. And in the middle of all of it, the memory leaks arrived.
+
+> Debugging memory leaks one by one, at 1 a.m., on a schema that keeps changing under you — that is the definition of exhausting.
+
+I won't romanticize it. We called it the **refactor from hell**. When you've already shipped two themes and *then* discover your tech choices can't support themes three and four the way you want — layout, visuals, touch, shadows, smooth color flow, no crashes — you don't get a clean slate. You get a **ripple of cascading rewrites.** Fix one thing, break three others. That's how the weeks went.
+
+<Image
+  src="~/assets/images/post/aesthetic-calculator/iphone14-3.png"
+  alt="Aesthetic Calculator on iPhone — a designer calculator theme"
+  class="rounded-lg shadow-md my-8"
+/>
+
+### The mental side: walks, patience, and "hardcoding through it"
+
+Here's the part that almost never makes it into product blogs, but it's the truth: this kind of work is a grind, and the grind gets into your head.
+
+When the refactor sat on my shoulders heavier than I could type, I went for hikes. Walks. Long ones. Because the only way through a structural rabbit hole is sometimes just to *sit with the frustration until the solution stops being scary.*
+
+There's a developer saying I've grown to respect, and it's not ironic — it's earned:
+
+> The best mood I had, I saved for the hardest debug and the most punishing refactor.
+
+It sounds like a joke. It's not. As the weeks passed, the memory leaks got rarer. Memory usage in steady state came down, and the engine started releasing memory continuously instead of hoarding it. The instability faded. The themes began to sit still.
+
+### Was it worth it?
+
+For the people using the app every day — doing school math, checking a tip, balancing a quick budget — the point was never "we optimized memory." The point is that you can open a calculator that doesn't make you feel like you're using a spreadsheet from 1999. One that can wear many outfits and stay fast and calm doing it.
+
+<Image
+  src="~/assets/images/post/aesthetic-calculator/iphone14-2.png"
+  alt="Colorful aesthetic calculator themes and skins"
+  class="rounded-lg shadow-md my-8"
+/>
+
+What's next: **more themes, and continuous refinement of how the themes *feel*** — the touch, the click feedback, the every-day-use polish of the themes people already love. Because now that the architecture finally behaves, we can play again.
+
+**Try a classic or a playful theme. I hope you find genuine joy using it.**
+
+<div class="max-w-sm">
+  <AppDownload
+    name="Aesthetic Calculator"
+    description="Cute themes, skins & custom colors. Ad-free."
+    icon={iconCalc}
+    appStoreLink="https://apps.apple.com/us/app/aesthetic-calculator/id6748415125"
+    googlePlayLink="https://play.google.com/store/apps/details?id=wiki.winki.aesthetic_calculator"
+  />
+</div>
