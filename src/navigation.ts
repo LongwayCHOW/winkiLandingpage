@@ -62,20 +62,10 @@ export const headerData = {
     },
     {
       text: 'Blog',
-      links: [
-        {
-          text: 'Blog List',
-          href: getBlogPermalink(),
-        },
-        // {
-        //   text: 'Category Page',
-        //   href: getPermalink('tutorials', 'category'),
-        // },
-        // {
-        //   text: 'Tag Page',
-        //   href: getPermalink('astro', 'tag'),
-        // },
-      ],
+      href: getBlogPermalink(),
+      links: [],
+      // 自定义标记:下拉内容由 Header 动态加载最新 10 篇博客(而非手动编辑)
+      linksAutoLatest: true,
     },
     {
       text: 'TravelChina',
