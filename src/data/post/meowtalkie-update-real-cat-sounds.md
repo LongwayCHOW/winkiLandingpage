@@ -75,6 +75,8 @@ Explore the full app experience on the MeowTalkie page and stores:
 - App Store: https://apps.apple.com/us/app/meowtalkie-talk-to-your-cat/id6752669946
 - Google Play: https://play.google.com/store/apps/details?id=wiki.winki.meow_talkie
 
+Curious how the dialect discovery actually happened? Read the developer story behind it: [Why We Built MeowTalkie: My Friend Has a Very Shy Cat](/meowtalkie-shy-cat-story).
+
 ### One‑Sentence Summary
 
 Developers searched for real cat vocalizations and selected authentic “cat dialect” recordings to improve human–cat communication and daily interaction.

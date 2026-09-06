@@ -1,5 +1,6 @@
 ---
 publishDate: 2026-08-26T00:00:00Z
+updateDate: 2026-09-06T00:00:00Z
 title: 'Why We Built an Aesthetic Calculator (and Survived the Refactor from Hell)'
 excerpt: 'There are already a thousand calculators. So why make another? A candid look at the theme-architecture rabbit hole, memory leaks, and why "best mood left for the hardest debug" is the real developer motto.'
 image: '~/assets/images/post/aesthetic-calculator/combo-863-1.png'
@@ -15,17 +16,27 @@ tags:
   - developer story
 author: 'Winki Team'
 metadata:
+  title: 'Aesthetic Calculator: Cute Themes, Skins & Why We Refactored'
+  description: 'How we built Aesthetic Calculator with cute themes, custom calculator skins, and a real theme architecture. Survived a Flutter refactor. Try it free.'
+  canonical: 'https://winki.win/aesthetic-calculator-refactor-story/'
+  robots:
+    index: true
+    follow: true
   openGraph:
     type: article
     images:
       - url: '~/assets/images/post/aesthetic-calculator/combo-863-1.png'
+  twitter:
+    cardType: summary_large_image
 ---
 
 import Image from '~/components/common/Image.astro';
 import AppDownload from '~/components/widgets/AppDownload.astro';
 import iconCalc from '~/assets/images/post/aesthetic-calculator/logo-512.png';
 
-## There are already a thousand calculators. So why another one?
+> **TL;DR** — Most "themed" calculators just recolor. We wanted a real **aesthetic calculator** — [cute themes, custom palettes, and a theme architecture](/homes/aesthetic-calculator) that doesn't break. Then we shipped two themes and the engine quietly stopped cooperating. This is the **refactor from hell** that taught us what "many calculators" really costs.
+
+## There are already a thousand calculators. So why build a new **aesthetic calculator**?
 
 Ask any developer who has shipped a calculator, a note app, a to-do list. They'll tell you the same thing: **the boring tool is the hardest tool to make feel like yours.**
 
@@ -37,9 +48,9 @@ Before Aesthetic Calculator, we were tired of a pattern that dominates the app w
 
 We wanted something different: a calculator that could genuinely **absorb many different design languages**, and a category almost everyone reaches for every single day. A calculator.
 
-> We weren't designing one theme. We were designing a system that could *be* many calculators.
+> We weren't designing one theme. We were designing a system that could _be_ many calculators.
 
-If you look at the screenshots below, you can see why this mattered to us. These aren't recolors — each theme lives in its own visual world.
+If you look at the screenshots below, you can see why this mattered to us. These aren't recolors — each theme lives in its own visual world. For a full side-by-side tour of today's themes, see our [Aesthetic Calculator user story](/aesthetic-calculator-user-story).
 
 <Image
   src="~/assets/images/post/aesthetic-calculator/store-3.png"
@@ -49,15 +60,15 @@ If you look at the screenshots below, you can see why this mattered to us. These
 
 ### The technical trap: when your themes outgrow your architecture
 
-Here is where the story gets real. When we had built two themes, everything was fine. Then we started building the third, then the fourth — and that's when the architecture quietly sat up and bit us.
+Here is where the story gets real. When we had built two themes, everything was fine. Then we started building the third, then the fourth — and that's when the architecture quietly sat up and bit us. We had laid out the [design principles behind those themes](/aesthetic-calculator-team-notes) earlier, but no principle can save you from a runtime that doesn't scale.
 
 A "simple" theme means more than colors. Each theme can have **its own button shapes, its own layout, its own tactile feel, its own click feedback, its own shadow clipping, its own transitions.** When those suddenly stop matching the engine underneath — when the layout doesn't support a new design, when a shadow clips wrong, when a color transition turns brittle — that's not a bug. That's a fork in the road.
 
-We tried every canvas approach we could think of. Widget-level partial refresh. Full refresh. Rebuilding how layers painted. And in the middle of all of it, the memory leaks arrived.
+We tried every canvas approach we could think of, in our [Flutter](https://en.wikipedia.org/wiki/Flutter_%28software%29) codebase. Widget-level partial refresh. Full refresh. Rebuilding how layers painted. And in the middle of all of it, the memory leaks arrived.
 
 > Debugging memory leaks one by one, at 1 a.m., on a schema that keeps changing under you — that is the definition of exhausting.
 
-I won't romanticize it. We called it the **refactor from hell**. When you've already shipped two themes and *then* discover your tech choices can't support themes three and four the way you want — layout, visuals, touch, shadows, smooth color flow, no crashes — you don't get a clean slate. You get a **ripple of cascading rewrites.** Fix one thing, break three others. That's how the weeks went.
+I won't romanticize it. We called it the **refactor from hell**. When you've already shipped two themes and _then_ discover your tech choices can't support themes three and four the way you want — layout, visuals, touch, shadows, smooth color flow, no crashes — you don't get a clean slate. You get a **ripple of cascading rewrites.** Fix one thing, break three others. That's how the weeks went.
 
 <Image
   src="~/assets/images/post/aesthetic-calculator/iphone14-3.png"
@@ -69,7 +80,7 @@ I won't romanticize it. We called it the **refactor from hell**. When you've alr
 
 Here's the part that almost never makes it into product blogs, but it's the truth: this kind of work is a grind, and the grind gets into your head.
 
-When the refactor sat on my shoulders heavier than I could type, I went for hikes. Walks. Long ones. Because the only way through a structural rabbit hole is sometimes just to *sit with the frustration until the solution stops being scary.*
+When the refactor sat on my shoulders heavier than I could type, I went for hikes. Walks. Long ones. Because the only way through a structural rabbit hole is sometimes just to _sit with the frustration until the solution stops being scary._
 
 There's a developer saying I've grown to respect, and it's not ironic — it's earned:
 
@@ -87,9 +98,20 @@ For the people using the app every day — doing school math, checking a tip, ba
   class="rounded-lg shadow-md my-8"
 />
 
-What's next: **more themes, and continuous refinement of how the themes *feel*** — the touch, the click feedback, the every-day-use polish of the themes people already love. Because now that the architecture finally behaves, we can play again.
+What's next: **more themes, and continuous refinement of how the themes _feel_** — the touch, the click feedback, the every-day-use polish of the themes people already love. Because now that the architecture finally behaves, we can play again.
 
-**Try a classic or a playful theme. I hope you find genuine joy using it.**
+**Try a classic or a playful theme — [see the Aesthetic Calculator themes live](/homes/aesthetic-calculator) and pick the one that matches your homescreen.** I hope you find genuine joy using it.
+
+## Frequently asked questions
+
+**Is Aesthetic Calculator really ad-free?**
+Yes. No banners, no interstitials, no upsell popups. You can pay for premium themes if you want, you don't if you don't — but the math never pauses for an ad. See the [Aesthetic Calculator page](/homes/aesthetic-calculator) for the full feature list.
+
+**How is it different from a "themed" calculator that just changes color?**
+Most themed calculators are a recolor of one template. Aesthetic Calculator was designed so each theme can have **its own button shapes, layout, tactile feel, and click feedback** — not a different coat of paint, a different calculator. See the [full theme tour](/aesthetic-calculator-user-story) for side-by-side screenshots.
+
+**Will more themes keep coming?**
+Yes. Now that the architecture finally behaves, the roadmap is "play" — more themes, and continuous refinement of the touch, click, and feel of the ones people already love. Theme suggestions are welcome.
 
 <div class="max-w-sm">
   <AppDownload
