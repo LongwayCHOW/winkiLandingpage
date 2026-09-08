@@ -38,6 +38,16 @@ const { language, textDirection } = I18N;
 
     <!-- Comment the line below to disable View Transitions -->
     <ClientRouter fallback="swap" />
+
+    <!-- Partytown: 在所有 type="text/partytown" 脚本前注入代理（Cloudflare Pages 不会自动注入） -->
+    <script is:inline src="/~partytown/partytown.js"></script>
+    <script is:inline>
+      // 暴露 dataLayer 与 gtag 到主线程，方便 gtag 处理 cookie / session / consent
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function gtag(...args) {
+        window.dataLayer.push(args);
+      };
+    </script>
   </head>
 
   <body class="antialiased text-default bg-page tracking-tight">

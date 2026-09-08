@@ -67,6 +67,7 @@ analytics:
   vendors:
     googleAnalytics:
       id: G-WJQDX0DF6N # GA4 测量 ID
+      partytown: true # 通过 partytown Web Worker 加载 gtag，主线程只跑 dataLayer
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
