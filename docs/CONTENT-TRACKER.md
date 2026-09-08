@@ -15,7 +15,7 @@
 | Chronicle            | [ ]      | [ ]        | [ ]      | [x]（vs Day One 已写） | [ ]  | [ ]  | [ ]  | [ ]        |
 | MeowTalkie           | [x]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | Flip Timer           | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
-| Focus One            | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
+| Focus One            | [ ]      | [x]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | Photo Swipe Cleaner  | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | Aesthetic Calculator | [x]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | DeliSeek             | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
@@ -65,6 +65,7 @@
 
 - [x] **Monotask by Design** — dev-notes（已存在）
 - [x] **Do One Thing Well** — user-story（已存在）
+- [x] **Why I Built a Focus Timer for My Own Screen Addiction** — dev-notes（已存在；素材：docs/focus_one/我为什么开发focus_one.md）
 - [ ] 「ADHD 人群如何专注」— 场景（素材：\_\_\_\_）
 - [ ] 「深度工作 + Pomodoro 实操」— 教程（素材：\_\_\_\_）
 
