@@ -1,0 +1,126 @@
+---
+publishDate: 2026-09-10T00:00:00Z
+title: 'Why We Built a Hands-Free Flip Timer: The Sensor Story Nobody Tells'
+excerpt: 'COVID-19 lockdowns turned us into home-office lifers with stiff backs and a real need for a hands-free timer. This is the story of three gyroscope approaches, the one that worked, and why "flip to start" beat tapping every time.'
+image: '~/assets/images/post/flip-timer/flip-timer-logo-512.png'
+category: 'Flip Timer'
+tags:
+  - hands-free timer
+  - flip timer
+  - motion sensor
+  - gyroscope
+  - interval timer
+  - home office
+  - kitchen timer
+  - indie dev
+  - flutter
+  - developer story
+author: 'Winki Team'
+metadata:
+  title: 'Hands-Free Flip Timer: The Motion Sensor Story | Winki'
+  description: 'How we built a hands-free flip timer controlled by motion. Why gyroscope data beats tap buttons, the sensor pitfalls we hit, and why "flip to start" wins for workouts and cooking. Try it free.'
+  canonical: 'https://winki.win/flip-timer-sensor-story/'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    type: article
+    images:
+      - url: '~/assets/images/post/flip-timer/flip-timer-logo-512.png'
+  twitter:
+    cardType: summary_large_image
+---
+
+import Image from '~/components/common/Image.astro';
+import AppDownload from '~/components/widgets/AppDownload.astro';
+import iconTimer from '~/assets/images/post/flip-timer/flip-timer-logo-512.png';
+
+> **TL;DR** — We needed a **hands-free timer** that works when your fingers are covered in flour or your hands are on the floor in a plank. So we built a **flip timer** controlled by motion. Getting the gyroscope data right took three attempts, one stubborn hardware quirk, and a very long walk. Here is the sensor story nobody tells.
+
+## Why a hands-free flip timer in the first place?
+
+After COVID-19, a lot of us stopped commuting and started living at our desks. I was no exception. Longer sitting hours, more stiffness, more pain. I needed a **timer** that would get me moving — and one I could start without fiddling with a screen mid-pose.
+
+The second push was the kitchen. When you work from home, you cook more. And when you cook, your hands are covered in flour, oil, or whatever the recipe just told you to knead. Tapping a phone with a dough-covered thumb is a small tragedy repeated daily.
+
+Both problems pointed at the same answer: a **flip timer** — pick up the phone, flip it, and the countdown starts. No tapping. No menus. Just motion. See the full feature tour in our [Flip Timer user story](/flip-timer-user-story).
+
+<Image
+  src="~/assets/images/post/flip-timer/flip-timer-welcome-360x800.png"
+  alt="Flip Timer hands-free countdown timer app welcome screen"
+  class="rounded-lg shadow-md my-8"
+/>
+
+## The sensor problem: three ways to read a flip
+
+Here is where the engineering story begins. A flip is a gesture. To recognize it, an app needs to know how the phone is rotating in space — which means talking to the **gyroscope** and accelerometer, the motion sensors inside every modern phone ([here is how Android exposes them](https://developer.android.com/develop/sensors-and-location/sensors/sensors_motion)).
+
+Sounds simple. It wasn't.
+
+### Attempt A: read the system's orientation signal
+
+The operating system already computes a device orientation for its own UI. We tried to piggyback on that signal. It seemed like the cheapest path: no sensor code at all, just listen to the system.
+
+The result was unreliable. The signal would **drop mid-gesture**, the data chain would break, and a flip would sometimes register as nothing. For a timer you flip in the middle of a workout, a dropped event is not a minor bug — it's the whole product failing.
+
+### Attempt B: read the orientation from the UI rotation
+
+Our second idea was cleverer on paper: detect the orientation change by watching how the system rotated other UI elements.
+
+The catch: **this only works if the user has auto-rotate enabled** in their system settings. Ask anyone — most people turn auto-rotate off. Shipping a timer that requires a system setting nobody has enabled is not a product, it's a tutorial.
+
+### Attempt C: read the gyroscope directly
+
+So we wrote our own sensor layer. We stopped trusting the system's interpretation and listened to the raw **gyroscope** stream ourselves. This finally worked — the flip registered reliably.
+
+But the hardware had one final trick. Some devices output orientation data in the "correct" upright position. Others output it **inverted by default**, depending on how the device's physical sensors were mounted. The same flip gesture produced opposite data on different phones. (For the curious, this is a known class of device sensor quirks — see how [hardware sensor variations](https://en.wikipedia.org/wiki/Motion_sensor) behave across manufacturers.)
+
+We handle that per-device at calibration time. It is not glamorous, but it works.
+
+## The design trade-off: why direct sensor access won
+
+Why did we abandon A and B and commit to C? Because reading the **gyroscope data directly** gives the most robust data chain:
+
+- It does not depend on the system's orientation heuristic dropping events.
+- It does not depend on user settings like auto-rotate.
+- It works across more brands and hardware configurations — which matters when your users are on everything from a budget Android to the latest iPhone.
+
+The cost is real engineering time and per-device handling. The reward is a **hands-free timer** that actually works in the field, not just on the simulator. We documented the interaction principles behind this in our [Flip Timer team notes](/flip-timer-team-notes).
+
+## What we learned: take the shortest path to the signal
+
+The lesson from this sensor saga is simple and worth repeating to every developer:
+
+> When you need a signal, go get it directly. Don't borrow someone else's interpretation and hope it holds up in the real world.
+
+The shortest path to the gyroscope was the right path. The shortcuts cost us more debugging time than writing the sensor layer took in the first place.
+
+## What's next for Flip Timer
+
+The **flip timer** core is done and free. Next on the road map:
+
+- **More polish**: fonts, colors, progress bar themes, and reminder sounds.
+- **Scene-based presets**: ready-made modes for running, cooking, and focused work — so you flip once and the timer already fits the moment.
+
+Try it — [flip your phone and start a countdown](/homes/flip-timer) — and tell us if the gesture feels right.
+
+## Frequently asked questions
+
+**How does a hands-free flip timer work?**
+The app reads the phone's **gyroscope and accelerometer** data directly. When you flip the phone, the motion pattern triggers start, stop, or switching between presets — no screen taps needed. Read more on the [Flip Timer page](/homes/flip-timer).
+
+**Does it work on all phones?**
+We wrote our own sensor layer specifically because system orientation signals are unreliable. It works across brands and hardware configurations, with per-device handling for sensors that output inverted data by default.
+
+**Do I need to enable any system setting?**
+No. That was the whole point — unlike approaches that require auto-rotate to be enabled, Flip Timer reads the raw **motion sensor** data itself, so no system setting is required.
+
+<div class="max-w-sm">
+  <AppDownload
+    name="Flip Timer"
+    description="Flip to start. Hands-free countdown."
+    icon={iconTimer}
+    appStoreLink="https://apps.apple.com/us/app/flip-timer-gym-study-work/id6752959227"
+    googlePlayLink="https://play.google.com/store/apps/details?id=wiki.winki.flip_timer"
+  />
+</div>

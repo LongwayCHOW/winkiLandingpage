@@ -14,9 +14,9 @@
 | -------------------- | -------- | ---------- | -------- | ---------------------- | ---- | ---- | ---- | ---------- |
 | Chronicle            | [ ]      | [ ]        | [ ]      | [x]（vs Day One 已写） | [ ]  | [ ]  | [ ]  | [ ]        |
 | MeowTalkie           | [x]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
-| Flip Timer           | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
+| Flip Timer           | [ ]      | [x]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | Focus One            | [ ]      | [x]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
-| Photo Swipe Cleaner  | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
+| Photo Swipe Cleaner  | [ ]      | [x]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | Aesthetic Calculator | [x]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | DeliSeek             | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
 | VocalTrans           | [ ]      | [ ]        | [ ]      | [ ]                    | [ ]  | [ ]  | [ ]  | [ ]        |
@@ -58,6 +58,7 @@
 
 - [x] **Motion First — Why We Built a Hands-Free Timer** — dev-notes（已存在）
 - [x] **Flip, Don't Tap** — user-story（已存在）
+- [x] **The Sensor Story: Why We Built a Hands-Free Flip Timer** — dev-notes（已存在 flip-timer-sensor-story.mdx；素材：docs/flip_timer/为什么开发flip_timer.md）
 - [ ] 「健身/厨房免手计时指南」— 教程（素材：\_\_\_\_）
 - [ ] 「番茄钟 vs 秒表怎么选」— 对比（素材：\_\_\_\_）
 
@@ -73,6 +74,7 @@
 
 - [x] **Declutter, Organize, Protect** — user-story（已存在）
 - [x] **Declutter Gallery, Organize Albums** — user-story（已存在）
+- [x] **Swipe Right to Keep, Swipe Left to Delete** — dev-notes（已存在 photo-swipe-cleaner-swipe-story.mdx；素材：docs/photo_swipe_cleaner/为什么开发photo_swipe_cleaner.md）
 - [ ] 「如何清理 iPhone 照片释放空间」— 教程（素材：\_\_\_\_）
 - [ ] 「相册整理极简方法」— 教程（素材：\_\_\_\_）
 
