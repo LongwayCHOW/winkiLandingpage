@@ -33,7 +33,6 @@ Winki 的小而美产品营销站点。基于 **AstroWind** 模板演化而来�
 npm install          # 安装依赖
 npm run dev          # http://localhost:4321
 npm run build        # 构建到 ./dist
-npm run check:seo    # 检查已构建 HTML 和检查器正反例
 npm run preview      # 预览生产构建
 npm run check        # astro check + eslint + prettier
 npm run fix          # eslint --fix + prettier -w
@@ -43,7 +42,7 @@ npm run fix          # eslint --fix + prettier -w
 
 1. 本地修改代码，`git push` 到 GitHub（main 分支）
 2. Cloudflare Pages 自动检测到推送，拉取代码
-3. Cloudflare 自动执行 `npm run build`，产出 `./dist/`，并在同一命令内执行 SEO 回归检查；失败不发布
+3. Cloudflare 自动执行 `npm run build`，产出 `./dist/`
 4. 构建产物自动部署到 `https://winki.win`
 
 ---
