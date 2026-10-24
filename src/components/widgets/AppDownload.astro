@@ -2,6 +2,8 @@
 import { Icon } from 'astro-icon/components';
 import type { ImageMetadata } from 'astro';
 
+import { apps } from '~/data/apps';
+
 interface Props {
   name: string;
   description?: string;
@@ -13,6 +15,8 @@ interface Props {
 }
 
 const { name, description, icon, appStoreQr, googlePlayQr, appStoreLink = '', googlePlayLink = '' } = Astro.props;
+// 产品页取 apps.ts 的规范 id；第三方卡片回落到 slug
+const appId = apps.find((app) => app.name === name)?.id ?? name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const id = `app-${Math.random().toString(36).substring(2, 11)}`;
 
 const iconSrc = typeof icon === 'string' ? icon : icon.src;
@@ -27,6 +31,7 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
 <div
   class="not-prose bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col items-center text-center app-card"
   id={id}
+  data-app-id={appId}
 >
   <div
     class="w-24 h-24 bg-slate-50 dark:bg-slate-900 rounded-lg flex items-center justify-center mb-4 relative overflow-hidden group"
@@ -35,6 +40,9 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
     <img
       src={iconSrc}
       alt={name}
+      width="96"
+      height="96"
+      loading="lazy"
       class="w-full h-full object-contain p-2 app-icon transition-opacity duration-300 absolute inset-0 z-10"
     />
 
@@ -45,6 +53,9 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
           src={appStoreQrSrc}
           alt={`${name} App Store QR`}
           data-link={appStoreLinkHref}
+          width="96"
+          height="96"
+          loading="lazy"
           class="w-full h-full object-contain p-1 absolute inset-0 opacity-0 transition-opacity duration-300 z-20 qr-ios bg-white dark:bg-slate-800"
         />
       )
@@ -57,6 +68,9 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
           src={googlePlayQrSrc}
           alt={`${name} Google Play QR`}
           data-link={googlePlayLinkHref}
+          width="96"
+          height="96"
+          loading="lazy"
           class="w-full h-full object-contain p-1 absolute inset-0 opacity-0 transition-opacity duration-300 z-20 qr-android bg-white dark:bg-slate-800"
         />
       )
@@ -72,22 +86,54 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
   </p>
 
   <div class="flex gap-6">
-    <button
-      class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
-      data-target="ios"
-      data-link={appStoreLinkHref}
-      aria-label="App Store"
-    >
-      <Icon name="tabler:brand-apple" class="w-6 h-6" />
-    </button>
-    <button
-      class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
-      data-target="android"
-      data-link={googlePlayLinkHref}
-      aria-label="Google Play"
-    >
-      <Icon name="tabler:brand-google-play" class="w-5 h-5" />
-    </button>
+    {
+      appStoreLinkHref ? (
+        <a
+          href={appStoreLinkHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+          data-target="ios"
+          data-download-platform="ios"
+          data-app-id={appId}
+          aria-label="App Store"
+        >
+          <Icon name="tabler:brand-apple" class="w-6 h-6" />
+        </a>
+      ) : (
+        <button
+          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+          data-target="ios"
+          aria-label="App Store"
+        >
+          <Icon name="tabler:brand-apple" class="w-6 h-6" />
+        </button>
+      )
+    }
+    {
+      googlePlayLinkHref ? (
+        <a
+          href={googlePlayLinkHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+          data-target="android"
+          data-download-platform="android"
+          data-app-id={appId}
+          aria-label="Google Play"
+        >
+          <Icon name="tabler:brand-google-play" class="w-5 h-5" />
+        </a>
+      ) : (
+        <button
+          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+          data-target="android"
+          aria-label="Google Play"
+        >
+          <Icon name="tabler:brand-google-play" class="w-5 h-5" />
+        </button>
+      )
+    }
   </div>
 </div>
 
@@ -102,7 +148,7 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
       const qrIos = card.querySelector('.qr-ios');
       const qrAndroid = card.querySelector('.qr-android');
 
-      // 有下载链接 → 点击跳转对应应用商店；无链接 → 返回 false（走原扫码逻辑）
+      // 二维码点击：有下载链接 → 跳转对应商店
       const openLink = (el, e) => {
         const link = el?.getAttribute('data-link');
         if (link) {
@@ -130,28 +176,21 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
         }
       };
 
-      // Hover events
-      iosBtn?.addEventListener('mouseenter', () => showQr('ios'));
-      androidBtn?.addEventListener('mouseenter', () => showQr('android'));
-
-      // Click events (Mobile support & Desktop click)
-      iosBtn?.addEventListener('click', (e) => {
-        if (!openLink(iosBtn, e)) {
-          e.stopPropagation();
-          e.preventDefault();
-          showQr('ios');
+      const bind = (el, type) => {
+        if (!el) return;
+        el.addEventListener('mouseenter', () => showQr(type));
+        // 有下载链接时是原生 <a>，点击直接跳转；无链接时才用按钮切换二维码
+        if (el.tagName === 'BUTTON') {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            showQr(type);
+          });
         }
-      });
+      };
 
-      androidBtn?.addEventListener('click', (e) => {
-        if (!openLink(androidBtn, e)) {
-          e.stopPropagation();
-          e.preventDefault();
-          showQr('android');
-        }
-      });
+      bind(iosBtn, 'ios');
+      bind(androidBtn, 'android');
 
-      // 二维码点击：有下载链接 → 跳转对应商店
       qrIos?.addEventListener('click', (e) => openLink(qrIos, e));
       qrAndroid?.addEventListener('click', (e) => openLink(qrAndroid, e));
 

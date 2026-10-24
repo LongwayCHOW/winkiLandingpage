@@ -15,7 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import { getPermalink } from '~/utils/permalinks';
+import { getCanonical } from '~/utils/permalinks';
 
 // 本地 banner：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
 import meowTalkieBanner from '~/assets/images/banner/meow_talkie_banner-1024x500.png';
@@ -28,7 +28,7 @@ const app = {
   platforms: ['iOS', 'Android'],
   appStoreDownloadLink: 'https://apps.apple.com/us/app/meowtalkie-talk-to-your-cat/id6752669946',
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.meow_talkie',
-  url: getPermalink(Astro.url.pathname),
+  url: String(getCanonical(Astro.url.pathname)),
   banner: {
     src: meowTalkieBanner.src,
     alt: 'MeowTalkie — funny cat sounds and meows to talk to your cat',
@@ -37,7 +37,7 @@ const app = {
   androidAppStoreId: 'wiki.winki.meow_talkie',
 };
 
-/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+/* Metadata should describe the actual app, not a keyword list. */
 const metadata = {
   title: 'MeowTalkie: Talk to Your Cat with Funny Sounds',
   description:
@@ -55,7 +55,7 @@ const faqItems = [
   {
     title: 'What does MeowTalkie do?',
     description:
-      'MeowTalkie is a cat communicator app that lets you talk to your cat using a soundboard of specially designed meows and calls — perfect for playtime, training and bonding.',
+      'MeowTalkie plays meows and calls from a soundboard for playful interaction. It does not translate human speech into a verified cat language.',
   },
   {
     title: 'Is MeowTalkie easy to use?',
@@ -68,12 +68,12 @@ const faqItems = [
   },
   {
     title: 'Does MeowTalkie work for all cats?',
-    description: 'Yes. It works for kittens, adult cats and even testing on your friends’ pets.',
+    description:
+      'Responses vary. Some cats may be curious, others may ignore the sounds or feel stressed. Keep the volume low and stop if your cat seems uncomfortable.',
   },
   {
     title: 'Are there in-app purchases?',
-    description:
-      'Yes. In-app purchases unlock exclusive premium sound packs, priced from $0.99 to $5.99.',
+    description: 'Yes. In-app purchases unlock exclusive premium sound packs, priced from $0.99 to $5.99.',
   },
   {
     title: 'Is this a real cat translator?',
@@ -89,7 +89,7 @@ const faqItems = [
 
 <Layout metadata={metadata}>
   <AppSchema
-    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    name={app.name}
     description={app.valueProp}
     url={app.url}
     image={meowTalkieBanner.src}
@@ -121,10 +121,6 @@ const faqItems = [
       alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
-      style: 'cursor: pointer;',
-      'data-aw-banner-open': '1',
-      'data-aw-open-apple': app.appStoreDownloadLink,
-      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
     <Fragment slot="title">
@@ -158,9 +154,9 @@ const faqItems = [
     columns={2}
     items={[
       {
-        title: 'Real Cat Commands',
+        title: 'Cat Soundboard',
         description:
-          'Send clear signals like “Come Here!”, “Food Time!” or “Leave It!” to aid in positive cat training.',
+          'Play sounds for a short, gentle interaction and watch your cat’s response. Sounds are not reliable commands or a substitute for understanding animal behavior.',
         icon: 'tabler:command',
       },
       {

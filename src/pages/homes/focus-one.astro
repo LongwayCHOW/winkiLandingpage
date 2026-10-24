@@ -15,7 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import { getPermalink } from '~/utils/permalinks';
+import { getCanonical } from '~/utils/permalinks';
 
 // 本地 banner：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
 import focusOneBanner from '~/assets/images/banner/focus_one_banner-1024x500.png';
@@ -28,7 +28,7 @@ const app = {
   platforms: ['iOS', 'Android'],
   appStoreDownloadLink: 'https://apps.apple.com/us/app/focus-one-adhd-focus-timer/id6748545171',
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.focus_one',
-  url: getPermalink(Astro.url.pathname),
+  url: String(getCanonical(Astro.url.pathname)),
   banner: {
     src: focusOneBanner.src,
     alt: 'Focus One — ADHD focus timer and Pomodoro for deep work',
@@ -37,9 +37,9 @@ const app = {
   androidAppStoreId: 'wiki.winki.focus_one',
 };
 
-/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+/* Metadata should describe the actual app, not a keyword list. */
 const metadata = {
-  title: 'Focus One: ADHD Focus Timer for Deep Work',
+  title: 'Focus One: Visual Focus Timer for One Task',
   description:
     'Beat procrastination with a visual focus timer built for monotasking. Study, work and ADHD-friendly Pomodoro sessions. Download free today.',
   canonical: app.url,
@@ -58,9 +58,9 @@ const faqItems = [
       'A minimalist ADHD-friendly focus timer that helps you do one task at a time using visual anchors and the Pomodoro method.',
   },
   {
-    title: 'How does monotasking help with ADHD?',
+    title: 'Is Focus One a treatment for ADHD?',
     description:
-      'It reduces cognitive load and decision fatigue. Fewer choices and one clear goal bring more calm and better outcomes.',
+      'No. Focus One is a productivity timer, not a diagnostic or treatment tool. Its single-task design may suit your preferences, but it does not promise clinical outcomes or replace professional care.',
   },
   {
     title: 'Is Focus One free?',
@@ -86,7 +86,7 @@ const faqItems = [
 
 <Layout metadata={metadata}>
   <AppSchema
-    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    name={app.name}
     description={app.valueProp}
     url={app.url}
     image={focusOneBanner.src}
@@ -118,10 +118,6 @@ const faqItems = [
       alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
-      style: 'cursor: pointer;',
-      'data-aw-banner-open': '1',
-      'data-aw-open-apple': app.appStoreDownloadLink,
-      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
     <Fragment slot="title">
@@ -131,8 +127,8 @@ const faqItems = [
     <Fragment slot="subtitle">A Pomodoro and visual focus timer for deep work</Fragment>
 
     <Fragment slot="content">
-      Focus One is a visual focus timer built on monotasking. It channels all your energy into one important task with
-      a calm GIF anchor and Pomodoro intervals — the perfect study buddy and productivity tool for your daily routine.
+      Focus One is a visual focus timer built on monotasking. It channels all your energy into one important task with a
+      calm GIF anchor and Pomodoro intervals — the perfect study buddy and productivity tool for your daily routine.
     </Fragment>
 
     <div slot="actions" class="flex max-w-sm gap-4">
@@ -186,8 +182,7 @@ const faqItems = [
       },
       {
         title: '100% Ad-Free',
-        description:
-          'A calm, minimalist interface with no ads or distractions — just you and your focus session.',
+        description: 'A calm, minimalist interface with no ads or distractions — just you and your focus session.',
         icon: 'tabler:ad-off',
       },
     ]}
@@ -210,7 +205,8 @@ const faqItems = [
       },
       {
         title: 'ADHD & neurodiversity',
-        description: 'A single-task approach that reduces cognitive load and supports lasting habits.',
+        description:
+          'A single-task interface for people who prefer fewer choices. This is a productivity tool, not an ADHD treatment.',
         icon: 'tabler:brain',
       },
       {
@@ -231,36 +227,36 @@ const faqItems = [
   />
 
   <Content
-    title="Timers & Presets"
+    title="A Single-Task Focus Routine"
     items={[
       {
-        title: '15 Minute Timer',
+        title: 'Choose One Task',
         description:
-          'Tap to start a fifteen minute timer — perfect for a single focus block when you need to stop procrastination and get calm, zen momentum.',
+          'Pick a concrete next action before starting. A small, clear task is easier to return to than a long list of competing priorities.',
         icon: 'tabler:clock',
       },
       {
-        title: '20 Minute Timer',
+        title: 'Choose a Session Length',
         description:
-          'A classic time blocking preset for study and deep work. Set a 20 minute timer to practice the Pomodoro technique with one tap.',
+          'Choose a manageable duration in the app. Start shorter when getting started is the difficult part, rather than treating one preset as the right answer for everyone.',
         icon: 'tabler:clock',
       },
       {
-        title: '30 Minute Timer',
+        title: 'Use the Visual Anchor',
         description:
           'Longer single-task sessions for writers, developers and students. A minimalist visual timer keeps you present and productive.',
         icon: 'tabler:clock',
       },
       {
-        title: 'Quick Timers: 3 min & 1 min',
+        title: 'Start Small',
         description:
-          'Need a short burst? The 3 minute timer and 1 minute countdown are great for micro-tasks, clean-ups, or anti-dopamine resets.',
+          'Use a short countdown for a small action, such as opening a document or clearing your desk. A timer is an aid, not a neurological reset.',
         icon: 'tabler:alarm',
       },
       {
-        title: 'Pomodoro & Tomato Timer',
+        title: 'Take a Break and Reassess',
         description:
-          'Use our Pomodoro presets — the classic tomato timer rhythm. A reliable productivity timer and study buddy to build routines and time management.',
+          'After a session, pause and decide whether to continue the same task or choose another. Adjust the routine to your work and energy.',
         icon: 'tabler:alarm',
       },
     ]}

@@ -11,7 +11,7 @@ metadata:
   title:
     default: Winki
     template: '%s — Winki'
-  description: 'Winki,Offer small but beautiful products:Calendar,Planner,To-Do,Habit Tracker,Photo Cleaner,Timer,ADHD Focus,cat chat,Aesthetic Calculator Theme.'
+  description: 'Explore small Winki apps for everyday routines, with product details, download options and first-hand developer notes.'
   robots:
     index: true
     follow: true
@@ -67,7 +67,7 @@ analytics:
   vendors:
     googleAnalytics:
       id: G-WJQDX0DF6N # GA4 测量 ID
-      partytown: true # 通过 partytown Web Worker 加载 gtag，主线程只跑 dataLayer
+      partytown: false # 标准异步 GA；避免 ClientRouter 回退后代理沙箱失效
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

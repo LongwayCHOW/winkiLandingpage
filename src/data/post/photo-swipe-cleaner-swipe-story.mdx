@@ -17,7 +17,7 @@ tags:
   - developer story
 author: 'Winki Team'
 metadata:
-  title: 'Photo Cleaner With Swipe: Keep or Delete, One Picture at a Time | Winki'
+  title: 'Photo Cleaner With Swipe: Keep or Delete, One Picture at a Time'
   description: 'A photo cleaner that treats your gallery as memories, not garbage. Swipe right to keep, swipe left to delete, with a safety bin and undo. Survived a 10,000-photo stress test. Try it free.'
   canonical: 'https://winki.win/photo-swipe-cleaner-swipe-story/'
   robots:
@@ -81,7 +81,7 @@ The classic flow — _tap delete, confirm, delete_ — felt awful. So did _long-
 
 The insight came from an unexpected place: **swipe mechanics**. Swipe right to keep. Swipe left to delete. No confirm dialogs, no multi-step flows — but with two critical additions:
 
-- **Undo and redo**, so a wrong swipe is never permanent.
+- **Undo and redo during review**, so you can revisit a selection before confirming deletion. This is not a guarantee of recovery after permanent deletion.
 - A **safety bin** instead of instant deletion, so nothing is truly gone until you empty it.
 
 That combination gave us exactly the balance the market was missing: **speed like a bulk cleaner, care like a human curator**. One picture, one decision, zero anxiety. If you want the practical how-to, our [gallery decluttering guide](/photo-swipe-cleaner-user-story) walks through it step by step.
@@ -105,7 +105,7 @@ Clean your gallery like a curator, not a garbage truck — [start swiping on the
 Duplicate finders bulk-delete by similarity rules. Photo Swipe Cleaner shows you one picture at a time and lets **you** decide — swipe right to keep, swipe left to delete. No algorithm decides what's precious.
 
 **Is it safe? What if I swipe wrong?**
-Nothing is deleted instantly. Photos go to a **safety bin**, and **undo and redo** are always available. A wrong swipe is never permanent. See the [Photo Swipe Cleaner page](/homes/photo-swipe-cleaner) for details.
+Review selections before confirming deletion and keep a separate backup of important pictures. Undo during review is not the same as recovering a permanently deleted file. Your photo service may sync deletions to other devices, and its Recently Deleted or trash retention rules still apply. See the [Photo Swipe Cleaner page](/homes/photo-swipe-cleaner/) for the current scope.
 
 **Can it handle a huge gallery?**
 Yes. We stress-tested with a **10,000-photo library** across loading and caching architectures, specifically to keep low-end phones from crashing or showing ghost placeholders.

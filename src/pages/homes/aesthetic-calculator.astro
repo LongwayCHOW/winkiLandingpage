@@ -15,7 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import { getPermalink } from '~/utils/permalinks';
+import { getCanonical } from '~/utils/permalinks';
 
 // 本地 banner：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
 import aestheticCalculatorBanner from '~/assets/images/banner/aesthetic_calculator_banner-1024x502.png';
@@ -28,7 +28,7 @@ const app = {
   platforms: ['iOS', 'Android'],
   appStoreDownloadLink: 'https://apps.apple.com/us/app/aesthetic-calculator/id6748415125',
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.aesthetic_calculator',
-  url: getPermalink(Astro.url.pathname),
+  url: String(getCanonical(Astro.url.pathname)),
   banner: {
     src: aestheticCalculatorBanner.src,
     alt: 'Aesthetic Calculator — cute themes, skins and colors for a designer calculator',
@@ -37,7 +37,7 @@ const app = {
   androidAppStoreId: 'wiki.winki.aesthetic_calculator',
 };
 
-/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+/* Metadata should describe the actual app, not a keyword list. */
 const metadata = {
   title: 'Aesthetic Calculator: Cute Themes & Skins',
   description:
@@ -54,13 +54,11 @@ const metadata = {
 const faqItems = [
   {
     title: 'What makes Aesthetic Calculator different?',
-    description:
-      'A designer calculator with aesthetic themes, custom colors and cute skins. Personalize every tap.',
+    description: 'A designer calculator with aesthetic themes, custom colors and cute skins. Personalize every tap.',
   },
   {
     title: 'Is it free and ad-free?',
-    description:
-      'Yes. The core experience is 100% ad-free. Optional in-app purchases unlock extra themes.',
+    description: 'Yes. The core experience is 100% ad-free. Optional in-app purchases unlock extra themes.',
   },
   {
     title: 'Can I use it for school and college?',
@@ -69,7 +67,8 @@ const faqItems = [
   },
   {
     title: 'How do themes and colors work?',
-    description: 'Pick from hundreds of designs or create your own palette. Save and switch anytime.',
+    description:
+      'Choose an available theme or adjust colors in the app. Check your installed version for the current selection and any purchase requirements.',
   },
   {
     title: 'Does it include specialized calculators?',
@@ -77,7 +76,8 @@ const faqItems = [
   },
   {
     title: 'Is it available on iPhone and Android?',
-    description: 'Yes. iPhone and iPad are supported now; Android availability is planned.',
+    description:
+      'This page provides App Store and Google Play links. Check the listing for your region and device before installing.',
   },
   {
     title: 'How can I get support?',
@@ -88,7 +88,7 @@ const faqItems = [
 
 <Layout metadata={metadata}>
   <AppSchema
-    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    name={app.name}
     description={app.valueProp}
     url={app.url}
     image={aestheticCalculatorBanner.src}
@@ -120,10 +120,6 @@ const faqItems = [
       alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
-      style: 'cursor: pointer;',
-      'data-aw-banner-open': '1',
-      'data-aw-open-apple': app.appStoreDownloadLink,
-      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
     <Fragment slot="title">
@@ -157,7 +153,7 @@ const faqItems = [
     columns={2}
     items={[
       {
-        title: 'Hundreds of Themes & Skins',
+        title: 'Themes & Skins',
         description:
           'From minimalist and retro to pink pastel — designer calculator themes crafted to inspire your homescreen.',
         icon: 'tabler:palette',
@@ -175,8 +171,7 @@ const faqItems = [
       },
       {
         title: 'Advanced Calculations',
-        description:
-          'Handle brackets, signed numbers and complex equations for coursework, work and everyday math.',
+        description: 'Handle brackets, signed numbers and complex equations for coursework, work and everyday math.',
         icon: 'tabler:calculator',
       },
       {
@@ -257,7 +252,7 @@ const faqItems = [
       {
         title: 'Core Utilities',
         description:
-          'Fraction calculator, percentage calculator, tip calculator, time calculator, timers and hours calculator. Built for math practice and everyday use.',
+          'Use brackets, signed numbers, percentages and calculation history for everyday math. Check the current app for additional tools.',
         icon: 'tabler:tools',
       },
       {
@@ -269,7 +264,7 @@ const faqItems = [
       {
         title: 'Converters & Extras',
         description:
-          'Roman numerals and more handy utilities will be updated regularly. Available on iPhone & iPad; Android support is planned.',
+          'Additional utilities may vary by version. Use the App Store and Google Play links to check current availability and release notes.',
         icon: 'tabler:transform',
       },
     ]}

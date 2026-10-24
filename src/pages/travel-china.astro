@@ -87,15 +87,6 @@ const metadata = {
   <script is:inline>
     // Force light mode for this page
     document.documentElement.classList.remove('dark');
-    // Optional: Observe changes to prevent switching back if user clicks toggle (can be removed if toggle is allowed)
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class' && document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-        }
-      });
-    });
-    observer.observe(document.documentElement, { attributes: true });
   </script>
   <div class="max-w-[1024px] mx-auto px-4 py-8 flex flex-col gap-8">
     <!-- AiTrans launch banner -->

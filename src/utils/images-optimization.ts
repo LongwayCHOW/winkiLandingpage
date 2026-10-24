@@ -290,7 +290,8 @@ export async function getImagesOptimized(
   transform: ImagesOptimizer = () => Promise.resolve([])
 ): Promise<{ src: string; attributes: HTMLAttributes<'img'> }> {
   if (typeof image !== 'string') {
-    width ||= Number(image.width) || undefined;
+    // Infer a web-sized display width, not the full-resolution source width.
+    width ||= Math.min(Number(image.width), 1200) || undefined;
     height ||= typeof width === 'number' ? computeHeight(width, image.width / image.height) : undefined;
   }
 
@@ -325,14 +326,25 @@ export async function getImagesOptimized(
   }
 
   let breakpoints = getBreakpoints({ width: width, breakpoints: widths, layout: layout });
+  if (typeof image !== 'string') {
+    breakpoints = breakpoints.map((breakpoint) => Math.min(breakpoint, image.width));
+  }
   breakpoints = [...new Set(breakpoints)].sort((a, b) => a - b);
 
-  const srcset = (await transform(image, breakpoints, Number(width) || undefined, Number(height) || undefined, format))
-    .map(({ src, width }) => `${src} ${width}w`)
-    .join(', ');
+  const optimized = await transform(
+    image,
+    breakpoints,
+    Number(width) || undefined,
+    Number(height) || undefined,
+    format
+  );
+  const srcset = optimized.map(({ src, width }) => `${src} ${width}w`).join(', ');
 
   return {
-    src: typeof image === 'string' ? image : image.src,
+    src:
+      optimized.find((variant) => variant.width >= Number(width))?.src ||
+      optimized.at(-1)?.src ||
+      (typeof image === 'string' ? image : image.src),
     attributes: {
       width: width,
       height: height,

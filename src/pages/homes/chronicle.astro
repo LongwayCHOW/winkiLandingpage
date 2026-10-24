@@ -15,7 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import { getPermalink } from '~/utils/permalinks';
+import { getCanonical } from '~/utils/permalinks';
 
 // 本地 banner 图片：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
 import chronicleBanner from '~/assets/images/banner/Chronicle_banner-1024x504.png';
@@ -28,7 +28,7 @@ const app = {
   platforms: ['iOS', 'Android'],
   appStoreDownloadLink: 'https://apps.apple.com/us/app/chronicle-journal-calendar/id6756258484',
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.chronicle.chronicle',
-  url: getPermalink(Astro.url.pathname),
+  url: String(getCanonical(Astro.url.pathname)),
   banner: {
     src: chronicleBanner,
     alt: 'Chronicle Journal Calendar — notes, tasks and memories on one timeline',
@@ -37,7 +37,7 @@ const app = {
   androidAppStoreId: 'wiki.winki.chronicle.chronicle',
 };
 
-/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+/* Metadata should describe the actual app, not a keyword list. */
 const metadata = {
   title: 'Chronicle: Journal Calendar, Planner & Habit Tracker',
   description:
@@ -60,7 +60,7 @@ const faqItems = [
   {
     title: 'Is my data private?',
     description:
-      'Yes. Chronicle is local-first by default — your notes, tasks and memories stay on your device unless you opt into cloud backup later.',
+      'Chronicle is designed around a local-first journal. Check the current app settings and privacy policy for storage and backup options. Do not assume that installing it on another device transfers your entries.',
   },
   {
     title: 'Is there a free version?',
@@ -69,7 +69,8 @@ const faqItems = [
   },
   {
     title: 'What devices does Chronicle support?',
-    description: 'Chronicle is available on iOS and Android. Your timeline syncs across devices with optional cloud backup.',
+    description:
+      'Find iOS and Android download links on this page. Check each store listing for device compatibility; cross-device synchronization is not promised here.',
   },
   {
     title: 'Can I use Chronicle for planning and habits?',
@@ -85,7 +86,7 @@ const faqItems = [
 
 <Layout metadata={metadata}>
   <AppSchema
-    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    name={app.name}
     description={app.valueProp}
     url={app.url}
     image={chronicleBanner.src}
@@ -117,10 +118,6 @@ const faqItems = [
       alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
-      style: 'cursor: pointer;',
-      'data-aw-banner-open': '1',
-      'data-aw-open-apple': app.appStoreDownloadLink,
-      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
     <Fragment slot="title">
@@ -130,8 +127,8 @@ const faqItems = [
     <Fragment slot="subtitle">Planner, To-Do &amp; Habit Tracker on one timeline</Fragment>
 
     <Fragment slot="content">
-      Chronicle is a journal calendar that brings your notes, tasks, habits and memories together in a single,
-      beautiful timeline — your daily planner, private diary, to-do list and habit tracker in one place.
+      Chronicle is a journal calendar that brings your notes, tasks, habits and memories together in a single, beautiful
+      timeline — your daily planner, private diary, to-do list and habit tracker in one place.
     </Fragment>
 
     <div slot="actions" class="flex max-w-sm gap-4">

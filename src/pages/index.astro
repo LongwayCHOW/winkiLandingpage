@@ -8,10 +8,13 @@ import Steps from '~/components/widgets/Steps.astro';
 import Content from '~/components/widgets/Content.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
+import { apps } from '~/data/apps';
+import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
-  title:
-    'Winki — Small but beautiful products:Calendar,Planner,To-Do,Habit Tracker,Photo Cleaner,Timer,ADHD Focus,cat chat,Aesthetic Calculator Theme.',
+  title: 'Winki | Small Apps for Everyday Life',
+  description:
+    'Explore Winki apps for journaling, focus, photo cleanup, calculation, cat sounds and travel. Find product details, download links and developer notes.',
   ignoreTitleTemplate: true,
 };
 ---
@@ -19,19 +22,17 @@ const metadata = {
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
 
-  <Hero image={{ src: '~/assets/images/hero-image.png', alt: 'Winki Hero Image' }}>
+  <Hero
+    image={{ src: '~/assets/images/hero-image.png', alt: 'Winki Hero Image' }}
+    actions={[{ text: 'Explore the apps', href: '#apps', variant: 'primary' }]}
+  >
     <Fragment slot="title">
-      Small apps for <span class="hidden xl:inline">everyday routines by</span>
-      <span class="text-accent dark:text-white"> You!</span>
+      Small apps for <span class="text-accent dark:text-white">everyday life.</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">Winki:</span> Small but beautiful products:Calendar,Planner,To-Do,Habit Tracker,Photo
-        Cleaner,Timer,ADHD Focus,cat chat,Aesthetic Calculator Theme. CSS.</span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">Winki: Production-ready.</span>
-      Made for everyday life — study, work, fitness, photos and pets.
+      Plan your day, focus on one task, sort your photos or find a small tool for your next trip. Explore each product
+      to check its features, platform and download options.
     </Fragment>
   </Hero>
 
@@ -42,57 +43,17 @@ const metadata = {
   <!-- Features Widget *************** -->
 
   <Features
-    id="features"
-    tagline="Features"
+    id="apps"
+    tagline="Explore"
     title="Our Apps"
-    subtitle="Eight small tools, carefully made — no fluff."
-    items={[
-      {
-        title: 'Aesthetic Calculator',
-        description: 'Designer calculator with themes and cute skins. Tip calculator included. Ad-free core.',
-        icon: 'tabler:calculator',
-      },
-      {
-        title: 'Chronicle',
-        description:
-          'Journal Calendar blending agenda, tasks, notes and diary on a single timeline. Local‑first privacy.',
-        icon: 'tabler:calendar',
-      },
-      {
-        title: 'Flip Timer',
-        description: 'Hands-free multi-timer; motion-controlled for gym, study and kitchen.',
-        icon: 'tabler:hand-off',
-      },
-      {
-        title: 'Focus One',
-        description: 'ADHD-friendly visual timer built on monotasking and Pomodoro.',
-        icon: 'tabler:target',
-      },
-      {
-        title: 'MeowTalkie',
-        description: 'Cat communicator and soundboard for playful training and bonding.',
-        icon: 'tabler:paw',
-      },
-      {
-        title: 'Photo Swipe Cleaner',
-        description: 'Mindful gallery cleaner with swipe controls and safe delete.',
-        icon: 'tabler:photo',
-      },
-      {
-        title: 'DeliSeek',
-        description: 'Discover local secret eats and translate menus — your food guide for traveling China.',
-        icon: 'tabler:bowl',
-      },
-      {
-        title: 'VocalTrans',
-        description:
-          'Offline voice translator with safety preview for English, Chinese, Cantonese, Japanese and Korean.',
-        icon: 'tabler:language',
-      },
-    ]}
+    subtitle="Choose a product, read its details and find the right download for your device."
+    items={apps.map((app) => ({
+      title: app.name,
+      description: app.description,
+      icon: app.icon,
+      callToAction: { text: `Explore ${app.name}`, href: getPermalink(`/homes/${app.id}`) },
+    }))}
   />
-
-  <!-- Content Widget **************** -->
 
   <!-- Content Widget **************** -->
 
@@ -224,34 +185,33 @@ const metadata = {
 
   <FAQs
     title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that Winki offers and how it can elevate your web development journey."
+    subtitle="Choosing an app, downloading it and getting support."
     tagline="FAQs"
     classes={{ container: 'max-w-6xl' }}
     items={[
       {
-        title: 'Why Winki?',
+        title: 'Where can I download an app?',
         description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
+          'Open its product page and follow the available App Store or Google Play link. Availability can vary by device and country.',
       },
       {
-        title: 'What do I need to start?',
+        title: 'Are all apps available on the same platforms?',
         description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
+          'No. Each product page lists its own download options. Check the store listing for current device compatibility.',
       },
       {
-        title: "What's something that you don't understand?",
+        title: 'How do I check pricing?',
         description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
+          'Check the store listing and the app’s purchase screen for current prices, optional purchases and any subscription terms.',
       },
       {
-        title: 'What is something that you would like to try again?',
+        title: 'How can I get support?',
         description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
+          'Email winkiwiki@QQ.com with the app name, device, operating system and app version. Do not include private journal entries, photos or payment details.',
       },
       {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
+        title: 'Where can I read about the products?',
+        description: `Visit the <a href="${getPermalink('/blog')}">blog</a> for developer stories and product updates, or <a href="${getPermalink('/about')}">learn about Winki</a>.`,
       },
     ]}
   />

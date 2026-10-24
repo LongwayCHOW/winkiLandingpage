@@ -5,7 +5,11 @@ import Image from '~/components/common/Image.astro';
 import PostTags from '~/components/blog/Tags.astro';
 import SocialShare from '~/components/common/SocialShare.astro';
 
-import { getPermalink } from '~/utils/permalinks';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+import { findAppByCategory } from '~/data/apps';
+import { SITE } from 'astrowind:config';
+import { findImage } from '~/utils/images';
+import { getImage } from 'astro:assets';
 import { getFormattedDate } from '~/utils/utils';
 
 import type { Post } from '~/types';
@@ -16,16 +20,56 @@ export interface Props {
 }
 
 const { post, url } = Astro.props;
+const app = findAppByCategory(post.category?.slug);
+const canonical = String(getCanonical(post.permalink));
+const sourceImage = post.image ? await findImage(post.image) : undefined;
+const schemaImage =
+  sourceImage && typeof sourceImage !== 'string'
+    ? (await getImage({ src: sourceImage, width: 1200 })).src
+    : sourceImage;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${canonical}#article`,
+  headline: post.title,
+  description: post.excerpt,
+  mainEntityOfPage: canonical,
+  datePublished: post.publishDate.toISOString(),
+  ...(post.updateDate ? { dateModified: post.updateDate.toISOString() } : {}),
+  ...(schemaImage ? { image: new URL(schemaImage, SITE.site).href } : {}),
+  ...(post.author
+    ? { author: { '@type': 'Organization', name: post.author, url: String(getCanonical('/about/')) } }
+    : {}),
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: String(getCanonical('/')) },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: String(getCanonical('/blog/')) },
+    { '@type': 'ListItem', position: 3, name: post.title, item: canonical },
+  ],
+};
 ---
 
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbs).replace(/</g, '\\u003c')} />
 <section class="py-8 sm:py-16 lg:py-20 mx-auto">
   <article>
-    <header
-      class={post.image
-        ? 'intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade'
-        : 'intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade'}
-    >
-      <div class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center">
+    <header>
+      <nav aria-label="Breadcrumb" class="max-w-3xl mx-auto px-6 mb-4 text-sm text-muted opacity-60">
+        <a href={getPermalink('/')}>Home</a> / <a href={getPermalink('/blog')}>Blog</a> / <span>{post.title}</span>
+      </nav>
+      <h1
+        class="px-4 sm:px-6 max-w-3xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading"
+      >
+        {post.title}
+      </h1>
+
+      <div
+        class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-[80px] mb-2 px-4 sm:px-6 sm:items-center"
+      >
         <p>
           <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
           <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
@@ -34,7 +78,9 @@ const { post, url } = Astro.props;
               <>
                 {' '}
                 · <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
-                <span class="inline-block">{post.author}</span>
+                <a class="inline-block underline" href={getPermalink('/about')}>
+                  {post.author}
+                </a>
               </>
             )
           }
@@ -58,14 +104,8 @@ const { post, url } = Astro.props;
           }
         </p>
       </div>
-
-      <h1
-        class="px-4 sm:px-6 max-w-3xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading"
-      >
-        {post.title}
-      </h1>
       <p
-        class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400 text-justify"
+        class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-xl text-muted dark:text-slate-400 text-justify"
       >
         {post.excerpt}
       </p>
@@ -76,8 +116,8 @@ const { post, url } = Astro.props;
             src={post.image}
             class="max-w-full lg:max-w-[900px] mx-auto mb-6 sm:rounded-md bg-gray-400 dark:bg-slate-700"
             widths={[400, 900]}
-            sizes="(max-width: 900px) 400px, 900px"
-            alt={post?.excerpt || ''}
+            sizes="(max-width: 900px) 100vw, 900px"
+            alt=""
             width={900}
             height={506}
             loading="eager"
@@ -93,6 +133,14 @@ const { post, url } = Astro.props;
     <div
       class="mx-auto px-6 sm:px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0"
     >
+      {
+        app && (
+          <p>
+            This developer note is about <a href={getPermalink(`/homes/${app.id}`)}>{app.name}</a>. Visit its product
+            page for features and download options. Winki develops this app.
+          </p>
+        )
+      }
       <slot />
     </div>
     <div class="mx-auto px-6 sm:px-6 max-w-3xl mt-8 flex justify-between flex-col sm:flex-row">

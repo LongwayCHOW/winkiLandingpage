@@ -3,7 +3,7 @@ import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 export const headerData = {
   links: [
     {
-      text: 'Homes',
+      text: 'Apps',
       links: [
         {
           text: 'Chronicle',
@@ -37,15 +37,19 @@ export const headerData = {
           text: 'VocalTrans',
           href: getPermalink('/homes/vocaltrans'),
         },
+        {
+          text: 'AiTrans',
+          href: getPermalink('/homes/aitrans'),
+        },
       ],
     },
     {
       text: 'Pages',
       links: [
-        // {
-        //   text: 'About us',
-        //   href: getPermalink('/about'),
-        // },
+        {
+          text: 'About Winki',
+          href: getPermalink('/about'),
+        },
         {
           text: 'Contact',
           href: getPermalink('/contact'),
@@ -72,7 +76,7 @@ export const headerData = {
       href: getPermalink('/travel-china'),
     },
   ],
-  actions: [{ text: 'Download', href: 'https://github.com/LongwayCHOW/winkiLandingpage', target: '_blank' }],
+  actions: [{ text: 'Explore Apps', href: `${getPermalink('/')}#apps` }],
 };
 
 export const footerData = {
@@ -88,12 +92,14 @@ export const footerData = {
         { text: 'Photo Swipe Cleaner', href: getPermalink('/homes/photo-swipe-cleaner') },
         { text: 'DeliSeek', href: getPermalink('/homes/deliseek') },
         { text: 'VocalTrans', href: getPermalink('/homes/vocaltrans') },
+        { text: 'AiTrans', href: getPermalink('/homes/aitrans') },
       ],
     },
     {
       title: 'Support',
       links: [
-        //{ text: 'About', href: getPermalink('/about') },
+        { text: 'About Winki', href: getPermalink('/about') },
+        { text: 'Contact', href: getPermalink('/contact') },
         { text: 'Blog', href: getBlogPermalink() },
       ],
     },
@@ -107,7 +113,6 @@ export const footerData = {
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
   ],
   socialLinks: [
-    { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
     { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
     // { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
     // { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },

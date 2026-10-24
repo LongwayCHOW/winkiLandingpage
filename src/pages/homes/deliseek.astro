@@ -15,7 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import { getPermalink } from '~/utils/permalinks';
+import { getCanonical } from '~/utils/permalinks';
 
 /* ─────────────────────────── APP CONFIG ─────────────────────────── */
 const app = {
@@ -25,7 +25,7 @@ const app = {
   platforms: ['Android'],
   appStoreDownloadLink: '',
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.deliseek',
-  url: getPermalink(Astro.url.pathname),
+  url: String(getCanonical(Astro.url.pathname)),
   banner: {
     src: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1024&q=80',
     alt: 'DeliSeek — find local Chinese food and hidden gems when you travel to China',
@@ -34,7 +34,7 @@ const app = {
   androidAppStoreId: 'wiki.winki.deliseek',
 };
 
-/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+/* Metadata should describe the actual app, not a keyword list. */
 const metadata = {
   title: 'DeliSeek: China Travel App for Local Food',
   description:
@@ -76,8 +76,7 @@ const faqItems = [
   },
   {
     title: 'Is it available on iPhone?',
-    description:
-      'DeliSeek is currently available on Android via Google Play. iOS support is planned.',
+    description: 'DeliSeek is currently available on Android via Google Play. iOS support is planned.',
   },
   {
     title: 'How can I get support?',
@@ -88,7 +87,7 @@ const faqItems = [
 
 <Layout metadata={metadata}>
   <AppSchema
-    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    name={app.name}
     description={app.valueProp}
     url={app.url}
     image={app.banner.src}
@@ -162,8 +161,7 @@ const faqItems = [
       },
       {
         title: 'Navigate with Confidence',
-        description:
-          'Localized maps help you find that hidden dumpling shop without getting lost in a new city.',
+        description: 'Localized maps help you find that hidden dumpling shop without getting lost in a new city.',
         icon: 'tabler:map',
       },
       {
@@ -174,14 +172,12 @@ const faqItems = [
       },
       {
         title: 'China’s Flavor Map',
-        description:
-          'From Peking Duck in Beijing to dim sum in Guangzhou, a food map of must-try regional dishes.',
+        description: 'From Peking Duck in Beijing to dim sum in Guangzhou, a food map of must-try regional dishes.',
         icon: 'tabler:world',
       },
       {
         title: 'Built for the #ChinaTravel Trend',
-        description:
-          'The essential food guide companion for visa-free trips and first-time visitors to China.',
+        description: 'The essential food guide companion for visa-free trips and first-time visitors to China.',
         icon: 'tabler:plane',
       },
     ]}

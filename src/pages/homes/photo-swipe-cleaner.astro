@@ -15,7 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import { getPermalink } from '~/utils/permalinks';
+import { getCanonical } from '~/utils/permalinks';
 
 // 本地 banner：import 后取 .src 得到构建后的真实 URL（schema 需要可访问的绝对地址）
 import photoSwipeCleanerBanner from '~/assets/images/banner/photo_swipe_cleaner_banner-1024x500.png';
@@ -24,11 +24,11 @@ import photoSwipeCleanerBanner from '~/assets/images/banner/photo_swipe_cleaner_
 const app = {
   name: 'Photo Swipe Cleaner',
   keywords: 'photo cleaner, clean photo gallery, delete duplicate photos, free up storage',
-  valueProp: 'A mindful gallery cleaner with a clear swipe interface — delete duplicates and free up storage safely.',
+  valueProp: 'Review your photo gallery manually with swipe controls and choose which pictures to keep or delete.',
   platforms: ['iOS', 'Android'],
   appStoreDownloadLink: 'https://apps.apple.com/us/app/photo-swipe-cleaner-clean-up/id6752958088',
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.photo_swipe_cleaner',
-  url: getPermalink(Astro.url.pathname),
+  url: String(getCanonical(Astro.url.pathname)),
   banner: {
     src: photoSwipeCleanerBanner.src,
     alt: 'Photo Swipe Cleaner — swipe to sort and clean up your photo gallery',
@@ -37,11 +37,11 @@ const app = {
   androidAppStoreId: 'wiki.winki.photo_swipe_cleaner',
 };
 
-/* 页面 SEO metadata：title 50-60 字符核心词靠前；description 含 CTA */
+/* Metadata should describe the actual app, not a keyword list. */
 const metadata = {
   title: 'Photo Swipe Cleaner: Clean Up Your Gallery',
   description:
-    'Torn between “Storage Full” and deleting memories? Swipe to sort photos, remove duplicates and free up storage — with a safety net. Download free today.',
+    'Review photos one at a time with swipe controls. Choose what to keep or delete, compare similar shots yourself and make room in your gallery.',
   canonical: app.url,
   openGraph: {
     type: 'website',
@@ -60,7 +60,7 @@ const faqItems = [
   {
     title: 'Is deleting safe?',
     description:
-      'Yes. Deleted pictures go to a temporary bin first, and undo is easy — so your memories remain protected.',
+      'Review your selections before confirming deletion and keep a separate backup of important photos. Recovery depends on the app version and your device’s photo service; permanent deletion may not be reversible.',
   },
   {
     title: 'Can it help with duplicate photos?',
@@ -91,7 +91,7 @@ const faqItems = [
 
 <Layout metadata={metadata}>
   <AppSchema
-    name={`${app.name}: ${app.keywords.split(',')[0]}`}
+    name={app.name}
     description={app.valueProp}
     url={app.url}
     image={photoSwipeCleanerBanner.src}
@@ -123,17 +123,13 @@ const faqItems = [
       alt: app.banner.alt,
       layout: 'aspectRatio',
       aspectRatio: '1024:502',
-      style: 'cursor: pointer;',
-      'data-aw-banner-open': '1',
-      'data-aw-open-apple': app.appStoreDownloadLink,
-      'data-aw-open-google': app.googlePlayDownloadLink,
     }}
   >
     <Fragment slot="title">
       <span class="text-accent dark:text-white">Photo Swipe Cleaner</span>: Clean Up Your Gallery
     </Fragment>
 
-    <Fragment slot="subtitle">Declutter photos, delete duplicates, free up storage</Fragment>
+    <Fragment slot="subtitle">Review your gallery manually and keep the photos that matter</Fragment>
 
     <Fragment slot="content">
       Torn between “Storage Full” and the fear of deleting memories? Photo Swipe Cleaner helps you clean your photo
@@ -166,21 +162,21 @@ const faqItems = [
         icon: 'tabler:arrows-left-right',
       },
       {
-        title: 'A Safety Net for Your Memories',
+        title: 'Review Before Deleting',
         description:
-          'Deleted pictures go to a temporary bin first. Undo is easy, so your cherished moments stay protected.',
+          'Check your selections and keep a backup before deleting important pictures. No cleanup tool can guarantee recovery after permanent deletion.',
         icon: 'tabler:shield-check',
       },
       {
         title: 'Spot & Delete Duplicates',
         description:
-          'A large preview makes it easy to find and remove duplicate and similar-looking photos from your gallery.',
+          'Compare similar-looking photos yourself in the preview. This is manual review, not an automatic duplicate scan.',
         icon: 'tabler:copy-off',
       },
       {
         title: 'Free Up Storage Fast',
         description:
-          'Clear gigabytes of junk in minutes. Get both worlds: a clean gallery and more space on your phone.',
+          'Remove unwanted photos from your gallery. Space recovered depends on the files you delete and the photo service’s retention settings.',
         icon: 'tabler:device-mobile',
       },
       {
@@ -218,7 +214,8 @@ const faqItems = [
       },
       {
         title: 'Afraid to lose important pictures',
-        description: 'Temporary bin and undo make cleanup safe. Your memories stay secure.',
+        description:
+          'Back up important pictures and review your selections. Do not rely on an undo action as a substitute for a backup.',
         icon: 'tabler:alert-circle',
       },
     ]}
@@ -232,15 +229,15 @@ const faqItems = [
     title="Tools & Optimizations"
     items={[
       {
-        title: 'Clear Cache & Free Up Storage',
+        title: 'Review Photos to Free Up Storage',
         description:
-          'Free up space fast — clear cache, clean junk, and optimize storage. A helpful storage cleaner and gallery cleaning companion for your photo gallery and photos app.',
+          'Choose unwanted photos for deletion. Photo Swipe Cleaner is a gallery review tool, not a system cache cleaner or a general phone optimizer.',
         icon: 'tabler:database',
       },
       {
         title: 'Duplicate & Similar Photos',
         description:
-          'Find and remove duplicates with ease — a mindful duplicate photo finder approach. Declutter pictures and keep only the best shots.',
+          'Inspect duplicate and similar-looking pictures yourself, then decide which to keep. Automatic detection is not promised.',
         icon: 'tabler:copy',
       },
       {
@@ -250,9 +247,9 @@ const faqItems = [
         icon: 'tabler:sort-descending',
       },
       {
-        title: 'Safe Delete & Undo',
+        title: 'Understand Deletion and Recovery',
         description:
-          'Clean sweep without fear. Deleted photos go to a temporary bin so you can undo if needed. For permanent deletions outside the app, use iCloud or system recovery options.',
+          'Check the confirmation screen and your device’s Recently Deleted or trash options. Cloud photo services can sync deletions to other devices. Permanent deletion may be irreversible.',
         icon: 'tabler:arrow-back-up',
       },
     ]}
@@ -269,7 +266,7 @@ const faqItems = [
   <CallToAction
     id="download"
     title="Download Photo Swipe Cleaner and clean your gallery with confidence."
-    subtitle="Free to start — sort photos, delete duplicates and free up storage safely."
+    subtitle="Review photos, compare similar shots yourself and check your selections before deleting."
   >
     <div slot="actions" class="flex max-w-sm gap-4">
       <Button variant="link" href={app.appStoreDownloadLink}>

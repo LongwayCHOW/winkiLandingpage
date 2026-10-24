@@ -13,6 +13,11 @@ const { frontmatter } = Astro.props;
 
 const metadata: MetaData = {
   title: frontmatter?.title,
+  description: Astro.url.pathname.startsWith('/privacy')
+    ? 'Read Winki’s privacy policy and find the developer’s contact details for privacy questions.'
+    : Astro.url.pathname.startsWith('/terms')
+      ? 'Read the terms for Winki products and services, including purchase and support information.'
+      : undefined,
 };
 ---
 

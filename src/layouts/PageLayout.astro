@@ -3,6 +3,7 @@ import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
 import Announcement from '~/components/widgets/Announcement.astro';
+import RelatedAppContent from '~/components/common/RelatedAppContent.astro';
 
 import { headerData, footerData } from '~/navigation';
 
@@ -24,6 +25,7 @@ const { metadata } = Astro.props;
   </slot>
   <main>
     <slot />
+    <RelatedAppContent />
   </main>
   <slot name="footer">
     <Footer {...footerData} />

@@ -6,6 +6,19 @@
 
 ---
 
+## SEO 整改与新增产品（2026-10-23）
+
+实施进度以 `docs/seo_remediation_todo_2026_10_23.md` 为准，不根据本看板推断后台收录或商店功能。
+
+- [x] 用户确认 AiTrans 与 VocalTrans 为两款独立 App；AiTrans 开发者素材已提供，见 `docs/aitrans/为什么开发aitrans.md`。
+- [x] AiTrans 独立落地页及九款产品入口构建验收。
+- [x] 21 篇文章正文产品入口及九个产品正文相关内容构建验收。
+- [x] 已知错误表述校正：iOS API、照片清缓存/删除、猫声音证据、Day One 引语、历史活动；产品完整事实仍按 F04/F11 待实机材料。
+- [ ] Photo Swipe Cleaner / Aesthetic Calculator 的真实版本教程材料与实机验收；素材未齐不发布。
+
+六篇 AstroWind 示例文章已经 draft，不需要重复执行“隐藏文章”；演示 Astro 页面使用 noindex。
+软件/FAQ schema、GA 脚本已经存在；新增文章/实体 schema、下载事件不等于后台验证通过。
+
 ## 一、素材总览（每 app 的素材是否已给）
 
 > 勾选 = 已提供对应素材（模板见 `docs/素材模板/`）。通用素材（截图/评价/硬数据）在末尾表。

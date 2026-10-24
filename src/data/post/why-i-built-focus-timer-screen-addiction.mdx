@@ -67,15 +67,15 @@ None of that has fully happened. Here is why.
   class="rounded-lg shadow-md my-8"
 />
 
-## The wall: the operating system does not actually let you do this
+## The boundary: app restrictions are not a universal task overlay
 
 I want to be honest about this part because it shaped everything we shipped.
 
-There is no public iOS API that lets a third-party app control whether other apps launch. There is [Screen Time](https://support.apple.com/en-us/108806), but Screen Time belongs to the user, not to your app, and the moment the user disables it, your whole "do the task first" feature is gone. There is no API to put a custom view above the home screen, above the lock screen, above the always-on display, on every device, in a way that survives a reboot.
+Apple provides [Family Controls](https://developer.apple.com/documentation/familycontrols) and [Managed Settings](https://developer.apple.com/documentation/managedsettings/managedsettingsstore/shield) for authorized restrictions on selected apps and websites. These capabilities have entitlement and authorization requirements; they are not permission to take over every system surface. Focus One does not implement app blocking. That is a limit of this product, not proof that iOS has no public restriction APIs.
 
-On Android, the story is similar but different. [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager) and Device Admin can do remarkable things, but they require scary permissions, get revoked aggressively, and behave inconsistently across manufacturers. There is no clean "this task floats above everything" primitive.
+On Android, app usage data, accessibility services and device-management APIs have different permissions and purposes. [UsageStatsManager](https://developer.android.com/reference/android/app/usage/UsageStatsManager) provides usage information, not a general app-launch interception API. Focus One does not implement a system-wide blocking or overlay service.
 
-> If you want a third-party app to gate other apps on iOS or Android, you are, in 2026, asking the OS to do something it was deliberately not designed to do.
+> Restricting selected apps with authorization and displaying a permanent task above every system screen are different requirements. Focus One is a timer, not a system-level gatekeeper.
 
 That is the wall. Everything else is a workaround.
 
@@ -84,10 +84,10 @@ That is the wall. Everything else is a workaround.
 We tried a lot of small things before we accepted the wall.
 
 - **Keep the screen awake with today's task on top.** The closest we got. The visual focus anchor and the [pomodoro timer](https://en.wikipedia.org/wiki/Pomodoro_Technique) you see in [Focus One](/homes/focus-one/) are the surviving version of this. Calm, not aggressive. It works as long as you keep the app open. The moment you swipe it away, it is gone.
-- **A persistent lock-screen widget.** iOS widgets on the lock screen are the closest the OS has come to what I wanted. They are pretty good. They are also not always-on, not pushable in real time by a third-party app, and not under your control in a way that lets you say "this is the thing, do not let me forget it."
+- **A persistent lock-screen reminder.** Widgets and Live Activities can display information on supported iOS surfaces, subject to system rules. They do not give an app unrestricted ownership of the lock screen. We did not ship the universal reminder surface imagined here.
 - **Notifications that come back.** Smart nudges. "Your most important task is still X." They work, but they also trained me to dismiss them. The dopamine loop you are trying to break is the same loop that makes a notification feel like noise within a week.
 - **A shared always-on display between phone and watch.** Wear OS and watchOS each have their own always-on rules, and neither lets a third-party app fully own the surface. You can show a complication. You cannot make it the screen.
-- **[App control](https://en.wikipedia.org/wiki/Mobile_app_management) via app launch interception.** Not possible on stock iOS at all. On Android, possible only with root or an accessibility permission the user has to re-grant frequently. Not the kind of friction a regular person will keep paying.
+- **App restrictions.** Authorized restrictions are possible through platform-specific APIs. We did not implement them in Focus One; permission, policy and device behavior would need separate development and testing.
 
 Each of these was a small defeat. Together they were the answer: **a [focus timer](/homes/focus-one/) can support you, but it cannot lock the door.**
 
@@ -149,7 +149,7 @@ Because Screen Time is the OS's job, not ours. A [focus timer](/homes/focus-one/
 It is built around [ADHD focus](https://en.wikipedia.org/wiki/Attention_deficit_hyperactivity_disorder) habits — single task, clear endpoint, short intervals — but it is not a clinical tool. If you are looking for a diagnosis, screening, or treatment app, please use a proper medical resource. For a calmer daily focus surface, [Focus One](/homes/focus-one/) is the honest option we have.
 
 **Will Focus One ever block other apps?**
-No. iOS does not let third-party apps do that, and we are not interested in shipping a feature that depends on permissions the OS can revoke tomorrow. The closest we get is the calm [pomodoro timer](https://en.wikipedia.org/wiki/Pomodoro_Technique) and visual anchor in the app, and the rest is up to you. If you want a stronger [app detox](https://en.wikipedia.org/wiki/Digital_detox), pair [Focus One](/homes/focus-one/) with your phone's built-in Screen Time or Downtime.
+Focus One does not currently block other apps, and this article is not a promise that it will. iOS does offer authorized app restrictions through Family Controls and Managed Settings, but Focus One does not use that capability. For stronger limits, pair [Focus One](/homes/focus-one/) with your phone’s built-in Screen Time or Downtime.
 
 **Where can I send my idea for the "task on top" feature?**
 Email **winkiwiki@QQ.com** with the device, platform, and your idea. The best submissions will be featured in a follow-up post.

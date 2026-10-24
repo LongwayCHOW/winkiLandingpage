@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://winki.win/sitemap-index.xml
+Sitemap: https://winki.win/sitemap-0.xml

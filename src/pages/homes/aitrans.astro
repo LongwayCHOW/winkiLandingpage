@@ -1,0 +1,101 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import AppDownload from '~/components/widgets/AppDownload.astro';
+import AppSchema from '~/components/common/AppSchema.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import logo from '~/assets/images/aitrans_logo.png';
+import { getCanonical, getPermalink } from '~/utils/permalinks';
+
+const name = 'AiTrans';
+const description =
+  'An offline Chinese-English voice translator for Android. Review translated text, use large-text mode and play audio for everyday travel conversations.';
+const url = String(getCanonical(Astro.url.pathname));
+const store = 'https://play.google.com/store/apps/details?id=wiki.winki.aitrans';
+const metadata = {
+  title: 'AiTrans: Offline Chinese-English Voice Translator',
+  description,
+  canonical: url,
+  openGraph: { type: 'website', url, images: [{ url: '~/assets/images/aitrans_logo.png' }] },
+};
+const faqItems = [
+  {
+    title: 'Which languages does AiTrans support?',
+    description:
+      'Chinese-English voice translation is the current primary mode. The Google Play listing includes English and Simplified and Traditional Chinese. Additional languages are plans, not promised current features.',
+  },
+  {
+    title: 'Can I use it without an internet connection?',
+    description:
+      'AiTrans is designed for offline translation after installation. Before traveling, finish setup and try your required conversation in airplane mode on your own device.',
+  },
+  {
+    title: 'Does reverse-translation guarantee accuracy?',
+    description:
+      'No. Reading a reverse-translation may help you notice an error, but it is not independent verification. Rephrase uncertain wording and get qualified help for medical, legal or other high-stakes decisions.',
+  },
+  {
+    title: 'Is AiTrans the same app as VocalTrans?',
+    description:
+      'No. They are separate Winki apps. AiTrans currently focuses on Chinese-English translation; VocalTrans lists additional languages including Cantonese, Japanese and Korean. Check each listing before choosing.',
+  },
+  {
+    title: 'What platforms and pricing are available?',
+    description:
+      'AiTrans has an Android listing on Google Play with in-app purchases and subscription options. Check the listing and purchase screen for current regional prices and terms. This page does not offer an iOS download.',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <AppSchema
+    name={name}
+    description={description}
+    url={url}
+    image={logo.src}
+    operatingSystems={['Android']}
+    androidAppStoreId="wiki.winki.aitrans"
+    faqItems={faqItems.map((item) => ({ q: item.title, a: item.description }))}
+  />
+  <HeroText
+    tagline="AiTrans for Android"
+    title="Offline Chinese-English Voice Translation"
+    subtitle="For everyday conversations when your connection is unreliable. Review the result before sharing it."
+  />
+  <section class="max-w-3xl mx-auto px-6 pb-12">
+    <div class="max-w-md mx-auto mb-12">
+      <AppDownload name={name} description="Chinese-English voice translation" icon={logo} googlePlayLink={store} />
+    </div>
+    <div class="prose dark:prose-invert">
+      <h2>Speak, review and share</h2>
+      <p>
+        Press and hold to speak, then release to translate. Review the text and reverse-translation before playing
+        audio. Large-text mode helps you show a result when the surroundings are noisy, and history keeps useful phrases
+        accessible.
+      </p>
+      <h2>Prepare before you lose signal</h2>
+      <p>
+        Install the app while you have a reliable connection. Complete setup, test a short conversation in airplane
+        mode, and keep important hotel addresses and travel details available separately. Offline operation does not
+        guarantee that every accent, recording or sentence will translate correctly.
+      </p>
+      <h2>Why the developer built it</h2>
+      <p>
+        Conversations with travelers in the r/travelchina community highlighted a recurring problem: a translation app
+        can become unavailable when a traveler’s connection fails. AiTrans grew out of that need for a local fallback.
+        The development work focused on finding translation models small enough to run on phones.
+      </p>
+      <h2>Choose between two separate apps</h2>
+      <p>
+        Start with AiTrans if Chinese-English is your main requirement.
+        <a href={getPermalink('/homes/vocaltrans')}>Explore VocalTrans</a> if you need to check its listed support for Cantonese,
+        Japanese or Korean. These are separate products, not a renamed download.
+      </p>
+      <p>
+        Product details checked against the <a href={store}>Google Play listing</a> on 23 October 2026. For support, email
+        <a href="mailto:winkiwiki@QQ.com">winkiwiki@QQ.com</a> with your device and app version.
+      </p>
+    </div>
+  </section>
+  <FAQs id="faq" title="AiTrans Questions" items={faqItems} />
+</Layout>

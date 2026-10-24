@@ -25,6 +25,8 @@ const currentPage = page.currentPage ?? 1;
 
 const metadata = {
   title: `Blog${currentPage > 1 ? ` — Page ${currentPage}` : ''}`,
+  description:
+    'Read Winki developer stories, design decisions and product updates for journaling, focus, photo cleanup and everyday apps.',
   robots: {
     index: blogListRobots?.index && currentPage === 1,
     follow: blogListRobots?.follow,
@@ -37,9 +39,7 @@ const metadata = {
 
 <Layout metadata={metadata}>
   <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
-    <Headline
-      subtitle="A statically generated blog example with news, tutorials, resources and other interesting content related to Winki"
-    >
+    <Headline subtitle="Developer stories, design decisions and updates from the people building Winki apps.">
       The Blog
     </Headline>
     <BlogList posts={page.data} />

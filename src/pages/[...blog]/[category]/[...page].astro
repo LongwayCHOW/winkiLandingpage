@@ -6,6 +6,8 @@ import Layout from '~/layouts/PageLayout.astro';
 import BlogList from '~/components/blog/List.astro';
 import Headline from '~/components/blog/Headline.astro';
 import Pagination from '~/components/blog/Pagination.astro';
+import { findAppByCategory } from '~/data/apps';
+import { getPermalink } from '~/utils/permalinks';
 
 export const prerender = true;
 
@@ -18,9 +20,11 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths> & { category: Record
 const { page, category } = Astro.props as Props;
 
 const currentPage = page.currentPage ?? 1;
+const app = findAppByCategory(category.slug);
 
 const metadata = {
   title: `Category '${category.title}' ${currentPage > 1 ? ` — Page ${currentPage}` : ''}`,
+  description: `Explore ${category.title} developer stories and product updates, with notes on design choices, everyday use and current product details.`,
   robots: {
     index: blogCategoryRobots?.index,
     follow: blogCategoryRobots?.follow,
@@ -31,6 +35,17 @@ const metadata = {
 <Layout metadata={metadata}>
   <section class="px-4 md:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
     <Headline>{category.title}</Headline>
+    {
+      app && (
+        <p class="text-muted mb-8">
+          Developer stories about {app.name}. For features and downloads,
+          <a class="text-primary underline" href={getPermalink(`/homes/${app.id}`)}>
+            visit the {app.name} product page
+          </a>
+          .
+        </p>
+      )
+    }
     <BlogList posts={page.data} />
     <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
   </section>

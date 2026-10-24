@@ -1,0 +1,60 @@
+<script>
+  type AnalyticsWindow = Window & {
+    gtag?: (command: string, name: string, parameters: Record<string, string>) => void;
+  };
+
+  const track = (name: string, parameters: Record<string, string>) => {
+    (window as AnalyticsWindow).gtag?.('event', name, {
+      ...parameters,
+      source_page: window.location.pathname,
+    });
+  };
+
+  let previousPage: string | undefined;
+  const trackPage = () => {
+    const currentPage = window.location.href;
+    if (currentPage === previousPage) return;
+    track('page_view', {
+      page_location: currentPage,
+      page_title: document.title,
+      page_referrer: previousPage || document.referrer,
+    });
+    previousPage = currentPage;
+  };
+  document.addEventListener('astro:page-load', trackPage);
+
+  // Delegation works across Astro client navigation without rebinding links.
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest<HTMLAnchorElement>('a[href]');
+    if (!link) return;
+    const destination = new URL(link.href, window.location.href);
+    const platform =
+      link.dataset.downloadPlatform ||
+      (destination.hostname === 'play.google.com' ? 'android' : destination.hostname === 'apps.apple.com' ? 'ios' : '');
+    if (platform) {
+      track('download_click', {
+        app_id:
+          link.dataset.appId ||
+          destination.searchParams.get('id') ||
+          destination.pathname.split('/').pop() ||
+          'unknown',
+        platform,
+        placement: link.closest('.app-card') ? 'download_card' : 'content_link',
+        destination_host: destination.hostname,
+      });
+    } else if (destination.origin === window.location.origin && /^\/homes\/[^/]+\/?$/.test(destination.pathname)) {
+      track('product_page_click', {
+        app_id: destination.pathname.split('/')[2],
+        placement: link.closest('main') ? 'main' : 'navigation',
+      });
+    } else if (destination.protocol === 'mailto:') {
+      track('support_click', { page_type: window.location.pathname.startsWith('/homes/') ? 'product' : 'other' });
+    }
+  });
+
+  document.addEventListener('winki:qr-reveal', (event) => {
+    const detail = (event as CustomEvent<{ app_id: string; platform: string }>).detail;
+    track('qr_reveal', detail);
+  });
+</script>

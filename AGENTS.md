@@ -14,16 +14,16 @@ Winki 的小而美产品营销站点。基于 **AstroWind** 模板演化而来�
 
 ## 技术栈
 
-| 层级     | 主要依赖                                                 |
-| -------- | -------------------------------------------------------- |
-| 框架     | Astro 5.x                                                |
-| 样式     | Tailwind CSS 3.4、@tailwindcss/typography                |
-| 内容     | Markdown / MDX、Astro Content Collections                |
-| 图标     | astro-icon（Iconify: tabler / flat-color-icons）         |
-| SEO      | @astrolib/seo                                            |
-| 分析     | @astrolib/analytics（GA / Splitbee，当前未启用外部脚本） |
-| 字体     | @fontsource-variable/inter                               |
-| 构建增强 | astro-compress、sitemap、partytown（按需）               |
+| 层级     | 主要依赖                                         |
+| -------- | ------------------------------------------------ |
+| 框架     | Astro 5.x                                        |
+| 样式     | Tailwind CSS 3.4、@tailwindcss/typography        |
+| 内容     | Markdown / MDX、Astro Content Collections        |
+| 图标     | astro-icon（Iconify: tabler / flat-color-icons） |
+| SEO      | @astrolib/seo                                    |
+| 分析     | GA4 标准异步加载（收数需后台核验）               |
+| 字体     | @fontsource-variable/inter                       |
+| 构建增强 | astro-compress、sitemap                          |
 
 ---
 
@@ -33,6 +33,7 @@ Winki 的小而美产品营销站点。基于 **AstroWind** 模板演化而来�
 npm install          # 安装依赖
 npm run dev          # http://localhost:4321
 npm run build        # 构建到 ./dist
+npm run check:seo    # 检查已构建 HTML 和检查器正反例
 npm run preview      # 预览生产构建
 npm run check        # astro check + eslint + prettier
 npm run fix          # eslint --fix + prettier -w
@@ -42,7 +43,7 @@ npm run fix          # eslint --fix + prettier -w
 
 1. 本地修改代码，`git push` 到 GitHub（main 分支）
 2. Cloudflare Pages 自动检测到推送，拉取代码
-3. Cloudflare 自动执行 `npm run build`，产出 `./dist/`
+3. Cloudflare 自动执行 `npm run build`，产出 `./dist/`，并在同一命令内执行 SEO 回归检查；失败不发布
 4. 构建产物自动部署到 `https://winki.win`
 
 ---
@@ -173,9 +174,10 @@ const metadata = {
 - 构建时自动生成 `dist/sitemap-index.xml` 和 `dist/sitemap-0.xml`（通过 `@astrojs/sitemap` 插件）。
 - sitemap 配置在 `astro.config.ts` 中，过滤规则也在那里：
   - 排除了 `/tag/*`、`/landing/*` 等薄内容页面
-- `public/robots.txt` 中声明了 `Sitemap: https://winki.win/sitemap-index.xml`
-- Google Search Console 中提交该 URL 即可触发收录
-- `src/config.yaml` 中的 `trailingSlash` 必须为 `true`，否则 sitemap URL 与 Cloudflare 实际路径不一致，导致 308 重定向，Google 无法读取
+- `public/robots.txt` 中声明了 `Sitemap: https://winki.win/sitemap-0.xml`
+- Google Search Console 中提交该 URL 帮助发现页面，不保证收录
+- 保留 `trailingSlash: true` 和图片 endpoint `/_image/`；内部链接、canonical、sitemap 指向最终规范 URL。Google 能处理 301/308
+- 演示路由规则在 `src/utils/seo-policy.ts`：noindex、排除 sitemap、无占位软件 schema；About 是真实页面
 
 ---
 
@@ -193,13 +195,16 @@ const metadata = {
 - `vendor/integration/` 是 Astrowind 的核心集成逻辑（配置加载、虚拟模块、robots.txt 自动化）。如非必要，不要改动。
 - 站点 `site` 配置在 `astro.config.ts` 和 `src/config.yaml` 中都有定义；以 `src/config.yaml` 为准（由 integration 最终注入到 Astro 配置中）。
 - 博客 permalink 为 `/%slug%`，即文章直接挂在根路径下，修改前请评估对 SEO 的影响。
-- 外部脚本开关在 `astro.config.ts` 的 `hasExternalScripts`；当前为 `false`，GA 等第三方脚本不会注入。
+- GA4 ID 在 `src/config.yaml`，加载与单次初始化在 `Analytics.astro`，页面及转换事件在 `ConversionEvents.astro`。使用标准异步加载，不启用 Partytown；客户端回退测试发现过代理错误。后台需核验增强型衡量的历史记录页面浏览设置，避免与显式 `page_view` 重复。
+- 当前产品为九款：AiTrans 与 VocalTrans 是开发者确认的独立 App，不得合并或互相重定向。
+- 软件与 FAQ schema 已存在；普通 App 站不承诺 FAQ 富结果。评分、价格、功能必须有真实来源；未知价格不默认填 0。
+- SEO 状态以 `docs/seo_remediation_todo_2026_10_23.md` 为准；2026-10-23 诊断是历史基线，不重复执行已验收项。
 
 ---
 
 ## 扩展建议
 
-- 新增产品落地页：在 `src/pages/homes/` 下新建 `.astro`，参考 `mobile-app.astro` 模板（极简 SEO 最佳实践样板），随后在 `src/navigation.ts` 中注册。落地页组件用 `AppSchema.astro`（注入 SoftwareApplication + FAQPage 结构化数据）与 `AppDownload.astro`（链接跳转 + 扫码双模式下载卡片）。
+- 新增产品落地页：在 `src/pages/homes/` 下新建 `.astro`，参考真实 `aitrans.astro`，同步 `src/data/apps.ts`、导航与 SEO 测试的产品清单。不要复制可索引模板。使用 `getCanonical` 处理 SEO URL；`AppDownload` 有 URL 输出 a，有 QR 提供独立按钮，无入口不显示。
 - 新增博客文章（内容生产工作流，务必按此链路）：
   1. **看进度**：打开 `docs/CONTENT-TRACKER.md`（进度看板）看哪些素材已给、哪些博文待写。
   2. **收素材**：按 `docs/素材模板/` 里对应类型的模板（用户故事/开发者思考/对比/教程/场景/榜单/版本更新）让开发者填空，收集真实体验、数据、截图——这是 E-E-A-T 的来源，不可用 AI 编造。

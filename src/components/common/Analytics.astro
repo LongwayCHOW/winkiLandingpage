@@ -1,13 +1,19 @@
 ---
-import { GoogleAnalytics } from '@astrolib/analytics';
 import { ANALYTICS } from 'astrowind:config';
+
+const id = ANALYTICS?.vendors?.googleAnalytics?.id;
 ---
 
-{
-  ANALYTICS?.vendors?.googleAnalytics?.id ? (
-    <GoogleAnalytics
-      id={String(ANALYTICS.vendors.googleAnalytics.id)}
-      partytown={ANALYTICS?.vendors?.googleAnalytics?.partytown}
-    />
-  ) : null
-}
+{id && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} />}
+<script is:inline define:vars={{ id }}>
+  // Initialize once; ConversionEvents sends first-load and ClientRouter page views.
+  if (id && !window.winkiAnalyticsInitialized) {
+    window.winkiAnalyticsInitialized = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function (...args) {
+      window.dataLayer.push(args);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', id, { send_page_view: false });
+  }
+</script>
