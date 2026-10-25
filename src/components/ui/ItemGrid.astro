@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import Button from './Button.astro';
 import { Icon } from 'astro-icon/components';
 
-const { items = [], columns, defaultIcon = '', classes = {} } = Astro.props;
+const { items = [], columns, defaultIcon = '', classes = {}, linkItems = false } = Astro.props;
 
 const {
   container: containerClass = '',
@@ -32,34 +32,82 @@ const {
         containerClass
       )}
     >
-      {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }) => (
-        <div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-          <div class={twMerge('flex flex-row max-w-md', panelClass, itemClasses?.panel)}>
-            <div class="flex justify-center">
-              {(icon || defaultIcon) && (
-                <Icon
-                  name={icon || defaultIcon}
-                  class={twMerge('w-7 h-7 mr-2 rtl:mr-0 rtl:ml-2', defaultIconClass, itemClasses?.icon)}
-                />
+      {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }) => {
+        // 图标两种形态：tabler 名称走 astro-icon；对象（ImageMetadata）或 URL 字符串走真实 App 图标
+        const iconSrc =
+          icon && typeof icon === 'object'
+            ? icon.src
+            : typeof icon === 'string' && /^(https?:\/\/|\/)/.test(icon)
+              ? icon
+              : null;
+        const iconName = typeof icon === 'string' && !iconSrc ? icon : '';
+        const isLinked = linkItems && Boolean(callToAction?.href);
+        const Panel = isLinked ? 'a' : 'div';
+        const panelLinkProps =
+          isLinked && callToAction
+            ? {
+                href: callToAction.href,
+                ...(callToAction.target ? { target: callToAction.target, rel: 'noopener noreferrer' } : {}),
+              }
+            : {};
+
+        return (
+          <div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <Panel
+              {...panelLinkProps}
+              class={twMerge(
+                'flex flex-row max-w-md',
+                panelClass,
+                itemClasses?.panel,
+                isLinked &&
+                  'group rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
               )}
-            </div>
-            <div class="mt-0.5">
-              {title && <h3 class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</h3>}
-              {description && (
-                <p
-                  class={twMerge(`${title ? 'mt-3' : ''} text-muted`, descriptionClass, itemClasses?.description)}
-                  set:html={description}
-                />
-              )}
-              {callToAction && (
-                <div class={twMerge(`${title || description ? 'mt-3' : ''}`, actionClass, itemClasses?.actionClass)}>
-                  <Button variant="link" {...callToAction} />
-                </div>
-              )}
-            </div>
+            >
+              <div class="flex justify-center">
+                {(iconSrc || iconName || defaultIcon) &&
+                  (iconSrc ? (
+                    <img
+                      src={iconSrc}
+                      alt=""
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                      class={twMerge(
+                        'w-7 h-7 mr-2 rtl:mr-0 rtl:ml-2 object-contain',
+                        defaultIconClass,
+                        itemClasses?.icon,
+                        'p-0 md:p-0'
+                      )}
+                    />
+                  ) : (
+                    <Icon
+                      name={iconName || defaultIcon}
+                      class={twMerge('w-7 h-7 mr-2 rtl:mr-0 rtl:ml-2', defaultIconClass, itemClasses?.icon)}
+                    />
+                  ))}
+              </div>
+              <div class="mt-0.5">
+                {title && <h3 class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</h3>}
+                {description && (
+                  <p
+                    class={twMerge(`${title ? 'mt-3' : ''} text-muted`, descriptionClass, itemClasses?.description)}
+                    set:html={description}
+                  />
+                )}
+                {callToAction && (
+                  <div class={twMerge(`${title || description ? 'mt-3' : ''}`, actionClass, itemClasses?.actionClass)}>
+                    {isLinked ? (
+                      <span class="group-hover:text-primary">{callToAction.text}</span>
+                    ) : (
+                      <Button variant="link" {...callToAction} />
+                    )}
+                  </div>
+                )}
+              </div>
+            </Panel>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   )
 }

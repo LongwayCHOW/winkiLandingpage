@@ -10,6 +10,7 @@ const {
   tagline = await Astro.slots.render('tagline'),
   items = [],
   columns = 2,
+  linkItems = false,
 
   defaultIcon,
 
@@ -26,6 +27,7 @@ const {
     items={items}
     columns={columns}
     defaultIcon={defaultIcon}
+    linkItems={linkItems}
     classes={{
       container: '',
       title: 'md:text-[1.3rem]',

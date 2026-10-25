@@ -6,6 +6,10 @@ export const headerData = {
       text: 'Apps',
       links: [
         {
+          text: 'All apps & downloads',
+          href: getPermalink('/allApps'),
+        },
+        {
           text: 'Chronicle',
           href: getPermalink('/homes/chronicle'),
         },
@@ -72,6 +76,10 @@ export const headerData = {
       linksAutoLatest: true,
     },
     {
+      text: 'All apps',
+      href: getPermalink('/allApps'),
+    },
+    {
       text: 'TravelChina',
       href: getPermalink('/travel-china'),
     },
@@ -84,6 +92,7 @@ export const footerData = {
     {
       title: 'Product',
       links: [
+        { text: 'All apps & downloads', href: getPermalink('/allApps') },
         { text: 'Aesthetic Calculator', href: getPermalink('/homes/aesthetic-calculator') },
         { text: 'Chronicle', href: getPermalink('/homes/chronicle') },
         { text: 'Flip Timer', href: getPermalink('/homes/flip-timer') },

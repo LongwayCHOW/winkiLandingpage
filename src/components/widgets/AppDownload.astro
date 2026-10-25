@@ -26,6 +26,10 @@ const googlePlayQrSrc = googlePlayQr ? (typeof googlePlayQr === 'string' ? googl
 // 是否传入了应用商店下载链接（有链接 → 点击跳转；无链接 → 保持原扫码行为）
 const appStoreLinkHref = appStoreLink.startsWith('http') ? appStoreLink : undefined;
 const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : undefined;
+
+// 只有存在下载链接或二维码时才显示对应商店图标，避免出现无入口的图标
+const showAppStore = Boolean(appStoreLinkHref || appStoreQrSrc);
+const showGooglePlay = Boolean(googlePlayLinkHref || googlePlayQrSrc);
 ---
 
 <div
@@ -85,54 +89,56 @@ const googlePlayLinkHref = googlePlayLink.startsWith('http') ? googlePlayLink : 
     <Icon name="tabler:camera" class="w-3 h-3" /> Scan to Download
   </p>
 
-  <div class="flex gap-6">
+  <div class="flex items-center justify-center gap-6">
     {
-      appStoreLinkHref ? (
-        <a
-          href={appStoreLinkHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
-          data-target="ios"
-          data-download-platform="ios"
-          data-app-id={appId}
-          aria-label="App Store"
-        >
-          <Icon name="tabler:brand-apple" class="w-6 h-6" />
-        </a>
-      ) : (
-        <button
-          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
-          data-target="ios"
-          aria-label="App Store"
-        >
-          <Icon name="tabler:brand-apple" class="w-6 h-6" />
-        </button>
-      )
+      showAppStore &&
+        (appStoreLinkHref ? (
+          <a
+            href={appStoreLinkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+            data-target="ios"
+            data-download-platform="ios"
+            data-app-id={appId}
+            aria-label="App Store"
+          >
+            <Icon name="tabler:brand-apple" class="w-6 h-6" />
+          </a>
+        ) : (
+          <button
+            class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+            data-target="ios"
+            aria-label="App Store"
+          >
+            <Icon name="tabler:brand-apple" class="w-6 h-6" />
+          </button>
+        ))
     }
     {
-      googlePlayLinkHref ? (
-        <a
-          href={googlePlayLinkHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
-          data-target="android"
-          data-download-platform="android"
-          data-app-id={appId}
-          aria-label="Google Play"
-        >
-          <Icon name="tabler:brand-google-play" class="w-5 h-5" />
-        </a>
-      ) : (
-        <button
-          class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
-          data-target="android"
-          aria-label="Google Play"
-        >
-          <Icon name="tabler:brand-google-play" class="w-5 h-5" />
-        </button>
-      )
+      showGooglePlay &&
+        (googlePlayLinkHref ? (
+          <a
+            href={googlePlayLinkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+            data-target="android"
+            data-download-platform="android"
+            data-app-id={appId}
+            aria-label="Google Play"
+          >
+            <Icon name="tabler:brand-google-play" class="w-5 h-5" />
+          </a>
+        ) : (
+          <button
+            class="platform-btn text-primary hover:text-primary/80 transition-colors focus:outline-none"
+            data-target="android"
+            aria-label="Google Play"
+          >
+            <Icon name="tabler:brand-google-play" class="w-5 h-5" />
+          </button>
+        ))
     }
   </div>
 </div>

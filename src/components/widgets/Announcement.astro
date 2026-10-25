@@ -9,7 +9,13 @@ import { Icon } from 'astro-icon/components';
     class="dark:bg-slate-700 bg-white/40 dark:text-slate-300 font-semibold px-1 py-0.5 text-xs mr-0.5 rtl:mr-0 rtl:ml-0.5 inline-block"
     >NEW</span
   >
-  <a href="#" class="text-muted hover:underline dark:text-slate-400 font-medium">New updates available! »</a>
+  <a
+    href="https://apps.apple.com/us/developer/%E9%BE%99%E5%A8%81-%E5%91%A8/id1798120294"
+    target="_blank"
+    rel="noopener"
+    data-store-devs
+    class="text-muted hover:underline dark:text-slate-400 font-medium">New updates available! »</a
+  >
   <div class="ltr:ml-auto rtl:mr-auto ml-auto flex items-center gap-3">
     <a
       target="_blank"
@@ -33,3 +39,25 @@ import { Icon } from 'astro-icon/components';
     </a>
   </div>
 </div>
+
+<script>
+  const DEVELOPER_PAGES = [
+    'https://apps.apple.com/us/developer/%E9%BE%99%E5%A8%81-%E5%91%A8/id1798120294',
+    'https://play.google.com/store/apps/developer?id=%E9%9B%B2%E9%9B%86',
+  ];
+
+  function bindStoreDevLink() {
+    const link = document.querySelector<HTMLAnchorElement>('[data-store-devs]');
+    if (!link || link.dataset.bound === 'true') return;
+    link.dataset.bound = 'true';
+
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      DEVELOPER_PAGES.forEach((href) => window.open(href, '_blank', 'noopener'));
+    });
+  }
+
+  bindStoreDevLink();
+  document.addEventListener('astro:page-load', bindStoreDevLink);
+  document.addEventListener('astro:after-swap', bindStoreDevLink);
+</script>

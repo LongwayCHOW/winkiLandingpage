@@ -11,6 +11,29 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import { apps } from '~/data/apps';
 import { getPermalink } from '~/utils/permalinks';
 
+// 真实 App 图标（与 /allApps/ 页面同源），填充 Our Apps 的圆形图标位
+import logoChronicle from '~/assets/images/post/chronicle/chronicle_logo.png';
+import logoMeowTalkie from '~/assets/images/post/meow-talkie/logo.png';
+import logoAiTrans from '~/assets/images/aitrans_logo.png';
+import logoAesthetic from '~/assets/images/post/aesthetic-calculator/logo-512.png';
+import logoDeliseek from '~/assets/images/post/deliseek/deliseek_logo.png';
+import logoFocusOne from '~/assets/images/post/focus-one/focus_one_logo.png';
+import logoFlipTimer from '~/assets/images/post/flip-timer/flip-timer-logo-512.png';
+import logoPhotoSwipe from '~/assets/images/post/photo-swipe-cleaner/photo-swipe-cleaner-logo-512.png';
+import logoVocalTrans from '~/assets/images/travelappicon/vocaltrans_logo.png';
+
+const appIcons = {
+  chronicle: logoChronicle,
+  meowtalkie: logoMeowTalkie,
+  aitrans: logoAiTrans,
+  'aesthetic-calculator': logoAesthetic,
+  deliseek: logoDeliseek,
+  'focus-one': logoFocusOne,
+  'flip-timer': logoFlipTimer,
+  'photo-swipe-cleaner': logoPhotoSwipe,
+  vocaltrans: logoVocalTrans,
+};
+
 const metadata = {
   title: 'Winki | Small Apps for Everyday Life',
   description:
@@ -24,6 +47,7 @@ const metadata = {
 
   <Hero
     image={{ src: '~/assets/images/hero-image.png', alt: 'Winki Hero Image' }}
+    imageHref={getPermalink('/allApps')}
     actions={[{ text: 'Explore the apps', href: '#apps', variant: 'primary' }]}
   >
     <Fragment slot="title">
@@ -47,10 +71,11 @@ const metadata = {
     tagline="Explore"
     title="Our Apps"
     subtitle="Choose a product, read its details and find the right download for your device."
+    linkItems
     items={apps.map((app) => ({
       title: app.name,
       description: app.description,
-      icon: app.icon,
+      icon: appIcons[app.id],
       callToAction: { text: `Explore ${app.name}`, href: getPermalink(`/homes/${app.id}`) },
     }))}
   />

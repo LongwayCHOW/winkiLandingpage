@@ -135,7 +135,7 @@ export interface Stat {
 export interface Item {
   title?: string;
   description?: string;
-  icon?: string;
+  icon?: string | ImageMetadata;
   classes?: Record<string, string>;
   callToAction?: CallToAction;
   image?: Image;
@@ -194,6 +194,7 @@ export interface ItemGrid {
   columns?: number;
   defaultIcon?: string;
   classes?: Record<string, string>;
+  linkItems?: boolean;
 }
 
 export interface Collapse {
@@ -217,6 +218,7 @@ export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' |
   content?: string;
   actions?: string | CallToAction[];
   image?: string | unknown;
+  imageHref?: string;
 }
 
 export interface Team extends Omit<Headline, 'classes'>, Widget {
@@ -252,6 +254,7 @@ export interface Features extends Omit<Headline, 'classes'>, Widget {
   isReversed?: boolean;
   isBeforeContent?: boolean;
   isAfterContent?: boolean;
+  linkItems?: boolean;
 }
 
 export interface Faqs extends Omit<Headline, 'classes'>, Widget {
