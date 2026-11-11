@@ -5,7 +5,7 @@ layout: '~/layouts/MarkdownLayout.astro'
 
 User and Subscription Service Agreement（English Version）
 
-Welcome to use the products developed by our team (hereinafter referred to as "we"), including but not limited to applications such as "Chronicle/MeowTalkie/Photo Swipe Cleaner/Aesthetic Calculator/Focus One/Flip Timer" (hereinafter collectively referred to as "this service").
+Welcome to use the products developed and operated by Zhou Longwei (周龙威), an individual developer based in China (hereinafter referred to as "we" or "us"), including but not limited to the applications "Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner" (hereinafter collectively referred to as "this service").
 Before accessing or using this service, please be sure to carefully read and thoroughly understand this "User and Subscription Service Agreement" (hereinafter referred to as "this Agreement"). This Agreement constitutes a legally binding document between you and us. Once you use this service in any way (including but not limited to downloading, installing, launching, browsing, registering, logging in, purchasing, etc.), it indicates that you have fully read, understood, and agreed to accept all the terms of this Agreement. If you do not agree to any content of this Agreement, please immediately stop using this service.
 
 1. Service Content and Usage Rules
@@ -16,8 +16,11 @@ Before accessing or using this service, please be sure to carefully read and tho
    Bypass or attempt to bypass any security measures we have implemented to protect this service.
    Using this service to engage in any behavior that may harm the interests of us, other users, or third parties.
    Violate any applicable local, national, or international laws and regulations.
+   Create, upload, process, translate, transcribe, store or share any content that is sexual, pornographic, sexually explicit, adult or otherwise NSFW, including nudity, sexual acts, content that sexualizes a minor, child sexual abuse material, non-consensual intimate imagery, or a sexual or intimate depiction of a real person created without their consent.
+   Create or use a deepfake, voice clone or other synthetic likeness of a real person without that person's consent, or use any AI feature to harass, defame, threaten or deceive any person.
+   1.3 Acceptable Use Policy: Our Acceptable Use Policy (https://winki.win/acceptable-use/) forms part of this Agreement. It applies to all of our apps and in particular to every feature that generates, translates or transcribes text, audio or other output using artificial intelligence. You must not use this service in any way that breaches the Acceptable Use Policy. Where the Acceptable Use Policy and this Agreement differ on prohibited content or prohibited use, the Acceptable Use Policy prevails.
 2. Subscription Services, Renewal, and Pricing
-   2.1 Paid Content: Some features or content of this service may require you to pay through internal purchase or subscription (hereinafter referred to as "subscription service"). The specific price of the subscription shall be based on the amount displayed when you make a purchase for a specific product (such as "Chronicle") within the Apple App Store or Google Play Store.
+   2.1 Paid Content: Some features or content of this service may require you to pay through internal purchase or subscription (hereinafter referred to as "subscription service"). An indicative list of our plans and prices in US dollars is published at https://winki.win/pricing/. The specific price of the subscription shall be based on the amount displayed when you make a purchase for a specific product (such as "Chronicle") within the Apple App Store or Google Play Store.
    2.2 Price Changes: We reserve the right to adjust the price of the subscription service at any time. Price adjustments may occur due to promotional activities, cost changes, or other factors. Any price changes will be announced on the corresponding app store platform and will take effect for your future subscription renewals.
    2.3 Subscription Cycle and Auto-Renewal:
    Your subscription service will follow the standard subscription policies of the Apple App Store and Google Play platforms.
@@ -32,7 +35,7 @@ Before accessing or using this service, please be sure to carefully read and tho
    3.4 Third-Party Services: This service may contain links to third-party websites or services. These links are provided solely for the convenience of users. We assume no responsibility for the content, Privacy Policy, or operations of these third-party services.
    3.5 Limitation of Liability: If any exemption clause in this Agreement is determined to be invalid, in no event shall our total liability to you exceed the total amount (if any) you paid to us for using the Service within the six months prior to the occurrence of the event giving rise to the claim.
 4. User Feedback
-   We welcome and encourage you to provide any feedback, comments, or suggestions regarding this service. You can send your ideas to our User Experience feedback email address: winkiwiki@QQ.com.
+   We welcome and encourage you to provide any feedback, comments, or suggestions regarding this service. You can send your ideas to our User Experience feedback email address: support@winki.win.
    To enable us to efficiently locate and resolve your issues, please ensure that you follow the following format when writing to us:
    Email Subject: [Name of the Product You Are Using] - Problem/Suggestion Feedback
    Email Body:
@@ -48,4 +51,4 @@ Before accessing or using this service, please be sure to carefully read and tho
 6. Others
    6.1 Applicable Law: The interpretation, validity, and dispute resolution of this Agreement shall all be governed by relevant laws and regulations.
    6.2 Severability: If any provision of this Agreement is held by a court of competent jurisdiction to be invalid or unenforceable, such provision shall be deemed deleted from this Agreement, while the remaining provisions shall continue in full force and effect.
-   6.3 Contact Us: If you have any questions about this Agreement, please contact us via [winkiwiki@QQ.com].
+   6.3 Contact Us: If you have any questions about this Agreement, please contact us via [support@winki.win].

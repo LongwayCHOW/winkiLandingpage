@@ -1,6 +1,5 @@
 export const demoPaths = [
   '/services/',
-  '/pricing/',
   '/homes/mobile-app/',
   '/homes/personal/',
   '/homes/saas/',

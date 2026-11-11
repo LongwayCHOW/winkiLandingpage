@@ -1,244 +1,309 @@
 ---
+/**
+ * 价格页 — /pricing/
+ * 目标：在一个页面内按 App 切换，展示各 App 的免费版与付费项目（订阅 + 一次性）。
+ * 说明：价格为开发者提供的真实美元价格；所有 App 基础功能免费，另含一次性内购与订阅。
+ */
 import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import Prices from '~/components/widgets/Pricing.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getCanonical, getPermalink } from '~/utils/permalinks';
+
+import logoAesthetic from '~/assets/images/post/aesthetic-calculator/logo-512.png';
+import logoChronicle from '~/assets/images/post/chronicle/chronicle_logo.png';
+import logoDeliseek from '~/assets/images/post/deliseek/deliseek_logo.png';
+import logoFlipTimer from '~/assets/images/post/flip-timer/flip-timer-logo-512.png';
+import logoFocusOne from '~/assets/images/post/focus-one/focus_one_logo.png';
+import logoMeowTalkie from '~/assets/images/post/meow-talkie/logo.png';
+import logoPhotoSwipe from '~/assets/images/post/photo-swipe-cleaner/photo-swipe-cleaner-logo-512.png';
+import logoVocalTrans from '~/assets/images/travelappicon/vocaltrans_logo.png';
+import logoAiTrans from '~/assets/images/aitrans_logo.png';
+
+const url = String(getCanonical(Astro.url.pathname));
+
+// 价格为开发者提供的真实美元价格。所有 App 基础功能免费，均含一次性「移除广告」与「捐赠」内购。
+const free = { name: 'Free', note: 'Basic features', billing: 'Free', price: 0 };
+const removeAds = { name: 'Remove ads', note: 'One payment, ads removed for good', billing: 'One-time', price: 2.99 };
+const donate = { name: 'Support the developer', note: 'Optional donation preset', billing: 'One-time', price: 5.99 };
+
+const plans = [
+  {
+    id: 'chronicle',
+    name: 'Chronicle',
+    description: 'A calendar-based journal for notes, tasks and everyday planning.',
+    logo: logoChronicle,
+    rows: [
+      free,
+      { name: 'Chronicle Pro', note: 'All paid features', billing: 'Monthly subscription', price: 4.88 },
+      { name: 'Chronicle Pro', note: 'Same features, billed yearly', billing: 'Yearly subscription', price: 35.88 },
+      removeAds,
+      donate,
+    ],
+  },
+  {
+    id: 'meowtalkie',
+    name: 'MeowTalkie',
+    description: 'A cat soundboard for playful interaction.',
+    logo: logoMeowTalkie,
+    rows: [free, removeAds, donate],
+  },
+  {
+    id: 'aitrans',
+    name: 'AiTrans',
+    description: 'Offline Chinese–English voice translation.',
+    logo: logoAiTrans,
+    rows: [
+      free,
+      { name: 'AiTrans Pro', note: 'All paid features', billing: 'Monthly subscription', price: 4.88 },
+      { name: 'AiTrans Pro', note: 'Same features, billed yearly', billing: 'Yearly subscription', price: 34.36 },
+      removeAds,
+      donate,
+    ],
+  },
+  {
+    id: 'aesthetic-calculator',
+    name: 'Aesthetic Calculator',
+    description: 'Cute themes, skins and colors for your calculator.',
+    logo: logoAesthetic,
+    rows: [
+      free,
+      { name: 'Tuxedo Cat theme', note: 'One-time theme unlock', billing: 'One-time', price: 1.99 },
+      { name: 'Modernism01 theme', note: 'One-time theme unlock', billing: 'One-time', price: 3.99 },
+      { name: 'Chinese Old Fashioned theme', note: 'One-time theme unlock', billing: 'One-time', price: 2.99 },
+      removeAds,
+      donate,
+    ],
+  },
+  {
+    id: 'deliseek',
+    name: 'DeliSeek',
+    description: 'Find local food and translate menus in China.',
+    logo: logoDeliseek,
+    rows: [
+      free,
+      { name: 'DeliSeek Pro', note: 'All paid features', billing: 'Monthly subscription', price: 4.99 },
+      { name: 'DeliSeek Pro', note: 'Same features, billed yearly', billing: 'Yearly subscription', price: 35.99 },
+      removeAds,
+      donate,
+    ],
+  },
+  {
+    id: 'focus-one',
+    name: 'Focus One',
+    description: 'A visual focus timer for one task at a time.',
+    logo: logoFocusOne,
+    rows: [free, removeAds, donate],
+  },
+  {
+    id: 'flip-timer',
+    name: 'Flip Timer',
+    description: 'Start a countdown by flipping your phone.',
+    logo: logoFlipTimer,
+    rows: [free, removeAds, donate],
+  },
+  {
+    id: 'photo-swipe-cleaner',
+    name: 'Photo Swipe Cleaner',
+    description: 'Keep or delete photos with simple swipes.',
+    logo: logoPhotoSwipe,
+    rows: [free, removeAds, donate],
+  },
+  {
+    id: 'vocaltrans',
+    name: 'VocalTrans',
+    description: 'Offline voice translation for travel conversations.',
+    logo: logoVocalTrans,
+    rows: [
+      free,
+      { name: 'VocalTrans Pro', note: 'All paid features', billing: 'Monthly subscription', price: 4.99 },
+      { name: 'VocalTrans Pro', note: 'Same features, billed yearly', billing: 'Yearly subscription', price: 34.99 },
+      removeAds,
+      donate,
+    ],
+  },
+];
 
 const metadata = {
   title: 'Pricing',
+  description:
+    'Winki app pricing in USD: free downloads with optional subscriptions and one-time upgrades for Chronicle, MeowTalkie, AiTrans, Aesthetic Calculator, DeliSeek, Focus One, Flip Timer, Photo Swipe Cleaner and VocalTrans.',
+  canonical: url,
+  openGraph: {
+    type: 'website',
+    url,
+  },
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
+  <div class="bg-page text-default">
+    <section class="relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute -top-32 left-1/2 h-72 w-[44rem] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl">
+        </div>
+        <div class="absolute -bottom-24 right-0 h-56 w-56 rounded-full bg-accent/10 blur-3xl"></div>
+      </div>
 
-  <HeroText
-    tagline="Pricing"
-    title="Stellar Pricing for Every Journey"
-    subtitle="Choose the perfect plan that aligns with your cosmic goals."
-  />
+      <div class="relative max-w-[1024px] mx-auto px-4 pt-16 pb-10 md:pt-24 md:pb-12">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-primary">Pricing</p>
+        <h1 class="mt-4 max-w-3xl text-4xl md:text-5xl font-bold leading-tight tracking-tight font-heading">
+          <span class="block">Free to download.</span>
+          <span class="block">Pay only for what you need.</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg text-muted">
+          Every Winki app is free to use. Optional subscriptions and one-time upgrades are listed in USD below. The
+          final price, currency and tax for your country are shown at checkout in the App Store or Google Play.
+        </p>
+      </div>
+    </section>
 
-  <!-- Pricing Widget ******************* -->
+    <section class="max-w-[1024px] mx-auto px-4 pb-16 md:pb-24">
+      <div
+        class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/60"
+      >
+        <div
+          role="tablist"
+          aria-label="Choose an app"
+          class="flex gap-2 overflow-x-auto border-b border-gray-200 p-3 dark:border-white/10"
+        >
+          {
+            plans.map((app, index) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${app.id}`}
+                aria-controls={`panel-${app.id}`}
+                aria-selected={index === 0 ? 'true' : 'false'}
+                data-tab-target={app.id}
+                class="flex shrink-0 items-center gap-2 rounded-xl border border-transparent px-3 py-2 text-sm font-medium text-muted transition hover:bg-gray-50 aria-selected:border-primary/40 aria-selected:bg-primary/5 aria-selected:text-default dark:hover:bg-slate-800 dark:aria-selected:bg-slate-800"
+              >
+                <img
+                  src={app.logo.src}
+                  alt=""
+                  width="32"
+                  height="32"
+                  class="h-8 w-8 rounded-lg"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="whitespace-nowrap">{app.name}</span>
+              </button>
+            ))
+          }
+        </div>
 
-  <Prices
-    title="Our prices"
-    subtitle="Only pay for what you need"
-    prices={[
-      {
-        title: 'basic',
-        subtitle: 'Optimal choice for personal use',
-        price: 29,
-        period: 'per month',
-        items: [
+        <div class="p-4 md:p-6">
           {
-            description: 'Etiam in libero, et volutpat',
-          },
-          {
-            description: 'Aenean ac nunc dolor tristique',
-          },
-          {
-            description: 'Cras scelerisque accumsan lib',
-          },
-          {
-            description: 'In hac habitasse',
-          },
-        ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
-      },
-      {
-        title: 'standard',
-        subtitle: 'Optimal choice for small teams',
-        price: 69,
-        period: 'Per Month',
-        items: [
-          {
-            description: 'Proin vel laoreet',
-          },
-          {
-            description: 'Ut efficitur habitasse egestas',
-          },
-          {
-            description: 'Volutpat hac curabitur',
-          },
-          {
-            description: 'Pellentesque blandit ut nibh',
-          },
-          {
-            description: 'Donec fringilla sem',
-          },
-        ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
-        hasRibbon: true,
-        ribbonTitle: 'popular',
-      },
-      {
-        title: 'premium',
-        subtitle: 'Optimal choice for companies',
-        price: 199,
-        period: 'Per Month',
-        items: [
-          {
-            description: 'Curabitur suscipit risus',
-          },
-          {
-            description: 'Aliquam habitasse malesuada',
-          },
-          {
-            description: 'Suspendisse sit amet blandit',
-          },
-          {
-            description: 'Suspendisse auctor blandit dui',
-          },
-        ],
-        callToAction: {
-          target: '_blank',
-          text: 'Get started',
-          href: '#',
-        },
-      },
-    ]}
-  />
+            plans.map((app, index) => (
+              <div
+                role="tabpanel"
+                id={`panel-${app.id}`}
+                aria-labelledby={`tab-${app.id}`}
+                data-tab-panel={app.id}
+                hidden={index !== 0}
+              >
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src={app.logo.src}
+                      alt={`${app.name} icon`}
+                      width="48"
+                      height="48"
+                      class="h-12 w-12 rounded-xl"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div>
+                      <h2 class="text-xl font-bold font-heading">{app.name}</h2>
+                      <p class="mt-1 text-sm text-muted">{app.description}</p>
+                    </div>
+                  </div>
+                  <a
+                    href={getPermalink(`/homes/${app.id}`)}
+                    class="text-sm font-medium text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  >
+                    App details
+                  </a>
+                </div>
 
-  <!-- Features3 Widget ************** -->
+                <div class="mt-5 overflow-x-auto">
+                  <table class="w-full min-w-[480px] text-left text-sm">
+                    <thead>
+                      <tr class="border-b border-gray-200 text-xs uppercase tracking-wide text-muted dark:border-white/10">
+                        <th scope="col" class="py-3 pr-4 font-semibold">
+                          Plan
+                        </th>
+                        <th scope="col" class="py-3 pr-4 font-semibold">
+                          Billing
+                        </th>
+                        <th scope="col" class="py-3 text-right font-semibold">
+                          Price (USD)
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {app.rows.map((row) => (
+                        <tr class="border-b border-gray-100 last:border-0 dark:border-white/5">
+                          <td class="py-3 pr-4">
+                            <div class="font-medium">{row.name}</div>
+                            <div class="text-xs text-muted">{row.note}</div>
+                          </td>
+                          <td class="py-3 pr-4 text-muted">{row.billing}</td>
+                          <td class="py-3 text-right font-semibold">
+                            {row.price === 0 ? 'Free' : `$${row.price.toFixed(2)}`}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
 
-  <Features3
-    title="Price-related features"
-    subtitle="Discover the advantages of choosing our plans"
-    columns={2}
-    items={[
-      {
-        title: 'Tiered Pricing Plans',
-        description: 'Choose from a range of pricing plans designed to accommodate different budgets and requirements.',
-        icon: 'tabler:stairs',
-      },
-      {
-        title: 'Transparent Pricing',
-        description: 'Clearly displayed pricing details for each plan, with no hidden costs or unexpected charges.',
-        icon: 'tabler:flip-vertical',
-      },
-      {
-        title: 'Secure Payment Methods',
-        description: 'Secure payment gateways to protect your financial information during transactions.',
-        icon: 'tabler:shield-lock',
-      },
-      {
-        title: 'Instant Access',
-        description: `Immediate access to your chosen plan's features and templates upon subscription.`,
-        icon: 'tabler:accessible',
-      },
-      {
-        title: 'Upgrade Value',
-        description: 'Upgrade to higher-tier plans to unlock more features and benefits for an enhanced experience.',
-        icon: 'tabler:chevrons-up',
-      },
-      {
-        title: '24H support',
-        description: 'Questions answered via live chat, email or phone, every calendar day.',
-        icon: 'tabler:headset',
-      },
-    ]}
-    classes={{ container: 'max-w-5xl' }}
-  />
-
-  <!-- Steps Widget ****************** -->
-
-  <Steps
-    title="A guided journey from plans to creativity"
-    tagline="simplified process"
-    isReversed={true}
-    items={[
-      {
-        title: 'Explore plans',
-        icon: 'tabler:number-1',
-      },
-      {
-        title: 'Select a plan',
-        icon: 'tabler:number-2',
-      },
-      {
-        title: 'Sign Up / Log In',
-        icon: 'tabler:number-3',
-      },
-      {
-        title: 'Review order',
-        icon: 'tabler:number-4',
-      },
-      {
-        title: 'Enter payment details',
-        icon: 'tabler:number-5',
-      },
-      {
-        title: 'Confirmation',
-        icon: 'tabler:number-6',
-      },
-      {
-        title: 'Download and start using the template(s)',
-        icon: 'tabler:number-7',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1536816579748-4ecb3f03d72a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
-    }}
-  />
-
-  <!-- FAQs Widget ******************* -->
-
-  <FAQs
-    title="Pricing FAQs"
-    subtitle="Choosing the right plan is important, and we're here to answer your questions. If you have queries about our pricing options, you're in the right place."
-    columns={1}
-    items={[
-      {
-        title: 'Do the plans come with customer support?',
-        description:
-          'Absolutely, all plans include access to our dedicated customer support to assist you with any queries or concerns.',
-      },
-      {
-        title: 'Is there a trial period for the different plans?',
-        description:
-          "Unfortunately, we don't offer trial periods for the plans. However, you can check out our demo section to preview the quality of our templates.",
-      },
-      {
-        title: 'Can I switch between plans?',
-        description:
-          'Certainly! You can easily upgrade or downgrade your plan, at any time, to find the one that best suits your evolving requirements.',
-      },
-      {
-        title: 'What payment methods do you accept?',
-        description:
-          'We accept major credit cards and online payment methods to ensure a convenient and secure transaction process.',
-      },
-      {
-        title: 'Are there any hidden fees beyond the displayed cost?',
-        description:
-          'No, the subscription cost covers all the features and templates listed under each plan. There are no hidden fees or extra charges.',
-      },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
-  <CallToAction
-    title="Ready to boost your projects?"
-    subtitle="Join our community of satisfied customers who have transformed their work with our templates."
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get started now',
-        href: '/',
-      },
-    ]}
-  />
+      <div class="mt-5 space-y-2 text-xs text-muted">
+        <p>
+          Prices are shown in USD for the United States storefront. Local prices are set by the App Store or Google Play
+          and may vary by country, currency and tax region.
+        </p>
+        <p>
+          Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period in
+          your App Store or Google Play account. One-time purchases do not renew. Refunds are handled by the store where
+          you purchased.
+        </p>
+      </div>
+    </section>
+  </div>
 </Layout>
+
+<script>
+  const selectPricingTab = (id: string) => {
+    document.querySelectorAll<HTMLElement>('[data-tab-target]').forEach((tab) => {
+      tab.setAttribute('aria-selected', tab.dataset.tabTarget === id ? 'true' : 'false');
+    });
+    document.querySelectorAll<HTMLElement>('[data-tab-panel]').forEach((panel) => {
+      panel.hidden = panel.dataset.tabPanel !== id;
+    });
+  };
+
+  let pricingTabsBound = false;
+
+  const setupPricingTabs = () => {
+    // 用 document 级事件委托：ClientRouter 软导航会替换 DOM，直接绑在按钮上的监听会丢失
+    if (!pricingTabsBound) {
+      pricingTabsBound = true;
+      document.addEventListener('click', (event) => {
+        const tab = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-tab-target]') : null;
+        if (!tab?.dataset.tabTarget) return;
+        selectPricingTab(tab.dataset.tabTarget);
+      });
+    }
+
+    // 软导航回来时按服务端默认状态重置一次
+    const initial = document.querySelector<HTMLElement>('[data-tab-target][aria-selected="true"]');
+    if (initial?.dataset.tabTarget) selectPricingTab(initial.dataset.tabTarget);
+  };
+
+  setupPricingTabs();
+  document.addEventListener('astro:page-load', setupPricingTabs);
+</script>

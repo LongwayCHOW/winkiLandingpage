@@ -6,11 +6,11 @@ layout: '~/layouts/MarkdownLayout.astro'
 Privacy Policy
 Updated on March 18, 2024
 
-In order to effectively protect the privacy rights and interests of users and optimize the user experience, the team (including its affiliates or affiliated companies, hereinafter referred to as "Chronicle/MeowTalkie/Photo Swipe Cleaner/Aesthetic Calculator/Focus One/Flip Timer" or "us") formulates this Privacy Policy in accordance with current regulations and policies. This Privacy Policy will detail our policies and measures in obtaining, managing and protecting users' personal information. This Privacy Policy applies to all services we provide to you, whether you obtain services through mobile end points or all devices.
+In order to effectively protect the privacy rights and interests of users and optimize the user experience, Zhou Longwei (周龙威), an individual developer based in China, together with the apps Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner (hereinafter referred to as "we" or "us") formulates this Privacy Policy in accordance with current regulations and policies. This Privacy Policy will detail our policies and measures in obtaining, managing and protecting users' personal information. This Privacy Policy applies to all services we provide to you, whether you obtain services through mobile end points or all devices.
 
 The following policy is our commitment to user privacy protection. Please read it carefully to understand our management of your personal information.
 
-The products and services covered by this Privacy Policy are developed by the team and published on behalf of individual developers. The contact email is: winkiwiki@qq.com. If you have any questions about this Privacy Policy or related matters, you can contact us at any time through this email.
+The products and services covered by this Privacy Policy are developed and published by Zhou Longwei (周龙威), an individual developer based in China. The contact email is: support@winki.win. If you have any questions about this Privacy Policy or related matters, you can contact us at any time through this email.
 
 This Privacy Policy section will help you understand the following:
 
@@ -123,7 +123,7 @@ If you are using an Apple device, we may send your health data, such as minutes 
 
 In the context of healthcare, personal health data obtained using the Clinical Health Records API, HealthKit API, Motion and Fitness, Movement Disorder APIs, and health-related research projects will not be used for marketing, advertising, and similar services, nor will it be shared or sold to any third-party. With your authorization, the data may be used for the purpose of improving health management, health research, etc.
 
-If you provide us with feedback by email winkiwiki@qq.com, we will keep your personal information contained in the feedback confidential in accordance with this policy, and we will also use this feedback information to better improve our products and services.
+If you provide us with feedback by email support@winki.win, we will keep your personal information contained in the feedback confidential in accordance with this policy, and we will also use this feedback information to better improve our products and services.
 
 We may obtain your personal information from other sources, including mail, telephone or fax. We may combine this information with information we have collected about you through this network to improve the products and services we offer.
 
@@ -153,11 +153,11 @@ In some cases, you may need to provide us with a profile for the above processin
 
 In accordance with applicable law, you have the right to object to or request the restriction of the processing of your profile and to request access, correction, deletion and portability of your personal data.
 
-In the case that the use of your information is based on your consent, you have the right to withdraw that consent at any time, but the withdrawal of consent does not affect the lawfulness of the data processing based on green-light before the withdrawal. You can commit your request to us through winkiwiki@qq.com.
+In the case that the use of your information is based on your consent, you have the right to withdraw that consent at any time, but the withdrawal of consent does not affect the lawfulness of the data processing based on green-light before the withdrawal. You can commit your request to us through support@winki.win.
 If you find that your information has changed or is inaccurate, please notify us of those changes so that our records can be updated or corrected. If you believe that our processing of your profile violates applicable law, you may file a complaint with a supervisory authority.
 We retain your profile for as long as necessary to provide you with services or products, or as required or licensed by applicable law, such as tax and accounting laws.
 You can cancel account at your own request (delete app). Before you delete account, we will verify your personal identity, security state, common devices and other information. Your behavior of canceling account is irreversible. Once you delete account, we will no longer collect your personal information, and immediately delete all information about your account, and ensure that this information will not be leaked. At the same time, you cannot obtain our products and services through the account you have deleted account.
-You can export requirements to us via winkiwiki@qq.com commit data. Before exporting data, we will verify your personal identity, security state, and other information.
+You can export requirements to us via support@winki.win commit data. Before exporting data, we will verify your personal identity, security state, and other information.
 After you complete our registration and perform reasonable and necessary identity authentication, you can access, modify, and delete the personal information you have committed to us. Generally, you can browse, modify, and delete your committed information at any time, but for security and identification reasons (such as number appeal services), you may not be able to modify some of the initial registration information and verification information provided during registration.
 We always prioritize the protection of your personal information, and at the same time, we attach great importance to your attention to personal information. For your personal information, you can inquire, modify, and delete your personal information online through mobile client ends and other channels.
 You have the right to update or correct your personal information independently, or authorize us to update and correct your information. Before you update and correct your information, we will first verify your identity before correcting and updating your information.
@@ -188,7 +188,7 @@ When the personal information security impact assessment report indicates that t
 Unless otherwise stated in this Privacy Policy, we will not share your personal information with third-parties with your permission or under the following circumstances:
 
 Service requests disclose. We disclose personal information to those who help provide the service, including those who perform technical, administrative, and data processing tasks such as hosting, billing, implementation, data storage, and security.
-Required by law or to protect rights. We will disclose personal information if required by law, or in response to a subpoena or court order, or when we unilaterally have reasonable grounds to believe that disclosure is necessary to protect the property or rights of "Chronicle/MeowTalkie/Photo Swipe Cleaner/Aesthetic Calculator/Focus One/Flip Timer", third-party, or the general public.
+Required by law or to protect rights. We will disclose personal information if required by law, or in response to a subpoena or court order, or when we unilaterally have reasonable grounds to believe that disclosure is necessary to protect the property or rights of Winki and its apps, third-party, or the general public.
 Business Transfers, Bankruptcy. In the event of a merger, acquisition or bankruptcy or sale of some or all of our assets, we have the right to transfer all personal information in our possession to the successor organization. Except to the extent of bankruptcy or other court designation, the use and disclosure of all transferred personal information will be subject to this Privacy Policy, and if you are notified of a new Privacy Policy that may cease, the use and disclosure will be subject to the new Privacy Policy. However, personal information committed or collected after the transfer is subject to a new Privacy Policy or policy established by our successor organization.
 When you release information on this site, you should strictly abide by relevant regulations. If we find that you release information that is prohibited by laws and regulations from being released or transmitted, we have the right to immediately stop transmitting the information, take disposal measures such as elimination, store relevant records, and report to the relevant authorities.
 
@@ -200,4 +200,4 @@ When you have any disputes with us due to the implementation of this policy, bot
 
 Any disputes arising from the third-party software or technology we use shall be resolved by the third-party party and we shall not be held responsible. We do not provide customer service support for third-party software or technology. If you need support, please contact the third-party.
 
-If you still have any questions about this Privacy Policy, please contact us (winkiwiki@qq.com) and we will promptly resolve your issue.
+If you still have any questions about this Privacy Policy, please contact us (support@winki.win) and we will promptly resolve your issue.

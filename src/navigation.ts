@@ -80,6 +80,10 @@ export const headerData = {
       href: getPermalink('/allApps'),
     },
     {
+      text: 'Price',
+      href: getPermalink('/pricing'),
+    },
+    {
       text: 'TravelChina',
       href: getPermalink('/travel-china'),
     },
@@ -120,6 +124,7 @@ export const footerData = {
   secondaryLinks: [
     { text: 'Terms', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    { text: 'Acceptable Use', href: getPermalink('/acceptable-use') },
   ],
   socialLinks: [
     { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
@@ -128,6 +133,6 @@ export const footerData = {
     // { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/LongwayCHOW/winkiLandingpage' },
   ],
   footNote: `
-    Made by <a class="text-blue-600 underline dark:text-muted" href="https://github.com/arthelokyo"> Arthelokyo</a> · All rights reserved.
+    © ${new Date().getFullYear()} Winki · Operated by Zhou Longwei (周龙威), an individual developer based in China · All rights reserved.
   `,
 };
