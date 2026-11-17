@@ -251,7 +251,7 @@ Google 非常看重产品网站的权威性与真实性（E-E-A-T），而目前
 
 ### 4. 【模板割裂】你最近改版只改了部分页面，全站至少存在 3 套互不统一的布局代码
 对比 Google 刚刚最新抓取的页面，我发现你其实已经开始修我第一轮指出的问题了——**但你只修到了首页的一部分**：
-* **首页（最新快照）**：已经改成了 `© 2026 Winki · Operated by Zhou Longwei (周龙威)...`、`support@winki.win` 和 `Acceptable Use`。
+* **首页（最新快照）**：已经改成了 `© 2026 Winki · Operated by Zhou Longwei ...`、`support@winki.win` 和 `Acceptable Use`。
 * **但 11 月 9 日刚被 Google 重新抓过的 `Focus One` 产品页**（以及 `Aesthetic Calculator`、`Flip Timer`）：用的竟然是另一套顶部菜单（`Features · FAQ · Blog · Download`），底部却依然残留着 `Made by Arthelokyo`，FAQ 里依然写着 `winkiwiki@QQ.com`！
 * 首页顶部菜单里还多了一个 `Price` 入口（如果只是空锚点或无独立定价内容，建议直接删掉）。
 

@@ -129,6 +129,6 @@ export const footerData = {
     // { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/LongwayCHOW/winkiLandingpage' },
   ],
   footNote: `
-    © ${new Date().getFullYear()} Winki · Operated by Zhou Longwei (周龙威), an individual developer based in China · All rights reserved.
+    © ${new Date().getFullYear()} Winki · Operated by Zhou Longwei , an individual developer based in China · All rights reserved.
   `,
 };

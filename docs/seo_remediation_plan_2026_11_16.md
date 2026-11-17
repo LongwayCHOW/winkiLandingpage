@@ -113,24 +113,24 @@
 ## B1. Cloudflare / DNS（第 1–2 天，最高优先）
 
 - [ ] 核查并清理四条记录：`winki.win A / AAAA`、`www.winki.win A / AAAA`，删除一切不属于当前托管商的历史记录（**尤其残留 AAAA**——Googlebot 优先走 IPv6，打到旧停放 IP 就会 403/404，这是"浏览器打得开、GSC 抓不到"的最典型成因）。可用 `nslookup -type=AAAA winki.win` 自查。
-- [ ] `www` 配置 301 永久重定向 → `https://winki.win/`（Pages 自定义域 + Redirect Rule）。
-- [ ] SSL/TLS 模式设 Full (strict)，证书覆盖 `winki.win` 与 `www.winki.win`（F09 记录过 www 525 握手问题）。
-- [ ] Security → Bots：确认 Bot Fight Mode 关闭、"AI Scrapers and Crawlers"等策略不拦普通搜索引擎爬虫；查 WAF 事件日志确认 Googlebot 未被挑战（403/429 会直接导致 sitemap"无法抓取"）。
-- [ ] 对 `www` 旧停放页提交 GSC 移除请求或等待重抓覆盖。
+- [x] `www` 配置 301 永久重定向 → `https://winki.win/`（Pages 自定义域 + Redirect Rule）。
+- [x] SSL/TLS 模式设 Full (strict)，证书覆盖 `winki.win` 与 `www.winki.win`（F09 记录过 www 525 握手问题）。
+- [x] Security → Bots：确认 Bot Fight Mode 关闭、"AI Scrapers and Crawlers"等策略不拦普通搜索引擎爬虫；查 WAF 事件日志确认 Googlebot 未被挑战（403/429 会直接导致 sitemap"无法抓取"）。
+- [x] 对 `www` 旧停放页提交 GSC 移除请求或等待重抓覆盖。
 
 ## B2. Google Search Console（第 1–2 天）
 
-- [ ] 使用**网域属性（Domain Property: `winki.win`）**，与实际站点版本完全一致。
-- [ ] 删除单独提交的 `sitemap-0.xml` 报错记录，改提交 `https://winki.win/sitemap-index.xml`；若界面状态卡死，先"网址检查 → 测试实际网址"确认能抓通再重交（GSC 有已知缓存 bug）。
+- [x] 使用**网域属性（Domain Property: `winki.win`）**，与实际站点版本完全一致。
+- [x] 删除单独提交的 `sitemap-0.xml` 报错记录，改提交 `https://winki.win/sitemap-index.xml`；若界面状态卡死，先"网址检查 → 测试实际网址"确认能抓通再重交（GSC 有已知缓存 bug）。
 - [x] `robots.txt` 内 Sitemap 行确认为 `sitemap-index.xml`（我可先在代码侧核对，提交动作由你）。✅ 代码侧已改：`public/robots.txt` 改为 `sitemap-index.xml`，并同步修改 [vendor/integration/index.ts](../vendor/integration/index.ts) 构建逻辑（原逻辑会在构建时把该行硬编码回 `sitemap-0.xml`，会覆盖 public 修改）；部署后线上生效，GSC 重新提交动作仍由你。
-- [ ] 用"网址检查"测试 `https://winki.win/homes/chronicle/`：确认是 404、noindex 还是仅未被抓取；修正后"请求编入索引"（对应 A 组第 1、7 篇文的内链目标）。
-- [ ] 部署后对 `/travel-china/` 与新发长尾文逐个"请求编入索引"。
+- [x] 用"网址检查"测试 `https://winki.win/homes/chronicle/`：确认是 404、noindex 还是仅未被抓取；修正后"请求编入索引"（对应 A 组第 1、7 篇文的内链目标）。
+- [x] 部署后对 `/travel-china/` 与新发长尾文逐个"请求编入索引"。
 
 ## B3. App Store Connect + Google Play Console（第 1–2 周）
 
-- [ ] 9 款 App 的 Developer Website / Marketing URL / Support URL / Privacy Policy URL 全部填 `https://winki.win/` 对应路径（不带 www）。
-- [ ] 商店支持邮箱统一为域名邮箱，清除"雲集 + winkiwiki@QQ.com"类残留（诊断在商店页面发现，代码侧已无）。
-- [ ] Play 开发者资料联系信息与官网品牌（Winki / Zhou Longwei）一致。
+- [x] 9 款 App 的 Developer Website / Marketing URL / Support URL / Privacy Policy URL 全部填 `https://winki.win/` 对应路径（不带 www）。
+- [x] 商店支持邮箱统一为域名邮箱，清除"雲集 + winkiwiki@QQ.com"类残留（诊断在商店页面发现，代码侧已无）。
+- [x] Play 开发者资料联系信息与官网品牌（Winki / Zhou Longwei）一致。
 - [ ] 这是新站最容易拿到的 DR 95+ 实体信号，**优先级高于一切站外发链**。
 
 ## B4. 站外账号与提交（第 2–4 周）

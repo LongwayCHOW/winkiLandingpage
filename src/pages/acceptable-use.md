@@ -5,7 +5,7 @@ layout: '~/layouts/MarkdownLayout.astro'
 
 Updated on November 11, 2026
 
-This Acceptable Use Policy ("AUP") applies to all applications, websites and related services operated by Zhou Longwei (周龙威), an individual developer based in China ("we", "us" or "our"), including Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner (together, the "Services"). It applies in particular to every feature that generates, translates, transcribes or otherwise produces text, audio or other output with the help of artificial intelligence ("AI Output"). One single AUP covers all of our apps and all of their AI features.
+This Acceptable Use Policy ("AUP") applies to all applications, websites and related services operated by Zhou Longwei , an individual developer based in China ("we", "us" or "our"), including Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner (together, the "Services"). It applies in particular to every feature that generates, translates, transcribes or otherwise produces text, audio or other output with the help of artificial intelligence ("AI Output"). One single AUP covers all of our apps and all of their AI features.
 
 By downloading, installing, accessing or using any of the Services, you confirm that you have read, understood and agreed to this AUP. If you do not agree with any part of it, please stop using the Services. This AUP forms part of, and is incorporated by reference into, our [Terms](/terms/) and should be read together with our [Privacy Policy](/privacy/). If there is a conflict between this AUP and the Terms regarding prohibited content or prohibited use, this AUP prevails.
 
@@ -63,4 +63,4 @@ We may update this AUP at any time to reflect changes in our Services, in our AI
 
 ## 7. Contact
 
-This AUP is published by Zhou Longwei (周龙威), an individual developer based in China, operating the Winki brand and the Services described above. Questions about this AUP can be sent to support@winki.win. We will respond as soon as reasonably possible.
+This AUP is published by Zhou Longwei , an individual developer based in China, operating the Winki brand and the Services described above. Questions about this AUP can be sent to support@winki.win. We will respond as soon as reasonably possible.

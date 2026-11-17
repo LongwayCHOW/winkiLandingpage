@@ -6,11 +6,11 @@ layout: '~/layouts/MarkdownLayout.astro'
 Privacy Policy
 Updated on March 18, 2024
 
-In order to effectively protect the privacy rights and interests of users and optimize the user experience, Zhou Longwei (周龙威), an individual developer based in China, together with the apps Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner (hereinafter referred to as "we" or "us") formulates this Privacy Policy in accordance with current regulations and policies. This Privacy Policy will detail our policies and measures in obtaining, managing and protecting users' personal information. This Privacy Policy applies to all services we provide to you, whether you obtain services through mobile end points or all devices.
+In order to effectively protect the privacy rights and interests of users and optimize the user experience, Zhou Longwei , an individual developer based in China, together with the apps Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner (hereinafter referred to as "we" or "us") formulates this Privacy Policy in accordance with current regulations and policies. This Privacy Policy will detail our policies and measures in obtaining, managing and protecting users' personal information. This Privacy Policy applies to all services we provide to you, whether you obtain services through mobile end points or all devices.
 
 The following policy is our commitment to user privacy protection. Please read it carefully to understand our management of your personal information.
 
-The products and services covered by this Privacy Policy are developed and published by Zhou Longwei (周龙威), an individual developer based in China. The contact email is: support@winki.win. If you have any questions about this Privacy Policy or related matters, you can contact us at any time through this email.
+The products and services covered by this Privacy Policy are developed and published by Zhou Longwei , an individual developer based in China. The contact email is: support@winki.win. If you have any questions about this Privacy Policy or related matters, you can contact us at any time through this email.
 
 This Privacy Policy section will help you understand the following:
 

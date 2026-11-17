@@ -5,7 +5,7 @@ layout: '~/layouts/MarkdownLayout.astro'
 
 User and Subscription Service Agreement（English Version）
 
-Welcome to use the products developed and operated by Zhou Longwei (周龙威), an individual developer based in China (hereinafter referred to as "we" or "us"), including but not limited to the applications "Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner" (hereinafter collectively referred to as "this service").
+Welcome to use the products developed and operated by Zhou Longwei , an individual developer based in China (hereinafter referred to as "we" or "us"), including but not limited to the applications "Chronicle, MeowTalkie, AiTrans, VocalTrans, DeliSeek, Aesthetic Calculator, Focus One, Flip Timer and Photo Swipe Cleaner" (hereinafter collectively referred to as "this service").
 Before accessing or using this service, please be sure to carefully read and thoroughly understand this "User and Subscription Service Agreement" (hereinafter referred to as "this Agreement"). This Agreement constitutes a legally binding document between you and us. Once you use this service in any way (including but not limited to downloading, installing, launching, browsing, registering, logging in, purchasing, etc.), it indicates that you have fully read, understood, and agreed to accept all the terms of this Agreement. If you do not agree to any content of this Agreement, please immediately stop using this service.
 
 1. Service Content and Usage Rules
