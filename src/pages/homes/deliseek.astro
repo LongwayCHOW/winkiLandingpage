@@ -15,6 +15,7 @@ import AppSchema from '~/components/common/AppSchema.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
+import bannerImg from '~/assets/images/deliseek-banner.jpg';
 import { getCanonical } from '~/utils/permalinks';
 
 /* ─────────────────────────── APP CONFIG ─────────────────────────── */
@@ -27,7 +28,7 @@ const app = {
   googlePlayDownloadLink: 'https://play.google.com/store/apps/details?id=wiki.winki.deliseek',
   url: String(getCanonical(Astro.url.pathname)),
   banner: {
-    src: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1024&q=80',
+    src: bannerImg,
     alt: 'DeliSeek — find local Chinese food and hidden gems when you travel to China',
   },
   iosAppStoreId: '',
@@ -43,7 +44,7 @@ const metadata = {
   openGraph: {
     type: 'website',
     url: app.url,
-    images: [{ url: app.banner.src }],
+    images: [{ url: bannerImg as unknown as string }],
   },
 };
 
@@ -90,7 +91,7 @@ const faqItems = [
     name={app.name}
     description={app.valueProp}
     url={app.url}
-    image={app.banner.src}
+    image={bannerImg.src}
     operatingSystems={app.platforms}
     androidAppStoreId={app.androidAppStoreId}
     faqItems={faqItems.map((f) => ({ q: f.title, a: f.description }))}

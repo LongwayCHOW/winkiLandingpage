@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Sync browser native UI (scrollbars, form controls) with the rendered theme.
+   The <meta name="color-scheme"> in <head> is kept in sync by JS
+   (ApplyColorMode / BasicScripts); :has() maps it back into the cascade. */
+:root {
+  color-scheme: light dark;
+}
+:root:has(> head > meta[name='color-scheme'][content='dark']) {
+  color-scheme: dark;
+}
+:root:has(> head > meta[name='color-scheme'][content='light']) {
+  color-scheme: light;
+}
+
 @layer utilities {
   .bg-page {
     background-color: var(--aw-color-bg-page);

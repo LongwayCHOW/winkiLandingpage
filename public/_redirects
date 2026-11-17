@@ -1,0 +1,11 @@
+# 同 App 重复旧文 301 收口到各自主文（A3 权重收口）
+# Focus One
+/focus-one-team-notes/ /focus-one-user-story/ 301
+/why-i-built-focus-timer-screen-addiction/ /focus-one-user-story/ 301
+# Flip Timer
+/flip-timer-sensor-story/ /flip-timer-user-story/ 301
+/flip-timer-team-notes/ /flip-timer-user-story/ 301
+# MeowTalkie
+/meowtalkie-team-notes/ /meowtalkie-user-story/ 301
+/meowtalkie-shy-cat-story/ /meowtalkie-user-story/ 301
+/meowtalkie-update-real-cat-sounds/ /meowtalkie-user-story/ 301

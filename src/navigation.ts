@@ -6,10 +6,6 @@ export const headerData = {
       text: 'Apps',
       links: [
         {
-          text: 'All apps & downloads',
-          href: getPermalink('/allApps'),
-        },
-        {
           text: 'Chronicle',
           href: getPermalink('/homes/chronicle'),
         },

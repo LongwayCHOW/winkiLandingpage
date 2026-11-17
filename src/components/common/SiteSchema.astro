@@ -6,7 +6,17 @@ const home = String(getCanonical('/'));
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', '@id': `${home}#organization`, name: SITE.name, url: home },
+    {
+      '@type': 'Organization',
+      '@id': `${home}#organization`,
+      name: SITE.name,
+      url: home,
+      sameAs: [
+        'https://apps.apple.com/us/developer/%E9%BE%99%E5%A8%81-%E5%91%A8/id1798120294',
+        'https://play.google.com/store/apps/developer?id=%E9%9B%B2%E9%9B%86',
+        'https://x.com/winki2wiki',
+      ],
+    },
     {
       '@type': 'WebSite',
       '@id': `${home}#website`,

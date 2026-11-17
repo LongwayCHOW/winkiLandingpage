@@ -47,6 +47,13 @@ import codeWechatDonate from '~/assets/images/paytestcode/wechat_donate.png';
 
 // AiTrans launch banner
 import aitransLogo from '~/assets/images/aitrans_logo.png';
+import vocaltransLogo from '~/assets/images/travelappicon/vocaltrans_logo.png';
+import deliseekLogo from '~/assets/images/post/deliseek/deliseek_logo.png';
+
+// Travel China page images (localized from lh3.googleusercontent.com)
+import bannerImage from '~/assets/images/travel-china-banner.jpg';
+import visaBusinessImage from '~/assets/images/travel-china-visa-business.jpg';
+import visaTransitImage from '~/assets/images/travel-china-visa-transit.jpg';
 
 const metadata = {
   title: 'Travel China 2026: The Ultimate Survival Guide | Payment, Apps, & Connectivity',
@@ -57,7 +64,7 @@ const metadata = {
     type: 'article',
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBH2n3744l1x42U7tfGWqK0XtWzsMH3QBQgw07WRikldYFAB8_Jw9tPtXtnC_E-yeqH4P_Hs6qL2VikQNvBRjMSTydMsCFkullSvA_lftbsvPpsGmwL0rpYM8Y5G7Neuf4OW4yKZw5TUaTO0RdLPLrp9Cvg3Juo4TdY2TyJcXUZ674b_SGDrcyLmgyg9UStcz8fq_NQbt1lrAQEShUmMRycrpuoyMO3XVN0gi7h4-fx9Ho0omyz0dkRYdtqfHR-UfkhyH_B7z3KsK8',
+        url: bannerImage as unknown as string,
         width: 1200,
         height: 630,
         alt: 'Travel China 2026 Guide',
@@ -162,10 +169,10 @@ const metadata = {
     <header class="w-full relative h-[100px] overflow-hidden rounded-xl shadow-lg group">
       <div class="absolute inset-0 z-0">
         <img
-          alt="Banner Background"
+          alt="Chinese city skyline at dusk, welcome banner for the Travel China 2026 guide"
           class="w-full h-full object-cover brightness-75"
           style="object-position: center 55%"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH2n3744l1x42U7tfGWqK0XtWzsMH3QBQgw07WRikldYFAB8_Jw9tPtXtnC_E-yeqH4P_Hs6qL2VikQNvBRjMSTydMsCFkullSvA_lftbsvPpsGmwL0rpYM8Y5G7Neuf4OW4yKZw5TUaTO0RdLPLrp9Cvg3Juo4TdY2TyJcXUZ674b_SGDrcyLmgyg9UStcz8fq_NQbt1lrAQEShUmMRycrpuoyMO3XVN0gi7h4-fx9Ho0omyz0dkRYdtqfHR-UfkhyH_B7z3KsK8"
+          src={bannerImage.src}
         />
         <div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
       </div>
@@ -196,7 +203,7 @@ const metadata = {
           >
             <div
               class="w-full h-32 bg-slate-100 dark:bg-slate-900 rounded-lg mb-3 flex items-center justify-center overflow-hidden bg-cover bg-center"
-              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuASSODoLjPLsnDpEhljish0LTrx_4ohhBOU9_imvXEMr5ZdMdW5CckDart7qnkeWWdsSYIOYzl4fAlh-0vF5Z7oFaBrF5sVG43zJMGk5B9PN1nZnVSqCBz1U7jTHPOSIrpNtdqrMsdImMPVTmk1CIiKprRX0OAdrtkojBnP2kPq9ujhwWPg_mEUFuEfWauSWn9b968u6ZpdUOxlnHp7O0iu53ZZlhicVxdTRYcIOrCFXTp365zgiObwFKd8Ncl-1w0L9VjNg4Pqtms');"
+              style={`background-image: url('${visaBusinessImage.src}');`}
             >
             </div>
             <h3 class="font-bold text-sm">Business Visa (M)</h3>
@@ -209,7 +216,7 @@ const metadata = {
           >
             <div
               class="w-full h-32 bg-slate-100 dark:bg-slate-900 rounded-lg mb-3 flex items-center justify-center overflow-hidden bg-cover bg-center"
-              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH2n3744l1x42U7tfGWqK0XtWzsMH3QBQgw07WRikldYFAB8_Jw9tPtXtnC_E-yeqH4P_Hs6qL2VikQNvBRjMSTydMsCFkullSvA_lftbsvPpsGmwL0rpYM8Y5G7Neuf4OW4yKZw5TUaTO0RdLPLrp9Cvg3Juo4TdY2TyJcXUZ674b_SGDrcyLmgyg9UStcz8fq_NQbt1lrAQEShUmMRycrpuoyMO3XVN0gi7h4-fx9Ho0omyz0dkRYdtqfHR-UfkhyH_B7z3KsK8');"
+              style={`background-image: url('${bannerImage.src}');`}
             >
             </div>
             <h3 class="font-bold text-sm">Tourist Visa (L)</h3>
@@ -218,19 +225,19 @@ const metadata = {
             </p>
           </div>
           <a
-            href="https://www.nia.gov.cn/n897453/c1688948/content.html"
+            href="https://www.nia.gov.cn/n741440/n741577/c1731205/content.html"
             target="_blank"
             rel="noopener noreferrer"
             class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col hover:border-primary/50 transition-colors cursor-pointer block"
           >
             <div
               class="w-full h-32 bg-slate-100 dark:bg-slate-900 rounded-lg mb-3 flex items-center justify-center overflow-hidden bg-cover bg-center"
-              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDddlQeMWWpyaO4c5fFbLzlcFyXwLML1wWHRLnbSxEPvLefM88ExwSSHpcRvIP8rA_zvbuRqqqNRTuWomsCD6kCRBawXFTs1D1t-lLH5etsuZFiZhnELVH8E-mJm9hYfPNFS2PVZvQKK5hXE-cbhLjmjEOYdUvK8UwrJiMIoJNoWbkbQisqb3AnR6mji3jM_-yFYN46I7Ej31afeip_jyHKnzwgLtHK84aQgCdwmaWm8LKt5HEgypfLtZj0qQ0p2IG4ZsVa7Jz_K1o');"
+              style={`background-image: url('${visaTransitImage.src}');`}
             >
             </div>
             <h3 class="font-bold text-sm">Transit (G/TWOV)</h3>
             <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-              72/144-hour visa-free transit for select nationalities.
+              240-hour (10-day) visa-free transit for 57 eligible nationalities, per official NIA announcements.
             </p>
           </a>
         </div>
@@ -357,6 +364,8 @@ const metadata = {
           icon={iconAlipay}
           appStoreQr={qrAlipayIos}
           googlePlayQr={qrAlipayAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id333206289"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone"
         />
         <AppDownload
           name="WeChat"
@@ -364,6 +373,8 @@ const metadata = {
           icon={iconWechat}
           appStoreQr={qrWechatIos}
           googlePlayQr={qrWechatAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id414478124"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.tencent.mm"
         />
       </div>
 
@@ -373,7 +384,7 @@ const metadata = {
           <h3 class="text-sm font-bold">Verification Test Codes</h3>
           <span
             class="bg-[#fff3eb] text-primary px-3 py-1 rounded-full text-[10px] font-bold border border-primary/10 uppercase tracking-tight"
-            >Live Rate: 1 CNY = 0.14 USD</span
+            >Verify your card, a ¥1 test payment</span
           >
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -383,7 +394,7 @@ const metadata = {
             <div
               class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
             >
-              <img src={codeWechatPay.src} alt="WeChat Pay" class="w-full h-full object-contain" />
+              <img src={codeWechatPay.src} alt="WeChat Pay wallet test QR code" class="w-full h-full object-contain" />
             </div>
             <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">WeChat PayTest</p>
             <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
@@ -394,9 +405,13 @@ const metadata = {
             <div
               class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
             >
-              <img src={codeWechatDonate.src} alt="Auth B" class="w-full h-full object-contain" />
+              <img
+                src={codeWechatDonate.src}
+                alt="WeChat mini-program test QR code"
+                class="w-full h-full object-contain"
+              />
             </div>
-            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">WeChat mniAppPayTest</p>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">WeChat PayTest</p>
             <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
           </div>
           <div
@@ -405,9 +420,9 @@ const metadata = {
             <div
               class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
             >
-              <img src={codeAlipay.src} alt="Alipay" class="w-full h-full object-contain" />
+              <img src={codeAlipay.src} alt="Alipay wallet test QR code" class="w-full h-full object-contain" />
             </div>
-            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Alipay PayTest</p>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Alipay payTest</p>
             <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
           </div>
           <div
@@ -416,9 +431,13 @@ const metadata = {
             <div
               class="w-full aspect-square bg-slate-50 dark:bg-slate-900 rounded-lg mb-2.5 flex items-center justify-center border border-slate-100 dark:border-slate-700 p-2"
             >
-              <img src={codeAliJingying.src} alt="Auth A" class="w-full h-full object-contain" />
+              <img
+                src={codeAliJingying.src}
+                alt="Alipay simplified version test QR code"
+                class="w-full h-full object-contain"
+              />
             </div>
-            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Alipay PayTest</p>
+            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">Alipay payTest</p>
             <p class="text-[8px] text-slate-400 mt-1">RMB ¥1 = US $0.14</p>
           </div>
         </div>
@@ -433,11 +452,25 @@ const metadata = {
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AppDownload
+          name="AiTrans"
+          description="Offline Chinese–English voice translator for travel conversations"
+          icon={aitransLogo}
+          googlePlayLink="https://play.google.com/store/apps/details?id=wiki.winki.aitrans"
+        />
+        <AppDownload
+          name="VocalTrans"
+          description="Offline voice translator for travel conversations, our other dedicated translation app"
+          icon={vocaltransLogo}
+          googlePlayLink="https://play.google.com/store/apps/details?id=wiki.winki.vocaltrans"
+        />
+        <AppDownload
           name="DeepL"
           description="Accurate Translation"
           icon={iconDeepl}
           appStoreQr={qrDeeplIos}
           googlePlayQr={qrDeeplAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id1552407475"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.deepl.mobiletranslator"
         />
         <AppDownload
           name="UDictionary"
@@ -445,6 +478,8 @@ const metadata = {
           icon={iconUdictionary}
           appStoreQr={qrUdictionaryIos}
           googlePlayQr={qrUdictionaryAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id1319771553"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.youdao.hindict"
         />
       </div>
     </section>
@@ -457,11 +492,19 @@ const metadata = {
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AppDownload
+          name="DeliSeek"
+          description="English menus & local food discovery while planning your China trip"
+          icon={deliseekLogo}
+          googlePlayLink="https://play.google.com/store/apps/details?id=wiki.winki.deliseek"
+        />
+        <AppDownload
           name="Meituan"
           description="Food Delivery & Tickets"
           icon={iconMeituan}
           appStoreQr={qrMeituanIos}
           googlePlayQr={qrMeituanAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id423084029"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.sankuai.meituan"
         />
         <AppDownload
           name="Dianping"
@@ -469,6 +512,8 @@ const metadata = {
           icon={iconDianping}
           appStoreQr={qrDianpingIos}
           googlePlayQr={qrDianpingAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id351091731"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.dianping.v1"
         />
       </div>
     </section>
@@ -486,6 +531,8 @@ const metadata = {
           icon={iconAmap}
           appStoreQr={qrAmapIos}
           googlePlayQr={qrAmapAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id461703208"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.autonavi.minimap"
         />
         <AppDownload
           name="Didi"
@@ -493,6 +540,8 @@ const metadata = {
           icon={iconDidi}
           appStoreQr={qrDidiIos}
           googlePlayQr={qrDidiAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id554499054"
+          googlePlayLink="https://play.google.com/store/apps/details?id=com.didiglobal.passenger"
         />
         <AppDownload
           name="Trip.com"
@@ -500,6 +549,8 @@ const metadata = {
           icon={iconTrip}
           appStoreQr={qrTripIos}
           googlePlayQr={qrTripAndroid}
+          appStoreLink="https://apps.apple.com/us/app/id681752345"
+          googlePlayLink="https://play.google.com/store/apps/details?id=ctrip.english"
         />
         <AppDownload
           name="12306"

@@ -79,7 +79,7 @@ export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegra
         try {
           const outDir = cfg.outDir;
           const publicDir = cfg.publicDir;
-          const sitemapName = 'sitemap-0.xml';
+          const sitemapName = 'sitemap-index.xml';
           const sitemapFile = new URL(sitemapName, outDir);
           const robotsTxtFile = new URL('robots.txt', publicDir);
           const robotsTxtFileInOut = new URL('robots.txt', outDir);

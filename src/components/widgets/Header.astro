@@ -68,9 +68,10 @@ async function postsResolver(items: Array<MenuLink>): Promise<Array<MenuLink>> {
       resolved.href = resolved.href || getBlogPermalink();
       // 文章列表末尾固定挂「All Blog」入口,方便用户看全部分页列表
       resolved.links.push({ text: 'All Blog', href: getBlogPermalink() });
-    }
-    if (link.links?.length) {
-      resolved.links = [...(resolved.links || []), ...link.links];
+      // linksAutoLatest 项若同时配置了手动 links,追加在自动列表之后(非自动项的 links 已随 { ...link } 展开,无需合并)
+      if (link.links?.length) {
+        resolved.links = [...resolved.links, ...link.links];
+      }
     }
     return resolved;
   });
