@@ -32,7 +32,7 @@
 | 7   | `@arthelokyo` 模板残留                             | [config.yaml L26-27](../src/config.yaml#L26-L27) twitter handle/site 仍为 `@arthelokyo`                                                             | 属实                                         |
 | 8   | "New updates available! »" 模板公告条              | [Announcement.astro](../src/components/widgets/Announcement.astro) 经 [PageLayout.astro L21](../src/layouts/PageLayout.astro#L21) 全站渲染          | 属实                                         |
 | 9   | 页脚 `Made by Arthelokyo`                          | 已修复                                                                                                                                              | 已解决，仅抽查残留                           |
-| 10  | QQ 邮箱 `winkiwiki@QQ.com`                         | 代码中已无                                                                                                                                          | 代码侧已解决；商店后台仍需核验（见第二部分） |
+| 10  | QQ 邮箱 `support@winki.win`                        | 代码中已无                                                                                                                                          | 代码侧已解决；商店后台仍需核验（见第二部分） |
 | 11  | 法务页漏 3 款新 App                                | terms/privacy/acceptable-use 均已含 9 款                                                                                                            | 已解决                                       |
 | 12  | Tag 页灌爆 sitemap                                 | [config.yaml](../src/config.yaml) tag `index:false`；[seo-policy.ts](../src/utils/seo-policy.ts) 已过滤 `/tag/`                                     | 已解决（标签精简仍属 F19 待办）              |
 | 13  | `Price` 菜单是空锚点                               | [pricing.astro](../src/pages/pricing.astro) 真实存在                                                                                                | 诊断过时，不处理                             |
@@ -129,7 +129,7 @@
 ## B3. App Store Connect + Google Play Console（第 1–2 周）
 
 - [x] 9 款 App 的 Developer Website / Marketing URL / Support URL / Privacy Policy URL 全部填 `https://winki.win/` 对应路径（不带 www）。
-- [x] 商店支持邮箱统一为域名邮箱，清除"雲集 + winkiwiki@QQ.com"类残留（诊断在商店页面发现，代码侧已无）。
+- [x] 商店支持邮箱统一为域名邮箱，清除"雲集 + support@winki.win"类残留（诊断在商店页面发现，代码侧已无）。
 - [x] Play 开发者资料联系信息与官网品牌（Winki / Zhou Longwei）一致。
 - [ ] 这是新站最容易拿到的 DR 95+ 实体信号，**优先级高于一切站外发链**。
 

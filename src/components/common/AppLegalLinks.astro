@@ -1,0 +1,21 @@
+---
+/**
+ * 产品落地页底部法务链接：指向该 App 专属的隐私政策与用户订阅协议页面（中英双语）。
+ * slug 与 src/pages/homes/ 及 src/pages/legal/ 下的目录名保持一致。
+ */
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<div class="mx-auto max-w-5xl px-4 pb-12 text-center text-sm text-slate-500 dark:text-slate-400">
+  <a href={`/legal/${slug}/privacy/`} class="hover:text-slate-900 dark:hover:text-white" rel="noopener"
+    >Privacy Policy</a
+  >
+  <span class="px-2" aria-hidden="true">·</span>
+  <a href={`/legal/${slug}/terms/`} class="hover:text-slate-900 dark:hover:text-white" rel="noopener"
+    >User &amp; Subscription Agreement</a
+  >
+</div>

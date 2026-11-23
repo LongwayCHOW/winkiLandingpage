@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import AppLegalLinks from '~/components/common/AppLegalLinks.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import AppDownload from '~/components/widgets/AppDownload.astro';
 import AppSchema from '~/components/common/AppSchema.astro';
@@ -98,4 +99,5 @@ const faqItems = [
     </div>
   </section>
   <FAQs id="faq" title="AiTrans Questions" items={faqItems} />
+  <AppLegalLinks slug="aitrans" />
 </Layout>
