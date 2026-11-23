@@ -109,6 +109,7 @@ export const footerData = {
       links: [
         { text: 'About Winki', href: getPermalink('/about') },
         { text: 'Contact', href: getPermalink('/contact') },
+        { text: 'Support', href: getPermalink('/support') },
         { text: 'Blog', href: getBlogPermalink() },
       ],
     },

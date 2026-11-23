@@ -1,0 +1,104 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+import logoChronicle from '~/assets/images/post/chronicle/chronicle_logo.png';
+import logoDeliseek from '~/assets/images/post/deliseek/deliseek_logo.png';
+import logoMeowTalkie from '~/assets/images/post/meow-talkie/logo.png';
+import logoFocusOne from '~/assets/images/post/focus-one/focus_one_logo.png';
+import logoAiTrans from '~/assets/images/aitrans_logo.png';
+import logoFlipTimer from '~/assets/images/post/flip-timer/flip-timer-logo-512.png';
+import logoAesthetic from '~/assets/images/post/aesthetic-calculator/logo-512.png';
+import logoPhotoSwipe from '~/assets/images/post/photo-swipe-cleaner/photo-swipe-cleaner-logo-512.png';
+import logoVocalTrans from '~/assets/images/travelappicon/vocaltrans_logo.png';
+
+// 排列顺序与 Support 文档中的图标网格一致（VocalTrans 文档未列出，排最后）
+const supportApps = [
+  { name: 'Chronicle', id: 'chronicle', logo: logoChronicle },
+  { name: 'DeliSeek', id: 'deliseek', logo: logoDeliseek },
+  { name: 'MeowTalkie', id: 'meowtalkie', logo: logoMeowTalkie },
+  { name: 'Focus One', id: 'focus-one', logo: logoFocusOne },
+  { name: 'AiTrans', id: 'aitrans', logo: logoAiTrans },
+  { name: 'Flip Timer', id: 'flip-timer', logo: logoFlipTimer },
+  { name: 'Aesthetic Calculator', id: 'aesthetic-calculator', logo: logoAesthetic },
+  { name: 'Photo Swipe Cleaner', id: 'photo-swipe-cleaner', logo: logoPhotoSwipe },
+  { name: 'VocalTrans', id: 'vocaltrans', logo: logoVocalTrans },
+];
+
+const metadata = {
+  title: 'Winki Support Center',
+  ignoreTitleTemplate: true,
+  description:
+    'Winki Support Center covers all apps by this developer: FAQ, customer service mailbox and feedback channel for Chronicle, MeowTalkie, AiTrans and more.',
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    tagline="Support"
+    title="Winki Support Center"
+    subtitle="This Support Center covers all applications under this developer."
+  />
+
+  <!-- App list ******************* -->
+  <section class="px-4 py-2 sm:px-6 mx-auto lg:px-8 max-w-7xl">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+      {
+        supportApps.map((app) => (
+          <a
+            href={getPermalink(`/homes/${app.id}`)}
+            class="flex flex-col items-center gap-3 text-center rounded-xl border border-gray-200 dark:border-slate-700 p-6 hover:border-primary transition-colors duration-200"
+          >
+            <img
+              src={app.logo.src}
+              alt={app.name}
+              width={app.logo.width}
+              height={app.logo.height}
+              loading="lazy"
+              class="w-16 h-16 object-contain"
+            />
+            <span class="text-lg font-medium text-gray-900 dark:text-slate-100">{app.name}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- FAQ ******************* -->
+  <FAQs
+    title="FAQ"
+    items={[
+      {
+        title: 'What should I do if I encounter problems using the product?',
+        description:
+          'Step 1. Write down the system you are using, the product name, the situation of the problem, the corresponding product screenshot, and your request.<br/>Step 2. Send them to <a href="mailto:winkiwiki@qq.com" class="underline">winkiwiki@qq.com</a>',
+      },
+      {
+        title: 'What if I have a great idea and want to have developers work on it?',
+        description:
+          'Step 1. Describe your idea, or even draw a sketch.<br/>Step 2. Tell the developer how much you are willing to pay for this idea.<br/>Step 3. Send them together to <a href="mailto:winkiwiki@qq.com" class="underline">winkiwiki@qq.com</a>',
+      },
+    ]}
+  />
+
+  <!-- Contact ******************* -->
+  <Features2
+    title="Contact"
+    items={[
+      {
+        title: 'Customer service mailbox',
+        description: '<a href="mailto:winkiwiki@qq.com" class="underline">winkiwiki@qq.com</a>',
+        icon: 'tabler:mail',
+      },
+      {
+        title: 'Feedback channel',
+        description:
+          '<a href="https://support.qq.com/product/758113" target="_blank" rel="noopener" class="underline">https://support.qq.com/product/758113</a>',
+        icon: 'tabler:external-link',
+      },
+    ]}
+  />
+</Layout>
