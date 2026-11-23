@@ -10,8 +10,11 @@ const id = ANALYTICS?.vendors?.googleAnalytics?.id;
   if (id && !window.winkiAnalyticsInitialized) {
     window.winkiAnalyticsInitialized = true;
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function (...args) {
-      window.dataLayer.push(args);
+    // Must push `arguments` (not a rest array): gtag.js only treats Arguments
+    // objects as gtag commands; plain arrays are silently ignored.
+    // eslint-disable-next-line prefer-rest-params -- gtag.js requires Arguments objects
+    window.gtag = function () {
+      window.dataLayer.push(arguments); // eslint-disable-line prefer-rest-params
     };
     window.gtag('js', new Date());
     window.gtag('config', id, { send_page_view: false });
