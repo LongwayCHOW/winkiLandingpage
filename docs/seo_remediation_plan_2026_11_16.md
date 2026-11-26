@@ -52,7 +52,7 @@
 
 - [x] [config.yaml L25-27](../src/config.yaml#L25-L27)：twitter handle/site 的 `@arthelokyo` 删除字段或改为 Winki 自有账号（等你告知账号名，无则删）。✅ 用户已提供自有账号：handle/site 均改为 `@winki2wiki`，cardType 保留。
 - [x] 移除 [PageLayout.astro L21](../src/layouts/PageLayout.astro#L21) 对 [Announcement.astro](../src/components/widgets/Announcement.astro)（"New updates available! »"）的引用。✅ 已移除 import 与 slot 引用。
-- [x] 构建后全量 HTML grep 复验：无 `arthelokyo`、无 `New updates available`、无其他模板演示字样。（待部署后执行）
+- [x] 构建后全量 HTML grep 复验：无 `arthelokyo`、无 `New updates available`、无其他模板演示字样。✅ 2026-11-17 部署后线上复验：首页 HTML `arthelokyo` / `New updates available` / `aida-public` / `lh3.googleusercontent` 计数均为 0。
 
 ## A2. 全局导航去污染
 
@@ -95,13 +95,13 @@
 
 ## A6. 验证与准备（为第二部分供弹药）
 
-- [x] 构建/部署后执行本地 Googlebot 模拟（结果反馈给你操作 GSC 时对照）：✅ 已对**当前线上**执行：robots.txt / sitemap-index.xml / sitemap-0.xml / `/` / `/travel-china/` 以 Googlebot UA 全部返回 200（robots 与 sitemap 均为正确 Content-Type）。⚠️ 本次改动部署后需再复跑一轮。
+- [x] 构建/部署后执行本地 Googlebot 模拟（结果反馈给你操作 GSC 时对照）：✅ 已对**当前线上**执行：robots.txt / sitemap-index.xml / sitemap-0.xml / `/` / `/travel-china/` 以 Googlebot UA 全 200（robots 与 sitemap 均为正确 Content-Type）。✅ 2026-11-17 最新部署后已复跑：sitemap-index.xml / sitemap-0.xml 以 Googlebot UA 均 200 + application/xml，robots.txt Sitemap 行指向 sitemap-index.xml。
   ```
   curl -I -A "Googlebot" https://winki.win/sitemap-index.xml
   curl -I -A "Googlebot" https://winki.win/sitemap-0.xml
   curl -i https://winki.win/robots.txt
   ```
-- [ ] 全量 HTML grep 抽查若干 `<loc>` 与页面 `<link rel="canonical">` 逐字一致（基线 F07/F08 已验，部署后复验）。
+- [x] 全量 HTML grep 抽查若干 `<loc>` 与页面 `<link rel="canonical">` 逐字一致（基线 F07/F08 已验，部署后复验）。✅ 2026-11-17 部署后抽查 5 页（首页 / travel-china / focus-one 主文 / homes/chronicle / meowtalkie 主文）canonical 逐字一致；另线上 7 条 `_redirects` 301 全部生效。
 - [x] 核对首页 Organization / 站点实体 JSON-LD：补/核对 `sameAs`（GitHub、App Store 开发者页、Google Play 开发者页等**真实存在**的主页，不虚构）。✅ 已在 [SiteSchema.astro](../src/components/common/SiteSchema.astro) 补入两个真实开发者主页（App Store `id1798120294`、Google Play `developer?id=雲集`，来源均为站内在用的 Announcement 链接）；GitHub 个人主页因无法确认与开发者实体的关联，未列入。
 - [ ] 起草 Product Hunt / AlternativeTo / SaaSHub 产品条目文案（Chronicle 挂 Day One 替代、Focus One 挂 Forest 替代），交你提交。
 - [ ] 技术故事（传感器踩坑、重构复盘）改写为 Indie Hackers / Show HN / DEV Community 版本草稿，文末规范回链产品页。
@@ -112,7 +112,7 @@
 
 ## B1. Cloudflare / DNS（第 1–2 天，最高优先）
 
-- [ ] 核查并清理四条记录：`winki.win A / AAAA`、`www.winki.win A / AAAA`，删除一切不属于当前托管商的历史记录（**尤其残留 AAAA**——Googlebot 优先走 IPv6，打到旧停放 IP 就会 403/404，这是"浏览器打得开、GSC 抓不到"的最典型成因）。可用 `nslookup -type=AAAA winki.win` 自查。
+- [x] 核查并清理四条记录：`winki.win A / AAAA`、`www.winki.win A / AAAA`，删除一切不属于当前托管商的历史记录（**尤其残留 AAAA**——Googlebot 优先走 IPv6，打到旧停放 IP 就会 403/404，这是"浏览器打得开、GSC 抓不到"的最典型成因）。可用 `nslookup -type=AAAA winki.win` 自查。✅ 2026-11-17 nslookup 核验：apex 与 www 的 A / AAAA 均指向 Cloudflare 代理 IP，无停放商残留记录，无需清理。
 - [x] `www` 配置 301 永久重定向 → `https://winki.win/`（Pages 自定义域 + Redirect Rule）。
 - [x] SSL/TLS 模式设 Full (strict)，证书覆盖 `winki.win` 与 `www.winki.win`（F09 记录过 www 525 握手问题）。
 - [x] Security → Bots：确认 Bot Fight Mode 关闭、"AI Scrapers and Crawlers"等策略不拦普通搜索引擎爬虫；查 WAF 事件日志确认 Googlebot 未被挑战（403/429 会直接导致 sitemap"无法抓取"）。

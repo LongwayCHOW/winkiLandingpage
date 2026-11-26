@@ -13,6 +13,7 @@ import Content from '~/components/widgets/Content.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import AppSchema from '~/components/common/AppSchema.astro';
+import YouTubeEmbed from '~/components/common/YouTubeEmbed.astro';
 
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
@@ -142,6 +143,11 @@ const faqItems = [
       </Button>
     </div>
   </Hero2>
+
+  <!-- ═══════════ YouTube 视频演示：lite-youtube facade，点击才加载播放器 ═══════════ -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 pt-0 sm:px-6" aria-label="Chronicle in action">
+    <YouTubeEmbed videoId="f27TL8vXCBo" title="Chronicle — Your Entire Life, Beautifully Organized" />
+  </section>
 
   <!-- ═══════════ Features：功能名自然含功能词 ═══════════ -->
   <Features3

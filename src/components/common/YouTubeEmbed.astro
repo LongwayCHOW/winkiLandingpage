@@ -1,0 +1,202 @@
+---
+/**
+ * YouTube 视频组件（静音预播 + 点击即播，零延迟）。
+ *
+ * 页面打开后延迟挂载 iframe，autoplay=1&mute=1（静音自动播放是所有浏览器
+ * 都放行的唯一方式），视频在缩略图盖层底下已在真实播放和缓冲。
+ * 点击时 postMessage seekTo(0)+unMute+playVideo，首帧已就绪，点击即播。
+ *
+ * - 用 youtube-nocookie.com：不设置跟踪 cookie
+ * - 挂载延迟 1.5s + 可视区检测：避免与首屏 LCP（hero banner）抢带宽
+ * - 代价：每个访客消耗一次视频流带宽；静音播放会被 YouTube 计入播放量
+ * - 16:9 容器预留空间，无布局偏移
+ */
+interface Props {
+  videoId: string;
+  title: string;
+  /** 从第几秒开始播放（秒），默认 0 */
+  start?: number;
+}
+
+const { videoId, title, start = 0 } = Astro.props;
+
+const thumb = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+// 部分 4K/超长视频没有 maxresdefault，回退到始终存在的 hqdefault
+const thumbFallback = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+---
+
+<div
+  class="yt-facade group relative w-full overflow-hidden rounded-2xl shadow-lg shadow-slate-900/10 dark:shadow-black/30"
+  style="aspect-ratio: 16 / 9;"
+  data-video-id={videoId}
+  data-title={title}
+  data-start={String(start)}
+>
+  <button
+    type="button"
+    class="yt-facade-trigger group absolute inset-0 z-10 flex h-full w-full cursor-pointer items-center justify-center bg-slate-100 transition-opacity duration-200 dark:bg-slate-800"
+    aria-label={`Play video: ${title}`}
+  >
+    <img
+      src={thumb}
+      alt={title}
+      width="1280"
+      height="720"
+      loading="lazy"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover"
+      onerror={`this.onerror=null;this.src='${thumbFallback}';`}
+    />
+    <span
+      class="relative flex h-16 w-16 items-center justify-center rounded-full bg-slate-900/70 transition group-hover:bg-red-600 group-focus-visible:ring-2 group-focus-visible:ring-red-500"
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 24 24" class="h-7 w-7 fill-white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5.14v13.72L19 12 8 5.14z"></path>
+      </svg>
+    </span>
+  </button>
+</div>
+
+<style>
+  /* 播放开始后：缩略图层淡出并停止拦截点击，露出下层 iframe 播放器 */
+  .yt-facade:global(.yt-playing) .yt-facade-trigger {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const YT_EMBED_HOST = 'https://www.youtube-nocookie.com';
+
+  // 提前建立到 YouTube 的连接（DNS+TCP+TLS），页面打开即执行
+  for (const href of [YT_EMBED_HOST, 'https://www.googlevideo.com']) {
+    if (document.querySelector(`link[rel="preconnect"][href="${href}"]`)) continue;
+    const link = document.createElement('link');
+    link.rel = 'preconnect';
+    link.href = href;
+    document.head.appendChild(link);
+  }
+
+  function send(facade: HTMLElement, func: string, args: unknown[] = []) {
+    const win = facade.querySelector('iframe')?.contentWindow;
+    win?.postMessage(JSON.stringify({ event: 'command', func, args }), '*');
+  }
+
+  function createPlayer(facade: HTMLElement) {
+    if (facade.querySelector('iframe')) return;
+    const videoId = facade.dataset.videoId;
+    if (!videoId) return;
+    const title = facade.dataset.title ?? 'YouTube video';
+    const start = parseInt(facade.dataset.start ?? '0', 10);
+    const startParam = start > 0 ? `&start=${start}` : '';
+    const iframe = document.createElement('iframe');
+    // 静音预播：浏览器唯一普遍放行的自动播放形态，视频在盖层下真实缓冲
+    iframe.src = `${YT_EMBED_HOST}/embed/${videoId}?enablejsapi=1&playsinline=1&rel=0&autoplay=1&mute=1${startParam}`;
+    iframe.title = title;
+    iframe.allow =
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+    facade.prepend(iframe);
+    // IFrame API 握手：发送 listening 后播放器才开始上报状态事件（onStateChange/infoDelivery）
+    const win = iframe.contentWindow;
+    if (win) {
+      const hello = JSON.stringify({ event: 'listening', id: 1, channel: 'widget' });
+      [0, 500, 1500, 3000].forEach((delay) => setTimeout(() => win.postMessage(hello, '*'), delay));
+    }
+  }
+
+  function reveal(facade: HTMLElement) {
+    if (facade.classList.contains('yt-playing')) return;
+    clearTimeout(Number(facade.dataset.fallbackTimer));
+    facade.classList.add('yt-playing');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target instanceof Element)) return;
+    const trigger = e.target.closest('.yt-facade-trigger');
+    if (!trigger) return;
+    const facade = trigger.closest<HTMLElement>('.yt-facade');
+    if (!facade) return;
+
+    facade.dataset.clicked = '1';
+    if (!facade.querySelector('iframe')) createPlayer(facade); // 兜底：预播被拦（如广告拦截器）
+
+    // 回到开头 + 开声音 + 播放。点击的用户手势会传递给 iframe，允许有声播放。
+    // 重发一轮，规避玩家刚初始化时命令丢失的竞态。
+    const warm = facade.dataset.warmOk === '1';
+    send(facade, 'seekTo', [0, true]);
+    send(facade, 'unMute');
+    send(facade, 'playVideo');
+    setTimeout(() => {
+      send(facade, 'seekTo', [0, true]);
+      send(facade, 'unMute');
+      send(facade, 'playVideo');
+    }, 500);
+
+    // 预播已就绪：底层已在出画面，稍等一拍（seek 生效）即可露出，点击即播
+    if (warm) {
+      setTimeout(() => reveal(facade), 100);
+    } else {
+      // 兜底：4s 内没收到播放确认也强制露出，不卡死在缩略图
+      clearTimeout(Number(facade.dataset.fallbackTimer));
+      facade.dataset.fallbackTimer = String(setTimeout(() => reveal(facade), 4000));
+    }
+  });
+
+  // 监听 YouTube 播放器上报的状态：
+  // - 任意时刻收到 playerState=1 → 记录"预播已就绪"
+  // - 若用户已点击 → 真正出画面时才撤掉缩略图（防白屏/黑屏）
+  // - 若用户已点击但仍处于静音 → 重试 unMute（个别浏览器不向跨域 iframe
+  //   传递用户手势，unMute 会被拒，需多次尝试）
+  window.addEventListener('message', (e) => {
+    if (typeof e.data !== 'string' || !e.origin.endsWith('youtube-nocookie.com')) return;
+    let data: { event?: string; info?: { playerState?: number; muted?: boolean } | number };
+    try {
+      data = JSON.parse(e.data);
+    } catch {
+      return;
+    }
+    const state =
+      data.event === 'onStateChange' && typeof data.info === 'number'
+        ? data.info
+        : data.info && typeof data.info === 'object'
+          ? data.info.playerState
+          : undefined;
+    const info = data.info && typeof data.info === 'object' ? data.info : undefined;
+    document.querySelectorAll<HTMLElement>('.yt-facade').forEach((facade) => {
+      if (facade.querySelector('iframe')?.contentWindow !== e.source) return;
+      if (state === 1) {
+        facade.dataset.warmOk = '1';
+        if (facade.dataset.clicked === '1') reveal(facade);
+      }
+      // 点击后仍静音 → 带节奏重试开声音（infoDelivery 周期性上报 muted 状态）
+      if (
+        facade.dataset.clicked === '1' &&
+        info?.muted === true &&
+        Number(facade.dataset.unmuteTries ?? '0') < 5
+      ) {
+        facade.dataset.unmuteTries = String(Number(facade.dataset.unmuteTries ?? '0') + 1);
+        send(facade, 'unMute');
+        send(facade, 'playVideo');
+      }
+    });
+  });
+
+  // 延迟挂载播放器：页面加载后 1.5s，且组件进入可视区，避免与首屏 LCP 抢带宽
+  document.querySelectorAll<HTMLElement>('.yt-facade').forEach((facade) => {
+    const warm = () => setTimeout(() => createPlayer(facade), 1500);
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((en) => en.isIntersecting)) {
+          io.disconnect();
+          warm();
+        }
+      });
+      io.observe(facade);
+    } else {
+      warm();
+    }
+  });
+</script>
